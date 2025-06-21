@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Trophy, Users, Star, Sparkles } from "lucide-react";
+import { Trophy, Users, Star, Sparkles, ArrowRight } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -11,97 +11,103 @@ const Index = () => {
 
   const prizes = [
     {
-      icon: <Trophy className="w-6 h-6 text-yellow-500" />,
-      title: "6 Months Premium Access",
+      icon: <Trophy className="w-8 h-8 text-orange-400" />,
+      title: "6 Months Premium",
       description: "Free premium access to the final product"
     },
     {
-      icon: <Users className="w-6 h-6 text-blue-500" />,
-      title: "Exclusive Beta Access",
-      description: "Private beta testing before public launch"
+      icon: <Users className="w-8 h-8 text-orange-400" />,
+      title: "Exclusive Beta",
+      description: "Private beta testing before launch"
     },
     {
-      icon: <Star className="w-6 h-6 text-purple-500" />,
+      icon: <Star className="w-8 h-8 text-orange-400" />,
       title: "Founder Call",
-      description: "20-minute one-on-one call with the founder"
+      description: "20-minute one-on-one with founder"
     },
     {
-      icon: <Sparkles className="w-6 h-6 text-pink-500" />,
+      icon: <Sparkles className="w-8 h-8 text-orange-400" />,
       title: "Social Recognition",
-      description: "Instagram shoutout + product attribution"
+      description: "Instagram shoutout + attribution"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      {/* Animated background particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-20 w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-        <div className="absolute top-40 right-32 w-1 h-1 bg-blue-500 rounded-full animate-pulse delay-300"></div>
-        <div className="absolute bottom-32 left-16 w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse delay-700"></div>
-        <div className="absolute bottom-20 right-20 w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-1000"></div>
-      </div>
-
-      <div className="relative z-10 container mx-auto px-4 py-12">
+    <div className="min-h-screen tensor-gradient">
+      <div className="container mx-auto px-6 py-16">
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <div className="text-sm text-purple-400 font-medium tracking-wide mb-2">
-              NAMING COMPETITION
+        <div className="text-center mb-20">
+          <div className="mb-8">
+            <div className="text-sm text-orange-400 font-mono tracking-wider mb-6 uppercase">
+              TENSOR PROTOCOL 2.0
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent leading-tight">
+            <h1 className="text-5xl md:text-7xl font-light tensor-text leading-tight mb-8">
               What would you name<br />
-              <span className="text-white">the coziest workstation</span><br />
+              <span className="text-orange-400">the coziest workstation</span><br />
               on the internet?
             </h1>
           </div>
           
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
-            We're building the ultimate browser workspace extension for developers and creators. 
-            Help us find the perfect name and become part of our founding community.
+          <p className="text-xl tensor-muted max-w-4xl mx-auto mb-12 font-mono leading-relaxed">
+            Weekly AI breakthroughs, hackathons, and internships<br />
+            delivered to your brain in just 5 minutes.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-            <div className="text-sm text-gray-400">
-              Currently called: <span className="text-purple-400 font-semibold">"Tensor Space"</span>
-            </div>
-            <div className="text-sm text-gray-400">
-              Made for hackers, by hackers
+          <div className="flex flex-col items-center mb-12">
+            <Button
+              onClick={() => navigate("/email")}
+              className="tensor-button text-black font-mono font-medium py-6 px-12 rounded-none text-lg transition-all duration-300 transform hover:scale-105 mb-6"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              GET YOUR DROP
+              <ArrowRight className={`w-5 h-5 ml-3 ${isHovered ? 'translate-x-1' : ''} transition-transform`} />
+            </Button>
+            
+            <div className="flex items-center space-x-8 text-sm tensor-muted font-mono">
+              <span>○ No spam. Totally FREE.</span>
+              <span>✓ Unsubscribe anytime.</span>
             </div>
           </div>
 
-          <Button
-            onClick={() => navigate("/email")}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-4 px-8 rounded-lg text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <Sparkles className={`w-5 h-5 mr-2 ${isHovered ? 'animate-spin' : ''}`} />
-            Grab Your Prize
-          </Button>
-
-          <p className="text-sm text-gray-500 mt-4">
+          <p className="text-sm tensor-muted font-mono">
             Let's see if your choice is worthy enough 🔥
           </p>
         </div>
 
+        {/* Stats Section */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+          {[
+            { label: "FOLLOWERS", value: "200K+", key: "FO" },
+            { label: "HACKATHONS", value: "50+", key: "HA" },
+            { label: "RESOURCES", value: "500+", key: "RE" },
+            { label: "COUNTRIES", value: "15+", key: "CO" }
+          ].map((stat, index) => (
+            <div key={index} className="text-center">
+              <div className="text-xs tensor-muted font-mono mb-2">{stat.key}</div>
+              <div className="text-3xl font-bold tensor-text font-mono mb-1">{stat.value}</div>
+              <div className="text-xs tensor-muted font-mono uppercase tracking-wider">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+
         {/* Prizes Section */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-8 text-white">
+        <div className="mb-20">
+          <h2 className="text-3xl font-light text-center mb-12 tensor-text font-mono">
             Top 3 Winners Get
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {prizes.map((prize, index) => (
-              <Card key={index} className="glass-effect hover:neon-border transition-all duration-300 group">
-                <CardContent className="p-6 text-center">
-                  <div className="mb-4 flex justify-center group-hover:animate-float">
+              <Card key={index} className="tensor-card hover:border-orange-400/50 transition-all duration-300 group">
+                <CardContent className="p-8 text-center">
+                  <div className="mb-6 flex justify-center group-hover:scale-110 transition-transform duration-300">
                     {prize.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">
+                  <h3 className="text-lg font-medium tensor-text mb-3 font-mono">
                     {prize.title}
                   </h3>
-                  <p className="text-gray-400 text-sm">
+                  <p className="tensor-muted text-sm font-mono leading-relaxed">
                     {prize.description}
                   </p>
                 </CardContent>
@@ -111,65 +117,25 @@ const Index = () => {
         </div>
 
         {/* How It Works */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-center mb-8 text-white">
+        <div className="mb-20">
+          <h2 className="text-3xl font-light text-center mb-12 tensor-text font-mono">
             How It Works
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                1
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {[
+              { num: "1", title: "Submit Your Name", desc: "Share 1-2 creative names for our browser workspace extension" },
+              { num: "2", title: "Get Your Poster", desc: "Receive a personalized poster with QR code to share on social media" },
+              { num: "3", title: "Vote & Win", desc: "Vote for your favorites and compete for amazing prizes" }
+            ].map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-6 tensor-text font-mono text-2xl font-bold">
+                  {step.num}
+                </div>
+                <h3 className="text-xl font-medium tensor-text mb-4 font-mono">{step.title}</h3>
+                <p className="tensor-muted font-mono leading-relaxed">{step.desc}</p>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Submit Your Name</h3>
-              <p className="text-gray-400">
-                Share 1-2 creative names for our browser workspace extension
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-12 h-12 bg-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                2
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Get Your Poster</h3>
-              <p className="text-gray-400">
-                Receive a personalized poster with QR code to share on social media
-              </p>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold text-xl">
-                3
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Vote & Win</h3>
-              <p className="text-gray-400">
-                Vote for your favorites and compete for amazing prizes
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Community Stats */}
-        <div className="text-center">
-          <div className="glass-effect rounded-lg p-8 max-w-md mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">Join the Movement</h3>
-            <p className="text-gray-400 mb-6">
-              Be part of shaping the future of browser workspaces. Your creativity matters.
-            </p>
-            <div className="flex justify-center space-x-8">
-              <div>
-                <div className="text-2xl font-bold text-purple-400">Top 3</div>
-                <div className="text-sm text-gray-500">Winners</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-pink-400">3</div>
-                <div className="text-sm text-gray-500">Votes Each</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-blue-400">∞</div>
-                <div className="text-sm text-gray-500">Possibilities</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

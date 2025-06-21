@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Instagram, ArrowRight, Users, Gift } from "lucide-react";
+import { Instagram, ArrowRight, Users, Gift, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const InstagramForm = () => {
@@ -21,11 +21,9 @@ const InstagramForm = () => {
     
     setIsLoading(true);
     
-    // Store Instagram info in localStorage
     localStorage.setItem("userInstagram", instagram);
     localStorage.setItem("userFollowed", followed.toString());
     
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       toast({
@@ -43,29 +41,29 @@ const InstagramForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card className="glass-effect">
-          <CardHeader className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Instagram className="w-8 h-8 text-white" />
+    <div className="min-h-screen tensor-gradient flex items-center justify-center p-6">
+      <div className="w-full max-w-lg">
+        <Card className="tensor-card border-0">
+          <CardHeader className="text-center pb-8">
+            <div className="w-20 h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-6">
+              <Instagram className="w-10 h-10 text-orange-400" />
             </div>
-            <CardTitle className="text-2xl font-bold text-white">
+            <CardTitle className="text-3xl font-light tensor-text font-mono mb-4">
               Boost Your Chances
             </CardTitle>
-            <p className="text-gray-400 mt-2">
+            <p className="tensor-muted font-mono leading-relaxed">
               Connect your Instagram for extra engagement and potential bonus recognition
             </p>
           </CardHeader>
           
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="instagram" className="text-white">
-                  Instagram Username <span className="text-gray-500">(Optional)</span>
+          <CardContent className="px-8 pb-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="space-y-3">
+                <Label htmlFor="instagram" className="tensor-text font-mono text-sm uppercase tracking-wider">
+                  Instagram Username <span className="tensor-muted">(Optional)</span>
                 </Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                  <span className="absolute left-4 top-1/2 transform -translate-y-1/2 tensor-muted font-mono">
                     @
                   </span>
                   <Input
@@ -74,38 +72,38 @@ const InstagramForm = () => {
                     placeholder="username"
                     value={instagram}
                     onChange={(e) => setInstagram(e.target.value.replace('@', ''))}
-                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-purple-500 pl-8"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 pl-8 pr-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
                   />
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center space-x-2">
+              <div className="space-y-6">
+                <div className="flex items-start space-x-3">
                   <Checkbox
                     id="followed"
                     checked={followed}
                     onCheckedChange={(checked) => setFollowed(checked as boolean)}
-                    className="border-gray-600 data-[state=checked]:bg-purple-600"
+                    className="border-orange-400/50 data-[state=checked]:bg-orange-400 data-[state=checked]:border-orange-400 rounded-none mt-1"
                   />
-                  <Label htmlFor="followed" className="text-sm text-gray-300 cursor-pointer">
+                  <Label htmlFor="followed" className="tensor-muted font-mono text-sm cursor-pointer leading-relaxed">
                     I've followed{" "}
                     <a 
                       href="https://instagram.com/tensorboy" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-purple-400 hover:text-purple-300 underline"
+                      className="text-orange-400 hover:text-orange-300 underline"
                     >
                       @tensorboy
                     </a>
                   </Label>
                 </div>
 
-                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Gift className="w-4 h-4 text-yellow-500" />
-                    <span className="text-sm font-medium text-white">Bonus Benefits</span>
+                <div className="tensor-card p-6 border border-orange-400/20">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <Gift className="w-5 h-5 text-orange-400" />
+                    <span className="font-mono font-medium tensor-text text-sm uppercase tracking-wider">Bonus Benefits</span>
                   </div>
-                  <ul className="text-xs text-gray-400 space-y-1">
+                  <ul className="text-sm tensor-muted font-mono space-y-2 leading-relaxed">
                     <li>• Potential Instagram shoutout for winners</li>
                     <li>• Your poster will include your handle</li>
                     <li>• Join our community of creators</li>
@@ -113,44 +111,45 @@ const InstagramForm = () => {
                 </div>
               </div>
 
-              <div className="flex space-x-3">
+              <div className="flex space-x-4">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handleSkip}
-                  className="flex-1 border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white"
+                  className="flex-1 border-orange-400/30 text-orange-400 hover:bg-orange-400/10 hover:text-orange-300 font-mono rounded-none py-4"
                 >
-                  Skip
+                  SKIP
                 </Button>
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all duration-300"
+                  className="flex-1 tensor-button text-black font-mono font-medium py-4 rounded-none transition-all duration-300 hover:scale-105"
                 >
                   {isLoading ? (
-                    "Saving..."
+                    "SAVING..."
                   ) : (
                     <>
-                      Continue
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      CONTINUE
+                      <ArrowRight className="w-5 h-5 ml-3" />
                     </>
                   )}
                 </Button>
               </div>
             </form>
 
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <button
                 onClick={() => navigate("/email")}
-                className="text-sm text-gray-400 hover:text-white transition-colors"
+                className="tensor-muted hover:text-orange-400 transition-colors font-mono text-sm flex items-center mx-auto"
               >
-                ← Back to email
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to email
               </button>
             </div>
             
-            <div className="mt-4 text-center">
-              <div className="flex items-center justify-center space-x-2 text-xs text-gray-500">
-                <Users className="w-4 h-4" />
+            <div className="mt-6 text-center">
+              <div className="flex items-center justify-center space-x-3 text-xs tensor-muted font-mono">
+                <Users className="w-4 h-4 text-orange-400" />
                 <span>Join our growing community of tech enthusiasts</span>
               </div>
             </div>

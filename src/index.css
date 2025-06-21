@@ -42,25 +42,42 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
   }
 }
 
-/* Custom gradient backgrounds */
-.gradient-bg {
+/* Modern gradient background */
+.tensor-gradient {
   background: linear-gradient(135deg, 
-    rgba(168, 85, 247, 0.1) 0%, 
-    rgba(59, 130, 246, 0.1) 50%, 
-    rgba(236, 72, 153, 0.1) 100%);
+    #1a1a1a 0%, 
+    #2d1b17 25%, 
+    #4a2c20 50%, 
+    #2d1b17 75%, 
+    #1a1a1a 100%);
 }
 
-.glass-effect {
-  background: rgba(17, 24, 39, 0.7);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.tensor-card {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 107, 53, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.1);
 }
 
-.neon-border {
-  border: 1px solid rgba(168, 85, 247, 0.5);
-  box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+.tensor-input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.tensor-button {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8f65 100%);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+}
+
+.tensor-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.tensor-muted {
+  color: rgba(255, 255, 255, 0.6);
 }

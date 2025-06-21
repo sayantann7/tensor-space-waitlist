@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, ArrowRight, Shield } from "lucide-react";
+import { Mail, ArrowRight, Shield, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const EmailForm = () => {
@@ -28,7 +28,6 @@ const EmailForm = () => {
       return;
     }
 
-    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       toast({
@@ -41,11 +40,9 @@ const EmailForm = () => {
 
     setIsLoading(true);
     
-    // Store email in localStorage for now
     localStorage.setItem("userEmail", email);
     localStorage.setItem("userSubscribed", subscribe.toString());
     
-    // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
       toast({
@@ -57,77 +54,78 @@ const EmailForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card className="glass-effect">
-          <CardHeader className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Mail className="w-8 h-8 text-white" />
+    <div className="min-h-screen tensor-gradient flex items-center justify-center p-6">
+      <div className="w-full max-w-lg">
+        <Card className="tensor-card border-0">
+          <CardHeader className="text-center pb-8">
+            <div className="w-20 h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-6">
+              <Mail className="w-10 h-10 text-orange-400" />
             </div>
-            <CardTitle className="text-2xl font-bold text-white">
+            <CardTitle className="text-3xl font-light tensor-text font-mono mb-4">
               Let's Get Started
             </CardTitle>
-            <p className="text-gray-400 mt-2">
+            <p className="tensor-muted font-mono leading-relaxed">
               Enter your email to join the competition and receive your personalized poster
             </p>
           </CardHeader>
           
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-white">
+          <CardContent className="px-8 pb-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="space-y-3">
+                <Label htmlFor="email" className="tensor-text font-mono text-sm uppercase tracking-wider">
                   Email Address *
                 </Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your@email.com"
+                  placeholder="hacker@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-purple-500"
+                  className="tensor-input text-white placeholder-gray-500 font-mono py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
                   required
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-start space-x-3">
                 <Checkbox
                   id="subscribe"
                   checked={subscribe}
                   onCheckedChange={(checked) => setSubscribe(checked as boolean)}
-                  className="border-gray-600 data-[state=checked]:bg-purple-600"
+                  className="border-orange-400/50 data-[state=checked]:bg-orange-400 data-[state=checked]:border-orange-400 rounded-none mt-1"
                 />
-                <Label htmlFor="subscribe" className="text-sm text-gray-300 cursor-pointer">
+                <Label htmlFor="subscribe" className="tensor-muted font-mono text-sm leading-relaxed cursor-pointer">
                   Subscribe to TensorBoy updates and exclusive content
                 </Label>
               </div>
 
-              <div className="flex items-center space-x-2 text-xs text-gray-500">
-                <Shield className="w-4 h-4" />
+              <div className="flex items-center space-x-3 text-xs tensor-muted font-mono">
+                <Shield className="w-4 h-4 text-orange-400" />
                 <span>Your email is required for voting verification and prize delivery</span>
               </div>
 
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 rounded-lg transition-all duration-300"
+                className="w-full tensor-button text-black font-mono font-medium py-4 rounded-none text-base transition-all duration-300 hover:scale-105"
               >
                 {isLoading ? (
-                  "Saving..."
+                  "SAVING..."
                 ) : (
                   <>
-                    Continue
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    CONTINUE
+                    <ArrowRight className="w-5 h-5 ml-3" />
                   </>
                 )}
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <button
                 onClick={() => navigate("/")}
-                className="text-sm text-gray-400 hover:text-white transition-colors"
+                className="tensor-muted hover:text-orange-400 transition-colors font-mono text-sm flex items-center mx-auto"
               >
-                ← Back to landing page
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to landing page
               </button>
             </div>
           </CardContent>

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Lightbulb, Send, AlertCircle } from "lucide-react";
+import { Lightbulb, Send, AlertCircle, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Submission = () => {
@@ -49,31 +49,27 @@ const Submission = () => {
 
     setIsLoading(true);
     
-    // Generate a unique ID for this submission
     const submissionId = Date.now().toString();
     
-    // Store submission data
     const submissionData = {
       id: submissionId,
       email: localStorage.getItem("userEmail"),
       instagram: localStorage.getItem("userInstagram"),
       names: [name1.trim(), name2.trim()].filter(Boolean),
       tagline: tagline.trim(),
-      votes: 1, // Auto-vote for own submission
+      votes: 1,
       timestamp: new Date().toISOString()
     };
     
-    // Store in localStorage (in real app, this would go to database)
     const existingSubmissions = JSON.parse(localStorage.getItem("submissions") || "[]");
     existingSubmissions.push(submissionData);
     localStorage.setItem("submissions", JSON.stringify(existingSubmissions));
     localStorage.setItem("currentSubmissionId", submissionId);
     
-    // Initialize user votes (they get 3 total, 1 already used for self)
     const userVotes = {
       total: 3,
       used: 1,
-      votedFor: [submissionId] // Already voted for own submission
+      votedFor: [submissionId]
     };
     localStorage.setItem("userVotes", JSON.stringify(userVotes));
     
@@ -88,26 +84,26 @@ const Submission = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
-        <Card className="glass-effect">
-          <CardHeader className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Lightbulb className="w-8 h-8 text-white" />
+    <div className="min-h-screen tensor-gradient flex items-center justify-center p-6">
+      <div className="w-full max-w-3xl">
+        <Card className="tensor-card border-0">
+          <CardHeader className="text-center pb-8">
+            <div className="w-20 h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-6">
+              <Lightbulb className="w-10 h-10 text-orange-400" />
             </div>
-            <CardTitle className="text-2xl font-bold text-white">
+            <CardTitle className="text-3xl font-light tensor-text font-mono mb-4">
               Name Our Browser Workspace
             </CardTitle>
-            <p className="text-gray-400 mt-2">
+            <p className="tensor-muted font-mono leading-relaxed">
               Submit 1-2 creative names for the coziest workstation on the internet
             </p>
           </CardHeader>
           
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-4">
+          <CardContent className="px-8 pb-8">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="space-y-6">
                 <div>
-                  <Label htmlFor="name1" className="text-white font-medium">
+                  <Label htmlFor="name1" className="tensor-text font-mono text-sm uppercase tracking-wider mb-3 block">
                     Your First Name Suggestion *
                   </Label>
                   <Input
@@ -116,21 +112,21 @@ const Submission = () => {
                     placeholder="e.g., DevNest, CodeHaven..."
                     value={name1}
                     onChange={(e) => setName1(e.target.value)}
-                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-purple-500 mt-2"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
                     maxLength={20}
                     required
                   />
-                  <div className="flex justify-between text-xs mt-1">
-                    <span className="text-gray-500">Max 20 characters</span>
-                    <span className={`${name1.length > 15 ? 'text-yellow-500' : 'text-gray-500'}`}>
+                  <div className="flex justify-between text-xs mt-2 font-mono">
+                    <span className="tensor-muted">Max 20 characters</span>
+                    <span className={`${name1.length > 15 ? 'text-orange-400' : 'tensor-muted'}`}>
                       {name1.length}/20
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="name2" className="text-white font-medium">
-                    Second Name Suggestion <span className="text-gray-500">(Optional)</span>
+                  <Label htmlFor="name2" className="tensor-text font-mono text-sm uppercase tracking-wider mb-3 block">
+                    Second Name Suggestion <span className="tensor-muted">(Optional)</span>
                   </Label>
                   <Input
                     id="name2"
@@ -138,42 +134,42 @@ const Submission = () => {
                     placeholder="Got another great idea?"
                     value={name2}
                     onChange={(e) => setName2(e.target.value)}
-                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-purple-500 mt-2"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
                     maxLength={20}
                   />
-                  <div className="flex justify-between text-xs mt-1">
-                    <span className="text-gray-500">Max 20 characters</span>
-                    <span className={`${name2.length > 15 ? 'text-yellow-500' : 'text-gray-500'}`}>
+                  <div className="flex justify-between text-xs mt-2 font-mono">
+                    <span className="tensor-muted">Max 20 characters</span>
+                    <span className={`${name2.length > 15 ? 'text-orange-400' : 'tensor-muted'}`}>
                       {name2.length}/20
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="tagline" className="text-white font-medium">
-                    Why This Name? <span className="text-gray-500">(Optional)</span>
+                  <Label htmlFor="tagline" className="tensor-text font-mono text-sm uppercase tracking-wider mb-3 block">
+                    Why This Name? <span className="tensor-muted">(Optional)</span>
                   </Label>
                   <Textarea
                     id="tagline"
                     placeholder="Brief explanation of your naming choice..."
                     value={tagline}
                     onChange={(e) => setTagline(e.target.value)}
-                    className="bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-purple-500 mt-2 resize-none"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400 resize-none"
                     rows={3}
                     maxLength={100}
                   />
-                  <div className="text-xs text-gray-500 mt-1">
+                  <div className="text-xs tensor-muted mt-2 font-mono">
                     {tagline.length}/100 characters
                   </div>
                 </div>
               </div>
 
-              <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
-                <div className="flex items-start space-x-2">
-                  <AlertCircle className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
-                  <div className="text-sm">
-                    <div className="text-blue-400 font-medium mb-1">Pro Tips:</div>
-                    <ul className="text-gray-300 space-y-1">
+              <div className="tensor-card p-6 border border-orange-400/20">
+                <div className="flex items-start space-x-3">
+                  <AlertCircle className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
+                  <div className="font-mono text-sm">
+                    <div className="text-orange-400 font-medium mb-3 uppercase tracking-wider">Pro Tips:</div>
+                    <ul className="tensor-muted space-y-2 leading-relaxed">
                       <li>• Think about the product's purpose: browser workspace for developers</li>
                       <li>• Consider words that evoke productivity, creativity, and comfort</li>
                       <li>• Keep it memorable and easy to type/say</li>
@@ -186,28 +182,29 @@ const Submission = () => {
               <Button
                 type="submit"
                 disabled={isLoading || !name1.trim()}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-4 text-lg rounded-lg transition-all duration-300"
+                className="w-full tensor-button text-black font-mono font-bold py-6 text-lg rounded-none transition-all duration-300 hover:scale-105"
               >
                 {isLoading ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Submitting Your Names...
+                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-black mr-3"></div>
+                    SUBMITTING YOUR NAMES...
                   </>
                 ) : (
                   <>
-                    Submit & Get My Poster
-                    <Send className="w-5 h-5 ml-2" />
+                    SUBMIT & GET MY POSTER
+                    <Send className="w-6 h-6 ml-3" />
                   </>
                 )}
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <button
                 onClick={() => navigate("/confirmation")}
-                className="text-sm text-gray-400 hover:text-white transition-colors"
+                className="tensor-muted hover:text-orange-400 transition-colors font-mono text-sm flex items-center mx-auto"
               >
-                ← Back to confirmation
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to confirmation
               </button>
             </div>
           </CardContent>
