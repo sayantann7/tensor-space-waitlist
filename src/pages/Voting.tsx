@@ -84,30 +84,30 @@ const Voting = () => {
   };
 
   return (
-    <div className="min-h-screen tensor-gradient p-6">
+    <div className="min-h-screen tensor-gradient p-4 sm:p-6">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-light tensor-text mb-6 font-mono">
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-light tensor-text mb-4 sm:mb-6 font-mono">
             Vote for Your Favorites
           </h1>
-          <p className="tensor-muted mb-8 font-mono text-lg">
+          <p className="tensor-muted mb-6 sm:mb-8 font-mono text-base sm:text-lg">
             Help decide the future name of our browser workspace extension
           </p>
           
-          <div className="tensor-card rounded-none p-8 max-w-2xl mx-auto">
-            <div className="grid grid-cols-3 gap-8">
+          <div className="tensor-card rounded-none p-6 sm:p-8 max-w-2xl mx-auto">
+            <div className="grid grid-cols-3 gap-4 sm:gap-8">
               <div className="text-center">
-                <div className="text-4xl font-bold text-orange-400 font-mono mb-2">{userVotes.total - userVotes.used}</div>
-                <div className="text-sm tensor-muted font-mono uppercase tracking-wider">Votes Left</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-400 font-mono mb-1 sm:mb-2">{userVotes.total - userVotes.used}</div>
+                <div className="text-xs sm:text-sm tensor-muted font-mono uppercase tracking-wider">Votes Left</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-orange-400 font-mono mb-2">{submissions.length}</div>
-                <div className="text-sm tensor-muted font-mono uppercase tracking-wider">Total Entries</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-400 font-mono mb-1 sm:mb-2">{submissions.length}</div>
+                <div className="text-xs sm:text-sm tensor-muted font-mono uppercase tracking-wider">Total Entries</div>
               </div>
               <div className="text-center">
-                <div className="text-4xl font-bold text-orange-400 font-mono mb-2">TOP 3</div>
-                <div className="text-sm tensor-muted font-mono uppercase tracking-wider">Win Prizes</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-400 font-mono mb-1 sm:mb-2">TOP 3</div>
+                <div className="text-xs sm:text-sm tensor-muted font-mono uppercase tracking-wider">Win Prizes</div>
               </div>
             </div>
           </div>
@@ -115,35 +115,35 @@ const Voting = () => {
 
         {/* Leaderboard */}
         {submissions.length > 0 && (
-          <div className="mb-12">
+          <div className="mb-8 sm:mb-12">
             <Card className="tensor-card border-0">
               <CardHeader>
-                <CardTitle className="tensor-text flex items-center font-mono text-xl font-light">
-                  <Trophy className="w-6 h-6 mr-3 text-orange-400" />
+                <CardTitle className="tensor-text flex items-center font-mono text-lg sm:text-xl font-light">
+                  <Trophy className="w-5 h-5 sm:w-6 sm:h-6 mr-3 text-orange-400" />
                   CURRENT LEADERBOARD
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {submissions.slice(0, 3).map((submission, index) => (
-                    <div key={submission.id} className="flex items-center justify-between p-6 tensor-card border border-orange-400/20">
-                      <div className="flex items-center space-x-6">
-                        <div className="text-3xl">{getRankIcon(index)}</div>
-                        <div>
-                          <div className="tensor-text font-mono font-medium text-lg mb-1">
+                    <div key={submission.id} className="flex items-center justify-between p-4 sm:p-6 tensor-card border border-orange-400/20">
+                      <div className="flex items-center space-x-3 sm:space-x-6 flex-1 min-w-0">
+                        <div className="text-2xl sm:text-3xl flex-shrink-0">{getRankIcon(index)}</div>
+                        <div className="min-w-0 flex-1">
+                          <div className="tensor-text font-mono font-medium text-base sm:text-lg mb-1 break-words">
                             {submission.names.join(" • ")}
                           </div>
                           {submission.tagline && (
-                            <div className="tensor-muted font-mono text-sm mb-2">{submission.tagline}</div>
+                            <div className="tensor-muted font-mono text-sm mb-1 sm:mb-2 break-words">{submission.tagline}</div>
                           )}
                           {submission.instagram && (
                             <div className="text-orange-400 font-mono text-sm">@{submission.instagram}</div>
                           )}
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-bold tensor-text font-mono">{submission.votes}</div>
-                        <div className="text-sm tensor-muted font-mono uppercase">votes</div>
+                      <div className="text-right flex-shrink-0 ml-4">
+                        <div className="text-2xl sm:text-3xl font-bold tensor-text font-mono">{submission.votes}</div>
+                        <div className="text-xs sm:text-sm tensor-muted font-mono uppercase">votes</div>
                       </div>
                     </div>
                   ))}
@@ -154,43 +154,43 @@ const Voting = () => {
         )}
 
         {/* All Submissions */}
-        <div className="space-y-6">
-          <h2 className="text-3xl font-light tensor-text mb-8 flex items-center font-mono">
-            <Users className="w-8 h-8 mr-4 text-orange-400" />
+        <div className="space-y-4 sm:space-y-6">
+          <h2 className="text-2xl sm:text-3xl font-light tensor-text mb-6 sm:mb-8 flex items-center font-mono">
+            <Users className="w-6 h-6 sm:w-8 sm:h-8 mr-4 text-orange-400" />
             ALL SUBMISSIONS
           </h2>
           
           {submissions.length === 0 ? (
             <Card className="tensor-card border-0">
-              <CardContent className="text-center py-16">
-                <Vote className="w-16 h-16 tensor-muted mx-auto mb-6" />
-                <h3 className="text-2xl font-light tensor-text mb-4 font-mono">No Submissions Yet</h3>
+              <CardContent className="text-center py-12 sm:py-16">
+                <Vote className="w-12 h-12 sm:w-16 sm:h-16 tensor-muted mx-auto mb-4 sm:mb-6" />
+                <h3 className="text-xl sm:text-2xl font-light tensor-text mb-3 sm:mb-4 font-mono">No Submissions Yet</h3>
                 <p className="tensor-muted font-mono">Be the first to submit a name suggestion!</p>
               </CardContent>
             </Card>
           ) : (
             submissions.map((submission, index) => (
               <Card key={submission.id} className="tensor-card hover:border-orange-400/50 transition-all duration-300 border-0">
-                <CardContent className="p-8">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-4 mb-4">
-                        <span className="text-xl font-bold tensor-muted font-mono">
+                <CardContent className="p-4 sm:p-8">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex-1 mb-4 sm:mb-0">
+                      <div className="flex items-center space-x-3 sm:space-x-4 mb-3 sm:mb-4">
+                        <span className="text-lg sm:text-xl font-bold tensor-muted font-mono flex-shrink-0">
                           {getRankIcon(index)}
                         </span>
-                        <div className="text-2xl font-medium tensor-text font-mono">
+                        <div className="text-xl sm:text-2xl font-medium tensor-text font-mono break-words">
                           {submission.names.join(" • ")}
                         </div>
-                        <Badge variant="secondary" className="bg-orange-400/20 text-orange-400 font-mono rounded-none px-3 py-1">
+                        <Badge variant="secondary" className="bg-orange-400/20 text-orange-400 font-mono rounded-none px-2 sm:px-3 py-1 text-xs sm:text-sm">
                           {submission.votes} votes
                         </Badge>
                       </div>
                       
                       {submission.tagline && (
-                        <p className="tensor-muted mb-3 font-mono">{submission.tagline}</p>
+                        <p className="tensor-muted mb-2 sm:mb-3 font-mono text-sm sm:text-base break-words">{submission.tagline}</p>
                       )}
                       
-                      <div className="flex items-center space-x-6 text-sm tensor-muted font-mono">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 text-sm tensor-muted font-mono space-y-1 sm:space-y-0">
                         {submission.instagram && (
                           <span className="text-orange-400">@{submission.instagram}</span>
                         )}
@@ -198,7 +198,7 @@ const Voting = () => {
                       </div>
                     </div>
                     
-                    <div className="ml-6">
+                    <div className="sm:ml-6 flex-shrink-0">
                       <Button
                         onClick={() => handleVote(submission.id)}
                         disabled={
@@ -210,17 +210,17 @@ const Voting = () => {
                           ${userVotes.votedFor.includes(submission.id) 
                             ? 'bg-green-600 hover:bg-green-700 border-green-600' 
                             : 'tensor-button'
-                          } text-black font-mono font-medium px-6 py-3 rounded-none transition-all duration-300
+                          } text-black font-mono font-medium px-4 sm:px-6 py-2 sm:py-3 rounded-none transition-all duration-300 w-full sm:w-auto
                         `}
                       >
                         {userVotes.votedFor.includes(submission.id) ? (
                           <>
-                            <Heart className="w-5 h-5 mr-2 fill-current" />
+                            <Heart className="w-4 h-4 sm:w-5 sm:h-5 mr-2 fill-current" />
                             VOTED
                           </>
                         ) : (
                           <>
-                            <Vote className="w-5 h-5 mr-2" />
+                            <Vote className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                             VOTE
                           </>
                         )}
@@ -234,12 +234,12 @@ const Voting = () => {
         </div>
 
         {userVotes.used >= userVotes.total && (
-          <div className="mt-12 text-center">
+          <div className="mt-8 sm:mt-12 text-center">
             <Card className="tensor-card max-w-lg mx-auto border-0">
-              <CardContent className="p-8">
-                <Trophy className="w-16 h-16 text-orange-400 mx-auto mb-6" />
-                <h3 className="text-2xl font-light tensor-text mb-4 font-mono">All Votes Cast!</h3>
-                <p className="tensor-muted font-mono">
+              <CardContent className="p-6 sm:p-8">
+                <Trophy className="w-12 h-12 sm:w-16 sm:h-16 text-orange-400 mx-auto mb-4 sm:mb-6" />
+                <h3 className="text-xl sm:text-2xl font-light tensor-text mb-3 sm:mb-4 font-mono">All Votes Cast!</h3>
+                <p className="tensor-muted font-mono text-sm sm:text-base">
                   Thanks for participating! Share your submission to get more votes.
                 </p>
               </CardContent>

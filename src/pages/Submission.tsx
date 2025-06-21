@@ -84,24 +84,24 @@ const Submission = () => {
   };
 
   return (
-    <div className="min-h-screen tensor-gradient flex items-center justify-center p-6">
+    <div className="min-h-screen tensor-gradient flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-3xl">
         <Card className="tensor-card border-0">
-          <CardHeader className="text-center pb-8">
-            <div className="w-20 h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-6">
-              <Lightbulb className="w-10 h-10 text-orange-400" />
+          <CardHeader className="text-center pb-6 sm:pb-8 px-6 sm:px-8 pt-6 sm:pt-8">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <Lightbulb className="w-8 h-8 sm:w-10 sm:h-10 text-orange-400" />
             </div>
-            <CardTitle className="text-3xl font-light tensor-text font-mono mb-4">
+            <CardTitle className="text-2xl sm:text-3xl font-light tensor-text font-mono mb-3 sm:mb-4">
               Name Our Browser Workspace
             </CardTitle>
-            <p className="tensor-muted font-mono leading-relaxed">
+            <p className="tensor-muted font-mono leading-relaxed text-sm sm:text-base">
               Submit 1-2 creative names for the coziest workstation on the internet
             </p>
           </CardHeader>
           
-          <CardContent className="px-8 pb-8">
-            <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="space-y-6">
+          <CardContent className="px-6 sm:px-8 pb-6 sm:pb-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+              <div className="space-y-4 sm:space-y-6">
                 <div>
                   <Label htmlFor="name1" className="tensor-text font-mono text-sm uppercase tracking-wider mb-3 block">
                     Your First Name Suggestion *
@@ -112,7 +112,7 @@ const Submission = () => {
                     placeholder="e.g., DevNest, CodeHaven..."
                     value={name1}
                     onChange={(e) => setName1(e.target.value)}
-                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-3 sm:py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
                     maxLength={20}
                     required
                   />
@@ -134,7 +134,7 @@ const Submission = () => {
                     placeholder="Got another great idea?"
                     value={name2}
                     onChange={(e) => setName2(e.target.value)}
-                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-3 sm:py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
                     maxLength={20}
                   />
                   <div className="flex justify-between text-xs mt-2 font-mono">
@@ -154,7 +154,7 @@ const Submission = () => {
                     placeholder="Brief explanation of your naming choice..."
                     value={tagline}
                     onChange={(e) => setTagline(e.target.value)}
-                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400 resize-none"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-3 sm:py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400 resize-none"
                     rows={3}
                     maxLength={100}
                   />
@@ -164,12 +164,12 @@ const Submission = () => {
                 </div>
               </div>
 
-              <div className="tensor-card p-6 border border-orange-400/20">
+              <div className="tensor-card p-4 sm:p-6 border border-orange-400/20">
                 <div className="flex items-start space-x-3">
-                  <AlertCircle className="w-6 h-6 text-orange-400 mt-1 flex-shrink-0" />
+                  <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400 mt-1 flex-shrink-0" />
                   <div className="font-mono text-sm">
-                    <div className="text-orange-400 font-medium mb-3 uppercase tracking-wider">Pro Tips:</div>
-                    <ul className="tensor-muted space-y-2 leading-relaxed">
+                    <div className="text-orange-400 font-medium mb-2 sm:mb-3 uppercase tracking-wider">Pro Tips:</div>
+                    <ul className="tensor-muted space-y-1 sm:space-y-2 leading-relaxed">
                       <li>• Think about the product's purpose: browser workspace for developers</li>
                       <li>• Consider words that evoke productivity, creativity, and comfort</li>
                       <li>• Keep it memorable and easy to type/say</li>
@@ -182,23 +182,23 @@ const Submission = () => {
               <Button
                 type="submit"
                 disabled={isLoading || !name1.trim()}
-                className="w-full tensor-button text-black font-mono font-bold py-6 text-lg rounded-none transition-all duration-300 hover:scale-105"
+                className="w-full tensor-button text-black font-mono font-bold py-4 sm:py-6 text-base sm:text-lg rounded-none transition-all duration-300 hover:scale-105"
               >
                 {isLoading ? (
                   <>
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-black mr-3"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 sm:h-6 sm:w-6 border-b-2 border-black mr-3"></div>
                     SUBMITTING YOUR NAMES...
                   </>
                 ) : (
                   <>
                     SUBMIT & GET MY POSTER
-                    <Send className="w-6 h-6 ml-3" />
+                    <Send className="w-5 h-5 sm:w-6 sm:h-6 ml-3" />
                   </>
                 )}
               </Button>
             </form>
 
-            <div className="mt-8 text-center">
+            <div className="mt-6 sm:mt-8 text-center">
               <button
                 onClick={() => navigate("/confirmation")}
                 className="tensor-muted hover:text-orange-400 transition-colors font-mono text-sm flex items-center mx-auto"

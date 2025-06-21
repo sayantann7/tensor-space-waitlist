@@ -41,23 +41,23 @@ const InstagramForm = () => {
   };
 
   return (
-    <div className="min-h-screen tensor-gradient flex items-center justify-center p-6">
+    <div className="min-h-screen tensor-gradient flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-lg">
         <Card className="tensor-card border-0">
-          <CardHeader className="text-center pb-8">
-            <div className="w-20 h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-6">
-              <Instagram className="w-10 h-10 text-orange-400" />
+          <CardHeader className="text-center pb-6 sm:pb-8 px-6 sm:px-8 pt-6 sm:pt-8">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <Instagram className="w-8 h-8 sm:w-10 sm:h-10 text-orange-400" />
             </div>
-            <CardTitle className="text-3xl font-light tensor-text font-mono mb-4">
+            <CardTitle className="text-2xl sm:text-3xl font-light tensor-text font-mono mb-3 sm:mb-4">
               Boost Your Chances
             </CardTitle>
-            <p className="tensor-muted font-mono leading-relaxed">
+            <p className="tensor-muted font-mono leading-relaxed text-sm sm:text-base">
               Connect your Instagram for extra engagement and potential bonus recognition
             </p>
           </CardHeader>
           
-          <CardContent className="px-8 pb-8">
-            <form onSubmit={handleSubmit} className="space-y-8">
+          <CardContent className="px-6 sm:px-8 pb-6 sm:pb-8">
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
               <div className="space-y-3">
                 <Label htmlFor="instagram" className="tensor-text font-mono text-sm uppercase tracking-wider">
                   Instagram Username <span className="tensor-muted">(Optional)</span>
@@ -72,12 +72,12 @@ const InstagramForm = () => {
                     placeholder="username"
                     value={instagram}
                     onChange={(e) => setInstagram(e.target.value.replace('@', ''))}
-                    className="tensor-input text-white placeholder-gray-500 font-mono py-4 pl-8 pr-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
+                    className="tensor-input text-white placeholder-gray-500 font-mono py-3 sm:py-4 pl-8 pr-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
                   />
                 </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-start space-x-3">
                   <Checkbox
                     id="followed"
@@ -98,9 +98,9 @@ const InstagramForm = () => {
                   </Label>
                 </div>
 
-                <div className="tensor-card p-6 border border-orange-400/20">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <Gift className="w-5 h-5 text-orange-400" />
+                <div className="tensor-card p-4 sm:p-6 border border-orange-400/20">
+                  <div className="flex items-center space-x-3 mb-3 sm:mb-4">
+                    <Gift className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" />
                     <span className="font-mono font-medium tensor-text text-sm uppercase tracking-wider">Bonus Benefits</span>
                   </div>
                   <ul className="text-sm tensor-muted font-mono space-y-2 leading-relaxed">
@@ -111,33 +111,33 @@ const InstagramForm = () => {
                 </div>
               </div>
 
-              <div className="flex space-x-4">
+              <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handleSkip}
-                  className="flex-1 border-orange-400/30 text-orange-400 hover:bg-orange-400/10 hover:text-orange-300 font-mono rounded-none py-4"
+                  className="flex-1 border-orange-400/30 text-orange-400 hover:bg-orange-400/10 hover:text-orange-300 font-mono rounded-none py-3 sm:py-4"
                 >
                   SKIP
                 </Button>
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="flex-1 tensor-button text-black font-mono font-medium py-4 rounded-none transition-all duration-300 hover:scale-105"
+                  className="flex-1 tensor-button text-black font-mono font-medium py-3 sm:py-4 rounded-none transition-all duration-300 hover:scale-105"
                 >
                   {isLoading ? (
                     "SAVING..."
                   ) : (
                     <>
                       CONTINUE
-                      <ArrowRight className="w-5 h-5 ml-3" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-3" />
                     </>
                   )}
                 </Button>
               </div>
             </form>
 
-            <div className="mt-8 text-center">
+            <div className="mt-6 sm:mt-8 text-center">
               <button
                 onClick={() => navigate("/email")}
                 className="tensor-muted hover:text-orange-400 transition-colors font-mono text-sm flex items-center mx-auto"
@@ -147,7 +147,7 @@ const InstagramForm = () => {
               </button>
             </div>
             
-            <div className="mt-6 text-center">
+            <div className="mt-4 sm:mt-6 text-center">
               <div className="flex items-center justify-center space-x-3 text-xs tensor-muted font-mono">
                 <Users className="w-4 h-4 text-orange-400" />
                 <span>Join our growing community of tech enthusiasts</span>
