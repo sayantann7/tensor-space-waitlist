@@ -2,23 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const InstagramForm = () => {
-  const [username, setUsername] = useState("");
+const NameForm = () => {
+  const [name, setName] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username && !username.match(/^@?([A-Za-z0-9_]){1,15}$/)) {
-      setError("Please enter a valid Instagram username.");
+    if (name.length < 2 || name.length > 32) {
+      setError("Name must be between 2 and 32 characters.");
       return;
     }
     setError("");
-    localStorage.setItem("userInstagram", username);
-    navigate("/confirmation");
-  };
-  const handleSkip = () => {
-    localStorage.setItem("userInstagram", "");
-    navigate("/confirmation");
+    localStorage.setItem("userName", name);
+    navigate("/email");
   };
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden">
@@ -32,36 +28,28 @@ const InstagramForm = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          What's your Instagram handle? <span className="text-base text-gray-500">(optional)</span>
+          What would name the coziest workstation on the planet?
         </motion.h1>
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
           <input
             type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            placeholder="@yourusername"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Think creatively... your fate depends on this"
             className="w-full px-5 py-4 rounded-xl text-black border border-[#F24C00]/30 bg-white/80 text-lg font-coolvetica focus:outline-none focus:ring-2 focus:ring-[#F24C00]/40 transition"
+            required
           />
           {error && <div className="text-red-500 text-sm font-mono text-center">{error}</div>}
-          <div className="flex flex-col sm:flex-row gap-3 mt-2">
-            <button
-              type="button"
-              onClick={handleSkip}
-              className="w-full sm:w-1/2 py-4 rounded-xl border border-[#fba41b]/60 bg-white text-[#F24C00] font-coolvetica text-lg shadow-md hover:bg-[#fff3e0] hover:scale-105 transition-transform duration-200"
-            >
-              Skip
-            </button>
-            <button
-              type="submit"
-              className="w-full sm:w-1/2 py-4 rounded-xl bg-gradient-to-b from-[#fba41b] to-[#fff3e0] text-black font-coolvetica text-lg shadow-md border border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
-            >
-              Next
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full py-4 rounded-xl bg-gradient-to-b from-[#fba41b] to-[#fff3e0] text-black font-coolvetica text-lg shadow-md border border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 mt-2"
+          >
+            Next
+          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default InstagramForm;
+export default NameForm;

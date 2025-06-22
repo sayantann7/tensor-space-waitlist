@@ -97,7 +97,7 @@ const Index = () => {
             Tensor Space
           </h1>
           <Button
-            onClick={() => navigate("/email")}
+            onClick={() => navigate("/name")}
             className="font-coolvetica font-medium text-[#eb5713] py-2 px-5 rounded-none text-xs sm:text-sm border border-[#eb5713] hover:bg-white hover:text-black transition-colors duration-300 bg-transparent"
           >
             ENTER CONTEST
@@ -234,7 +234,7 @@ const Index = () => {
               <div className="rounded-full w-[300px] h-[80px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
             </div>
             {/* Main button */}
-            <button className="relative z-10 px-10 py-5 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200">
+              <button onClick={() => navigate("/name")} className="relative z-10 px-10 py-5 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200">
               ENTER CONTEST
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="w-7 h-7">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 12H6.75m7.5-6 6 6-6 6" />

@@ -1,135 +1,82 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, ArrowRight, Shield, ArrowLeft } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
+import { checkSubscriber } from "../lib/utils";
 
 const EmailForm = () => {
-  const navigate = useNavigate();
-  const { toast } = useToast();
   const [email, setEmail] = useState("");
-  const [subscribe, setSubscribe] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [subscribed, setSubscribed] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!email) {
-      toast({
-        title: "Email Required",
-        description: "Please enter your email address to continue.",
-        variant: "destructive",
-      });
+    if (!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
+      setError("Please enter a valid email address.");
       return;
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
-        variant: "destructive",
-      });
+    if (!subscribed) {
+      setError("You must subscribe to the Tensor Protocol newsletter to continue.");
       return;
     }
-
-    setIsLoading(true);
-    
-    localStorage.setItem("userEmail", email);
-    localStorage.setItem("userSubscribed", subscribe.toString());
-    
-    setTimeout(() => {
-      setIsLoading(false);
-      toast({
-        title: "Great!",
-        description: "Your email has been saved. Let's continue!",
-      });
+    setError("");
+    setLoading(true);
+    try {
+      const isSub = await checkSubscriber(email);
+      if (!isSub) {
+        setError("You must be a subscriber to continue.");
+        setLoading(false);
+        return;
+      }
+      localStorage.setItem("userEmail", email);
+      setLoading(false);
       navigate("/instagram");
-    }, 1000);
+    } catch (err) {
+      setError("Error checking subscriber. Please try again.");
+      setLoading(false);
+    }
   };
-
   return (
-    <div className="min-h-screen tensor-gradient flex items-center justify-center p-4 sm:p-6">
-      <div className="w-full max-w-lg">
-        <Card className="tensor-card border-0">
-          <CardHeader className="text-center pb-6 sm:pb-8 px-6 sm:px-8 pt-6 sm:pt-8">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 border-2 border-orange-400 rounded-none flex items-center justify-center mx-auto mb-4 sm:mb-6">
-              <Mail className="w-8 h-8 sm:w-10 sm:h-10 text-orange-400" />
-            </div>
-            <CardTitle className="text-2xl sm:text-3xl font-light tensor-text font-mono mb-3 sm:mb-4">
-              Let's Get Started
-            </CardTitle>
-            <p className="tensor-muted font-mono leading-relaxed text-sm sm:text-base">
-              Enter your email to join the competition and receive your personalized poster
-            </p>
-          </CardHeader>
-          
-          <CardContent className="px-6 sm:px-8 pb-6 sm:pb-8">
-            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-              <div className="space-y-3">
-                <Label htmlFor="email" className="tensor-text font-mono text-sm uppercase tracking-wider">
-                  Email Address *
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="hacker@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="tensor-input text-white placeholder-gray-500 font-mono py-3 sm:py-4 px-4 rounded-none border-0 focus:border-orange-400 focus:ring-1 focus:ring-orange-400"
-                  required
-                />
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <Checkbox
-                  id="subscribe"
-                  checked={subscribe}
-                  onCheckedChange={(checked) => setSubscribe(checked as boolean)}
-                  className="border-orange-400/50 data-[state=checked]:bg-orange-400 data-[state=checked]:border-orange-400 rounded-none mt-1"
-                />
-                <Label htmlFor="subscribe" className="tensor-muted font-mono text-sm leading-relaxed cursor-pointer">
-                  Subscribe to TensorBoy updates and exclusive content
-                </Label>
-              </div>
-
-              <div className="flex items-center space-x-3 text-xs tensor-muted font-mono">
-                <Shield className="w-4 h-4 text-orange-400 flex-shrink-0" />
-                <span>Your email is required for voting verification and prize delivery</span>
-              </div>
-
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full tensor-button text-black font-mono font-medium py-3 sm:py-4 rounded-none text-sm sm:text-base transition-all duration-300 hover:scale-105"
-              >
-                {isLoading ? (
-                  "SAVING..."
-                ) : (
-                  <>
-                    CONTINUE
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-3" />
-                  </>
-                )}
-              </Button>
-            </form>
-
-            <div className="mt-6 sm:mt-8 text-center">
-              <button
-                onClick={() => navigate("/")}
-                className="tensor-muted hover:text-orange-400 transition-colors font-mono text-sm flex items-center mx-auto"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to landing page
-              </button>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden">
+      {/* Side gradients */}
+      <div className="pointer-events-none absolute top-0 left-0 h-full w-[500px] bg-gradient-to-r from-[#fba41b]/60 to-transparent z-0" />
+      <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" />
+      <div className="relative z-10 w-full max-w-md mx-auto p-8 bg-white/90 rounded-3xl shadow-2xl border border-[#F24C00]/20 flex flex-col items-center">
+        <motion.h1
+          className="text-3xl md:text-4xl font-coolvetica text-[#F24C00] mb-6 text-center"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          Enter your email to join the waitlist
+        </motion.h1>
+        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-5">
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="you@email.com"
+            className="w-full text-black px-5 py-4 rounded-xl border border-[#F24C00]/30 bg-white/80 text-lg font-coolvetica focus:outline-none focus:ring-2 focus:ring-[#F24C00]/40 transition"
+            required
+          />
+          <label className="flex items-center gap-3 text-sm font-theseasons text-[#F24C00] font-bold">
+            <input
+              type="checkbox"
+              checked={subscribed}
+              onChange={e => setSubscribed(e.target.checked)}
+              className="accent-[#F24C00] w-5 h-5 rounded"
+            />
+            I have subscribed to the Tensor Protocol newsletter
+          </label>
+          {error && <div className="text-red-500 text-sm font-mono text-center">{error}</div>}
+          <button
+            type="submit"
+            className="w-full py-4 rounded-xl bg-gradient-to-b from-[#fba41b] to-[#fff3e0] text-black font-coolvetica text-lg shadow-md border border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
+            disabled={!subscribed || loading}
+          >
+            {loading ? "Checking..." : "Next"}
+          </button>
+        </form>
       </div>
     </div>
   );

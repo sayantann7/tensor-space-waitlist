@@ -1,286 +1,139 @@
-
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Share2, Download, Vote, Trophy, QrCode, Instagram, ExternalLink } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-
-interface Submission {
-  id: string;
-  email: string;
-  instagram: string;
-  names: string[];
-  tagline: string;
-  votes: number;
-  timestamp: string;
-}
+import { useParams } from "react-router-dom";
+import { getContestant, checkSubscriber, addVote } from "../lib/utils";
 
 const Profile = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const { toast } = useToast();
-  const [submission, setSubmission] = useState<Submission | null>(null);
-  const [rank, setRank] = useState(0);
-  const [totalSubmissions, setTotalSubmissions] = useState(0);
+  const [profile, setProfile] = useState<any>({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [visitorEmail, setVisitorEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+  const [voted, setVoted] = useState(false);
+  const [voteLoading, setVoteLoading] = useState(false);
+  const [subCheckLoading, setSubCheckLoading] = useState(false);
 
   useEffect(() => {
-    if (!id) return;
-    
-    const submissions = JSON.parse(localStorage.getItem("submissions") || "[]");
-    const sortedSubmissions = submissions.sort((a: Submission, b: Submission) => b.votes - a.votes);
-    const foundSubmission = sortedSubmissions.find((sub: Submission) => sub.id === id);
-    
-    if (foundSubmission) {
-      setSubmission(foundSubmission);
-      setRank(sortedSubmissions.indexOf(foundSubmission) + 1);
-      setTotalSubmissions(submissions.length);
-    }
+    (async () => {
+      setLoading(true);
+      try {
+        const data = await getContestant(id || "");
+        setProfile(data.contestant);
+        console.log("data : ",data.contestant)
+        console.log(profile)
+        setLoading(false);
+      } catch (err) {
+        setError("Could not load contestant profile.");
+        setLoading(false);
+      }
+    })();
   }, [id]);
 
-  const handleShare = async () => {
-    const shareData = {
-      title: `Vote for "${submission?.names.join(' or ')}" - Browser Workspace Naming Contest`,
-      text: `I named this browser workspace. Help me win! Vote for my brainchild: "${submission?.names.join(' or ')}"`,
-      url: window.location.href
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(shareData);
-        toast({
-          title: "Shared!",
-          description: "Thanks for spreading the word!",
-        });
-      } catch (error) {
-        // Fallback to copying URL
-        navigator.clipboard.writeText(window.location.href);
-        toast({
-          title: "Link Copied!",
-          description: "Share this link to get more votes!",
-        });
+  const handleCheckSubscriber = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubCheckLoading(true);
+    setError("");
+    try {
+      const isSub = await checkSubscriber(visitorEmail);
+      if (isSub) {
+        setSubscribed(true);
+      } else {
+        setError("You must be a subscriber to vote.");
       }
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      toast({
-        title: "Link Copied!",
-        description: "Share this link to get more votes!",
-      });
+    } catch (err) {
+      setError("Error checking subscriber. Please try again.");
     }
+    setSubCheckLoading(false);
   };
 
-  const generatePosterContent = () => {
-    if (!submission) return "";
-    
-    return `
-🚀 BROWSER WORKSPACE NAMING CONTEST 🚀
-
-"${submission.names.join('" or "')}"
-
-${submission.tagline ? `💡 ${submission.tagline}` : ''}
-
-Vote for my suggestion! 
-Made for hackers, by hackers.
-
-${submission.instagram ? `Created by @${submission.instagram}` : ''}
-
-🔗 ${window.location.href}
-
-#BrowserWorkspace #NamingContest #TensorBoy
-    `.trim();
+  const handleVote = async () => {
+    if (!subscribed || voted || !profile) return;
+    setVoteLoading(true);
+    setError("");
+    try {
+      const success = await addVote(visitorEmail, profile.email);
+      if (success) {
+        setVoted(true);
+        setProfile({ ...profile, votes: (profile.votes || 0) + 1 });
+      } else {
+        setError("Could not register your vote. Please try again.");
+      }
+    } catch (err) {
+      setError("Could not register your vote. Please try again.");
+    }
+    setVoteLoading(false);
   };
 
-  const handleDownloadPoster = () => {
-    const content = generatePosterContent();
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${submission?.names[0] || 'submission'}-poster.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    toast({
-      title: "Poster Downloaded!",
-      description: "Share this content on your social media!",
-    });
-  };
-
-  const getRankBadge = () => {
-    if (rank === 1) return { text: "🥇 1st Place", color: "bg-yellow-600" };
-    if (rank === 2) return { text: "🥈 2nd Place", color: "bg-gray-400" };
-    if (rank === 3) return { text: "🥉 3rd Place", color: "bg-orange-600" };
-    return { text: `#${rank} of ${totalSubmissions}`, color: "bg-gray-600" };
-  };
-
-  if (!submission) {
-    return (
-      <div className="min-h-screen tensor-gradient flex items-center justify-center p-4">
-        <Card className="tensor-card max-w-md">
-          <CardContent className="text-center py-8 sm:py-12">
-            <h2 className="text-lg sm:text-xl font-semibold tensor-text mb-4">Submission Not Found</h2>
-            <Button onClick={() => navigate("/")} variant="outline">
-              Go Home
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  const rankBadge = getRankBadge();
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-500 font-coolvetica text-lg">Loading profile...</div>;
+  if (error && !profile) return <div className="min-h-screen flex items-center justify-center text-red-500 font-coolvetica text-lg">{error}</div>;
 
   return (
-    <div className="min-h-screen tensor-gradient p-4">
-      <div className="container mx-auto max-w-2xl">
-        {/* Header */}
-        <div className="text-center mb-6 sm:mb-8">
-          <Badge className={`${rankBadge.color} text-white text-base sm:text-lg px-3 sm:px-4 py-2 mb-3 sm:mb-4`}>
-            {rankBadge.text}
-          </Badge>
-          <h1 className="text-2xl sm:text-3xl font-bold tensor-text mb-2 font-mono break-words">
-            {submission.names.join(" • ")}
-          </h1>
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center sm:space-x-4 tensor-muted space-y-1 sm:space-y-0">
-            <span className="flex items-center justify-center">
-              <Vote className="w-4 h-4 mr-1" />
-              {submission.votes} votes
-            </span>
-            {submission.instagram && (
-              <span className="flex items-center justify-center text-orange-400">
-                <Instagram className="w-4 h-4 mr-1" />
-                @{submission.instagram}
-              </span>
-            )}
+    <div className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden p-4 sm:p-6">
+      {/* Side gradients */}
+      <div className="pointer-events-none absolute top-0 left-0 h-full w-[500px] bg-gradient-to-r from-[#fba41b]/60 to-transparent z-0" />
+      <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" />
+      <div className="w-full max-w-2xl mx-auto relative z-10">
+        <div className="bg-white/90 rounded-3xl shadow-2xl border border-[#F24C00]/20 flex flex-col items-center p-8">
+          <h1 className="text-3xl sm:text-4xl font-coolvetica text-[#F24C00] mb-2 text-center">{profile.name}</h1>
+          <div className="w-full flex flex-col md:flex-row gap-8 items-center justify-center mt-6 mb-8">
+            {/* Poster preview */}
+            <div className="bg-white rounded-2xl shadow-lg border border-[#F24C00]/20 p-6 flex flex-col items-center w-full max-w-xs">
+              <div className="text-2xl font-coolvetica text-[#F24C00] mb-2">{profile.name}</div>
+              <div className="text-gray-700 font-theseasons text-sm mb-1">{profile.email}</div>
+              {profile.instagram && <div className="text-[#F24C00] font-theseasons text-sm">@{profile.instagram}</div>}
+              <div className="mt-4 mb-2">
+                {/* Placeholder for QR code */}
+                <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 font-bold text-lg">QR</div>
+              </div>
+              <div className="font-coolvetica text-base text-black mt-2">{profile.votes} votes</div>
+            </div>
           </div>
+          {!subscribed ? (
+            <form onSubmit={handleCheckSubscriber} className="w-full max-w-xs mx-auto flex flex-col gap-4 items-center mb-6">
+              <input
+                type="email"
+                value={visitorEmail}
+                onChange={e => setVisitorEmail(e.target.value)}
+                placeholder="Enter your email to vote"
+                className="w-full px-5 py-3 rounded-xl border border-[#F24C00]/30 bg-white/80 text-lg font-theseasons focus:outline-none focus:ring-2 focus:ring-[#F24C00]/40 transition"
+                required
+              />
+              <div className="relative flex justify-center items-center w-full">
+                <div className="absolute inset-0 flex justify-center items-center z-0">
+                  <div className="rounded-full w-[180px] h-[40px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-[140px] h-[30px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-[100px] h-[20px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                </div>
+                <button
+                  type="submit"
+                  className="relative z-10 px-6 py-2 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow text-black font-coolvetica text-base flex items-center gap-2 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
+                  disabled={subCheckLoading}
+                >
+                  {subCheckLoading ? "Checking..." : "Continue"}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="relative flex justify-center items-center w-full mb-6">
+              <div className="absolute inset-0 flex justify-center items-center z-0">
+                <div className="rounded-full w-[180px] h-[40px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                <div className="rounded-full w-[140px] h-[30px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                <div className="rounded-full w-[100px] h-[20px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+              </div>
+              <button
+                onClick={handleVote}
+                disabled={voted || voteLoading}
+                className="relative z-10 px-6 py-2 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow text-black font-coolvetica text-base flex items-center gap-2 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {voteLoading ? 'Voting...' : voted ? 'Voted' : 'Vote for this name'}
+              </button>
+            </div>
+          )}
+          {error && <div className="text-red-500 text-sm font-mono text-center mb-4">{error}</div>}
         </div>
-
-        {/* Submission Details */}
-        <Card className="tensor-card mb-4 sm:mb-6">
-          <CardHeader>
-            <CardTitle className="tensor-text font-mono">Submission Details</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <h3 className="tensor-text font-medium mb-2">Suggested Names:</h3>
-              <div className="space-y-2">
-                {submission.names.map((name, index) => (
-                  <Badge key={index} variant="secondary" className="bg-orange-400/20 text-orange-400 text-sm sm:text-lg px-3 sm:px-4 py-1 sm:py-2 mr-2 mb-2 font-mono">
-                    {name}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            
-            {submission.tagline && (
-              <div>
-                <h3 className="tensor-text font-medium mb-2">Reasoning:</h3>
-                <p className="tensor-muted tensor-card p-3 rounded-lg font-mono text-sm sm:text-base">
-                  {submission.tagline}
-                </p>
-              </div>
-            )}
-            
-            <div className="flex flex-col sm:flex-row sm:justify-between text-sm tensor-muted font-mono space-y-1 sm:space-y-0">
-              <span>Submitted: {new Date(submission.timestamp).toLocaleDateString()}</span>
-              <span>Rank: #{rank} of {totalSubmissions}</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Personalized Poster */}
-        <Card className="tensor-card mb-4 sm:mb-6">
-          <CardHeader>
-            <CardTitle className="tensor-text flex items-center font-mono">
-              <Share2 className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-              Your Personalized Poster
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="tensor-card p-4 sm:p-6 rounded-lg border border-orange-400/30 mb-4">
-              <div className="text-center space-y-2 sm:space-y-3">
-                <div className="text-lg sm:text-2xl font-bold tensor-text font-mono">
-                  🚀 BROWSER WORKSPACE NAMING CONTEST 🚀
-                </div>
-                <div className="text-base sm:text-xl text-orange-400 font-mono break-words">
-                  "{submission.names.join('" or "')}"
-                </div>
-                {submission.tagline && (
-                  <div className="tensor-muted font-mono text-sm sm:text-base">
-                    💡 {submission.tagline}
-                  </div>
-                )}
-                <div className="tensor-text font-medium font-mono text-sm sm:text-base">
-                  Vote for my suggestion!<br />
-                  Made for hackers, by hackers.
-                </div>
-                {submission.instagram && (
-                  <div className="text-orange-400 font-mono text-sm sm:text-base">
-                    Created by @{submission.instagram}
-                  </div>
-                )}
-                <div className="flex items-center justify-center space-x-2 pt-2">
-                  <QrCode className="w-5 h-5 sm:w-6 sm:h-6 tensor-muted" />
-                  <span className="text-xs sm:text-sm tensor-muted font-mono">Scan to vote</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-              <Button
-                onClick={handleShare}
-                className="flex-1 tensor-button text-black font-mono"
-              >
-                <Share2 className="w-4 h-4 mr-2" />
-                Share Poster
-              </Button>
-              <Button
-                onClick={handleDownloadPoster}
-                variant="outline"
-                className="flex-1 border-orange-400/30 text-orange-400 hover:bg-orange-400/10 hover:text-orange-300 font-mono"
-              >
-                <Download className="w-4 h-4 mr-2" />
-                Download
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Call to Action */}
-        <Card className="tensor-card">
-          <CardContent className="text-center p-4 sm:p-6">
-            <Trophy className="w-10 h-10 sm:w-12 sm:h-12 text-orange-400 mx-auto mb-3 sm:mb-4" />
-            <h3 className="text-lg sm:text-xl font-bold tensor-text mb-2 font-mono">
-              Help Your Submission Win!
-            </h3>
-            <p className="tensor-muted mb-4 font-mono text-sm sm:text-base">
-              Share your poster everywhere to get more votes. Top 3 submissions win amazing prizes!
-            </p>
-            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-              <Button
-                onClick={() => navigate("/voting")}
-                variant="outline"
-                className="flex-1 border-orange-400/30 text-orange-400 hover:bg-orange-400/10 hover:text-orange-300 font-mono"
-              >
-                <Vote className="w-4 h-4 mr-2" />
-                View All Submissions
-              </Button>
-              <Button
-                onClick={handleShare}
-                className="flex-1 tensor-button text-black font-mono"
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Share Again
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
 };
 
-export default Profile;
+export default Profile; 
