@@ -113,12 +113,12 @@ const Index = () => {
           {/* Hero */}
           <motion.h1
             ref={hero1Ref}
-            className="text-6xl md:text-7xl lg:text-8xl font-coolvetica text-white max-w-5xl mt-[220px] lg:mt-[130px]"
+            className="text-6xl md:text-7xl lg:text-8xl font-coolvetica text-white max-w-5xl mt-[230px] lg:mt-[130px]"
             initial={{ opacity: 0, y: 50 }}
             animate={hero1InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
           >
-            <span className="text-5xl lg:text-5xl font-theseasons italic">Launching</span> Tensor Space,
+            <span className="text-5xl lg:text-5xl font-theseasons">Launching</span> Tensor Space,
           </motion.h1>
           <motion.h1
             ref={hero2Ref}
@@ -136,11 +136,11 @@ const Index = () => {
             animate={hero3InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.9 }}
           >
-            But we need help
+            But we need help.
           </motion.h1>
           <motion.h1
             ref={hero4Ref}
-            className="text-3xl md:text-lg lg:text-5xl font-coolvetica text-white lg:w-[700px] w-[350px] mt-[20px]"
+            className="text-3xl md:text-lg lg:text-5xl font-theseasons text-white lg:w-[700px] w-[350px] mt-[10px]"
             initial={{ opacity: 0, y: 50 }}
             animate={hero4InView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 1.2 }}
@@ -221,7 +221,7 @@ const Index = () => {
               >
                 <div className="text-4xl mb-3">{["🏆","👥","⭐","✨"][idx]}</div>
                 <div className="font-coolvetica text-lg text-[#F24C00] mb-1 text-center">{prize.title}</div>
-                <div className="text-gray-700 text-sm text-center font-theseasons">{prize.description}</div>
+                <div className="text-gray-700 text-sm text-center font-theseasons font-bold">{prize.description}</div>
               </div>
             ))}
           </div>
