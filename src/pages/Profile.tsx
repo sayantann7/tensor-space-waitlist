@@ -20,7 +20,7 @@ const Profile = () => {
         const data = await getContestant(id || "");
         setProfile(data.contestant);
         console.log("data : ",data.contestant)
-        console.log(profile)
+        console.log("profile",profile)
         setLoading(false);
       } catch (err) {
         setError("Could not load contestant profile.");
