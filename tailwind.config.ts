@@ -19,6 +19,11 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				theseasons: ["TheSeasons", "sans-serif"],
+				pixelated: ["Pixelated", "monospace"],
+				coolvetica: ["Coolvetica", "sans-serif"]
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

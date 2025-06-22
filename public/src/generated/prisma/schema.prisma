@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  password  String
+  emailSent Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Email {
+  id               String   @id @default(cuid())
+  email            String   @unique
+  status           String   @default("active")
+  metadata         String?
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+  interests        String[] @default([])
+  currentPosition  String?
+  currentCompany   String?
+  currentLocation  String?
+  interestedInJobs Boolean  @default(false)
+  fillLater        Boolean  @default(false)
+
+  skills          String?
+  experienceYears Int?
+  jobPreferences  String?
+  phoneNumber     String?
+  resumeLink      String?
+}
+
+model Waitlist {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  ig_username String?
+  name        String
+  totalVotes  Int      @default(0)
+  voteGiven   Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Wallpaper {
+  id         String   @id @default(cuid())
+  imageUrl   String
+  author     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isApproved Boolean  @default(false)
+}
