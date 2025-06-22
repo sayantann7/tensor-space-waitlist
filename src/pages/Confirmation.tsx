@@ -58,7 +58,7 @@ const Confirmation = () => {
                 {instagram && (
                   <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
                     <span className="text-gray-500 font-bold">Instagram:</span>
-                    <span className="text-[#F24C00] font-coolvetica">{instagram}</span>
+                    <span className="text-black font-coolvetica">{instagram}</span>
                   </div>
                 )}
               </div>

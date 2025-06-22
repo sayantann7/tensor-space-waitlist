@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { checkSubscriber } from "../lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const EmailForm = () => {
   const [email, setEmail] = useState("");
@@ -9,6 +10,8 @@ const EmailForm = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
@@ -24,7 +27,11 @@ const EmailForm = () => {
     try {
       const isSub = await checkSubscriber(email);
       if (!isSub) {
-        setError("You must be a subscriber to continue.");
+        toast({
+          title: "Not Subscribed",
+          description: "You are not subscribed to tensor protocol",
+          variant: "destructive",
+        });
         setLoading(false);
         return;
       }
@@ -32,7 +39,11 @@ const EmailForm = () => {
       setLoading(false);
       navigate("/instagram");
     } catch (err) {
-      setError("Error checking subscriber. Please try again.");
+      toast({
+        title: "Not Subscribed",
+        description: "You are not subscribed to tensor protocol",
+        variant: "destructive",
+      });
       setLoading(false);
     }
   };
