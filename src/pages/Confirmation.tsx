@@ -15,7 +15,9 @@ const Confirmation = () => {
   useEffect(() => {
     (async () => {
       try {
-        await addToWaitlist(email, instagram, name);
+        const newUserData = await addToWaitlist(email, instagram, name);
+        const userId = await newUserData.newWaitlistEntry.id;
+        localStorage.setItem("userId",userId);
       } catch (err) {
         setError("Error adding to waitlist. Please try again.");
       }

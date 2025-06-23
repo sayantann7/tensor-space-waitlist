@@ -33,7 +33,7 @@ export const addToWaitlist = async (email: string, ig_username: string, name : s
         console.error("Error adding to waitlist:", data.error);
         throw new Error(data.error);
     }
-    return data.success;
+    return data;
   } catch (err) {
     console.error("Error adding to waitlist:", err);
     throw err;

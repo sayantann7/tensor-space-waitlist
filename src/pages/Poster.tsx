@@ -2,10 +2,38 @@ import { useNavigate } from "react-router-dom";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { motion } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
 
 const Poster = () => {
   const navigate = useNavigate();
   const { width, height } = useWindowSize();
+  const { toast } = useToast();
+
+  const handleShareLink = async () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      toast({
+        title: "Error",
+        description: "User ID not found. Please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+    const link = `https://contest.tensorboy.com/users/${userId}`;
+    try {
+      await navigator.clipboard.writeText(link);
+      toast({
+        title: "Link Copied!",
+        description: "Your voting link has been copied to the clipboard.",
+      });
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to copy the link. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden p-4 sm:p-6">
@@ -47,7 +75,7 @@ const Poster = () => {
             </a>
             <div className="relative flex justify-center items-center">
               <button
-                onClick={() => navigate("/voting")}
+                onClick={handleShareLink}
                 className="relative z-10 px-8 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-3 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
               >
                 Share your Voting Link

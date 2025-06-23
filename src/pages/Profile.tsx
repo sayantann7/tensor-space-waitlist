@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getContestant, checkSubscriber, addVote } from "../lib/utils";
+import { Users } from "lucide-react";
 
 const Profile = () => {
   const { id } = useParams();
@@ -19,8 +20,6 @@ const Profile = () => {
       try {
         const data = await getContestant(id || "");
         setProfile(data.contestant);
-        console.log("data : ",data.contestant)
-        console.log("profile",profile)
         setLoading(false);
       } catch (err) {
         setError("Could not load contestant profile.");
@@ -54,7 +53,7 @@ const Profile = () => {
       const success = await addVote(visitorEmail, profile.email);
       if (success) {
         setVoted(true);
-        setProfile({ ...profile, votes: (profile.votes || 0) + 1 });
+        setProfile({ ...profile, totalVotes: (profile.totalVotes || 0) + 1 });
       } else {
         setError("Could not register your vote. Please try again.");
       }
@@ -72,22 +71,26 @@ const Profile = () => {
       {/* Side gradients */}
       <div className="pointer-events-none absolute top-0 left-0 h-full w-[500px] bg-gradient-to-r from-[#fba41b]/60 to-transparent z-0" />
       <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" />
-      <div className="w-full max-w-2xl mx-auto relative z-10">
-        <div className="bg-white/90 rounded-3xl shadow-2xl border border-[#F24C00]/20 flex flex-col items-center p-8">
-          <h1 className="text-3xl sm:text-4xl font-coolvetica text-[#F24C00] mb-2 text-center">{profile.name}</h1>
-          <div className="w-full flex flex-col md:flex-row gap-8 items-center justify-center mt-6 mb-8">
-            {/* Poster preview */}
-            <div className="bg-white rounded-2xl shadow-lg border border-[#F24C00]/20 p-6 flex flex-col items-center w-full max-w-xs">
-              <div className="text-2xl font-coolvetica text-[#F24C00] mb-2">{profile.name}</div>
-              <div className="text-gray-700 font-theseasons text-sm mb-1">{profile.email}</div>
-              {profile.instagram && <div className="text-[#F24C00] font-theseasons text-sm">@{profile.instagram}</div>}
-              <div className="mt-4 mb-2">
-                {/* Placeholder for QR code */}
-                <div className="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 font-bold text-lg">QR</div>
+      <div className="w-full max-w-lg mx-auto relative z-10">
+        <div className="bg-white/90 rounded-3xl shadow-2xl border border-[#F24C00]/20 flex flex-col items-center p-10">
+          {/* Heading */}
+          <h1 className="text-4xl sm:text-5xl font-coolvetica text-[#F24C00] text-center mb-10 drop-shadow-lg">
+            Vote for <br /><span className="text-black font-theseasons font-bold">{profile.name}</span>
+          </h1>
+
+          {/* Votes Display */}
+          <div className="flex flex-col items-center justify-center mb-10">
+            <div className="relative flex items-center justify-center">
+              <div className="absolute w-44 h-44 rounded-full bg-gradient-to-br from-[#fba41b]/40 to-[#fff3e0]/80 blur-2xl opacity-80"></div>
+              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-[#fba41b] to-[#fff3e0] flex flex-col items-center justify-center shadow-xl border-4 border-[#F24C00]/30 z-10">
+                <Users className="w-12 h-12 text-[#F24C00] mb-2" />
+                <span className="text-5xl font-coolvetica text-[#F24C00]">{profile.totalVotes}</span>
+                <span className="text-lg font-theseasons font-bold text-black mt-1">votes</span>
               </div>
-              <div className="font-coolvetica text-base text-black mt-2">{profile.votes} votes</div>
             </div>
           </div>
+
+          {/* Voting Section */}
           {!subscribed ? (
             <form onSubmit={handleCheckSubscriber} className="w-full max-w-xs mx-auto flex flex-col gap-4 items-center mb-6">
               <input
@@ -95,18 +98,20 @@ const Profile = () => {
                 value={visitorEmail}
                 onChange={e => setVisitorEmail(e.target.value)}
                 placeholder="Enter your email to vote"
-                className="w-full px-5 py-3 rounded-xl border border-[#F24C00]/30 bg-white/80 text-lg font-theseasons focus:outline-none focus:ring-2 focus:ring-[#F24C00]/40 transition"
+                className="w-full px-5 py-3 text-black rounded-xl border border-[#F24C00]/30 bg-white/80 text-lg font-coolvetica focus:outline-none focus:ring-2 focus:ring-[#F24C00]/40 transition"
                 required
               />
-              <div className="relative flex justify-center items-center w-full">
+              <div className="relative flex justify-center items-center w-full mt-4 mb-2">
+                {/* Concentric borders */}
                 <div className="absolute inset-0 flex justify-center items-center z-0">
-                  <div className="rounded-full w-[180px] h-[40px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
-                  <div className="rounded-full w-[140px] h-[30px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
-                  <div className="rounded-full w-[100px] h-[20px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-[210px] h-[85px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-[190px] h-[75px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-[170px] h-[65px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
                 </div>
+                {/* Main button */}
                 <button
                   type="submit"
-                  className="relative z-10 px-6 py-2 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow text-black font-coolvetica text-base flex items-center gap-2 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
+                  className="relative z-10 px-10 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
                   disabled={subCheckLoading}
                 >
                   {subCheckLoading ? "Checking..." : "Continue"}
@@ -114,16 +119,18 @@ const Profile = () => {
               </div>
             </form>
           ) : (
-            <div className="relative flex justify-center items-center w-full mb-6">
+            <div className="relative flex justify-center items-center w-full mb-6 mt-2">
+              {/* Concentric borders */}
               <div className="absolute inset-0 flex justify-center items-center z-0">
-                <div className="rounded-full w-[180px] h-[40px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
-                <div className="rounded-full w-[140px] h-[30px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
-                <div className="rounded-full w-[100px] h-[20px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
-              </div>
+                  <div className="rounded-full w-[280px] h-[85px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-[260px] h-[75px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-[240px] h-[65px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                </div>
+              {/* Main button */}
               <button
                 onClick={handleVote}
                 disabled={voted || voteLoading}
-                className="relative z-10 px-6 py-2 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow text-black font-coolvetica text-base flex items-center gap-2 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="relative z-10 px-10 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {voteLoading ? 'Voting...' : voted ? 'Voted' : 'Vote for this name'}
               </button>
