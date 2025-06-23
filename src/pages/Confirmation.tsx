@@ -93,17 +93,17 @@ const Confirmation = () => {
             <div className="text-center pt-4 sm:pt-6">
               {error && <div className="text-red-500 text-sm font-mono text-center mb-4">{error}</div>}
               <div className="relative flex justify-center items-center my-8">
-                {/* Concentric borders */}
+                {/* Concentric borders - responsive */}
                 <div className="absolute inset-0 flex justify-center items-center z-0">
-                  <div className="rounded-full w-[430px] h-[120px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
-                  <div className="rounded-full w-[380px] h-[100px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
-                  <div className="rounded-full w-[330px] h-[80px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-72 h-16 sm:w-[430px] sm:h-[120px] bg-gradient-to-b from-[#fba41b]/70 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-60 h-12 sm:w-[380px] sm:h-[100px] bg-gradient-to-b from-[#fba41b]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
+                  <div className="rounded-full w-48 h-8 sm:w-[330px] sm:h-[80px] bg-gradient-to-b from-[#f24c00]/80 to-transparent opacity-100 absolute" style={{filter:'blur(0.5px)'}}></div>
                 </div>
-                {/* Main button */}
+                {/* Main button - responsive */}
                 <button
                   onClick={handleProceed}
                   disabled={isReady}
-                  className="relative z-10 px-10 py-5 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="relative z-10 px-6 py-3 sm:px-10 sm:py-5 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-base sm:text-lg flex items-center gap-3 sm:gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isReady ? (
                     <>
@@ -113,7 +113,7 @@ const Confirmation = () => {
                   ) : (
                     <>
                       LET THE BATTLE BEGIN!
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="w-7 h-7">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 12H6.75m7.5-6 6 6-6 6" />
                       </svg>
                     </>

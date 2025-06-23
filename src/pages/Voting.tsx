@@ -52,7 +52,7 @@ const Voting = () => {
   };
 
   const topThree = entries.slice(0, 3);
-  const otherEntries = entries.slice(3);
+  const otherEntries = entries;
 
   return (
     <div className="relative min-h-screen flex flex-col items-center bg-white overflow-hidden p-4 sm:p-6">
@@ -88,7 +88,7 @@ const Voting = () => {
           {otherEntries.map((entry, idx) => (
             <div key={entry.id} className="bg-white/90 rounded-2xl shadow-md border border-[#F24C00]/20 p-4 flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <span className="font-coolvetica text-lg text-gray-500 w-6 text-center">{idx + 4}</span>
+                <span className="font-coolvetica text-lg text-gray-500 w-6 text-center">{idx+1}</span>
                 <div className="font-coolvetica text-lg text-[#F24C00]">{entry.name}</div>
               </div>
               <div className="text-right">
