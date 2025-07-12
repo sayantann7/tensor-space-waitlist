@@ -76,7 +76,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <main
-        className="relative z-20 flex flex-col items-center text-center min-h-[110vh] w-full pt-[200px] sm:pt-12"
+        className="relative z-20 flex flex-col items-center text-center min-h-[110vh] w-full pt-[170px] sm:pt-12"
         style={{
           backgroundImage: 'url(/bg1.png)',
           backgroundSize: 'cover',
