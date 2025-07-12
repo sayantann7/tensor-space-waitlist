@@ -85,13 +85,13 @@ const Index = () => {
       >
         {/* Header inside Hero */}
         <header className="w-full flex justify-between items-center px-4 sm:px-8 md:px-8 pt-0 absolute top-0 left-0 z-30">
-          <div className="text-white text-lg sm:text-xl md:text-2xl font-coolvetica py-4 sm:py-6">Tensor Space</div>
+          <div className="text-white text-xl sm:text-xl md:text-2xl font-coolvetica py-4 sm:py-6"><h1 className="pt-3">Tensor Space</h1></div>
           <button
             onClick={() => navigate('/name')}
-            className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-2 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30 mt-2 sm:mt-4"
+            className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30 mt-2 sm:mt-4"
           >
             Enter Contest
-            <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black text-white">
+            <span className="ml-2 flex items-center justify-center w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-black text-white">
               <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </span>
           </button>
