@@ -63,8 +63,8 @@ const Profile = () => {
     setVoteLoading(false);
   };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-500 font-coolvetica text-lg">Loading profile...</div>;
-  if (error && !profile) return <div className="min-h-screen flex items-center justify-center text-red-500 font-coolvetica text-lg">{error}</div>;
+  if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-500 font-satoshi text-lg">Loading profile...</div>;
+  if (error && !profile) return <div className="min-h-screen flex items-center justify-center text-red-500 font-satoshi text-lg">{error}</div>;
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden p-4 sm:p-6">
@@ -74,8 +74,8 @@ const Profile = () => {
       <div className="w-full max-w-lg mx-auto relative z-10">
         <div className="bg-white/90 rounded-3xl shadow-2xl border border-[#F24C00]/20 flex flex-col items-center p-10">
           {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl font-coolvetica text-[#F24C00] text-center mb-10 drop-shadow-lg">
-            Vote for <br /><span className="text-black font-theseasons font-bold">{profile.name}</span>
+          <h1 className="text-4xl sm:text-5xl font-satoshi text-[#F24C00] text-center mb-10 drop-shadow-lg">
+            Vote for <br /><span className="text-black font-ivalencia font-bold">{profile.name}</span>
           </h1>
 
           {/* Votes Display */}
@@ -84,8 +84,8 @@ const Profile = () => {
               <div className="absolute w-44 h-44 rounded-full bg-gradient-to-br from-[#fba41b]/40 to-[#fff3e0]/80 blur-2xl opacity-80"></div>
               <div className="w-40 h-40 rounded-full bg-gradient-to-br from-[#fba41b] to-[#fff3e0] flex flex-col items-center justify-center shadow-xl border-4 border-[#F24C00]/30 z-10">
                 <Users className="w-12 h-12 text-[#F24C00] mb-2" />
-                <span className="text-5xl font-coolvetica text-[#F24C00]">{profile.totalVotes}</span>
-                <span className="text-lg font-theseasons font-bold text-black mt-1">votes</span>
+                <span className="text-5xl font-satoshi text-[#F24C00]">{profile.totalVotes}</span>
+                <span className="text-lg font-ivalencia font-bold text-black mt-1">votes</span>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@ const Profile = () => {
                 value={visitorEmail}
                 onChange={e => setVisitorEmail(e.target.value)}
                 placeholder="Enter your email to vote"
-                className="w-full px-5 py-3 text-black rounded-xl border border-[#F24C00]/30 bg-white/80 text-lg font-coolvetica focus:outline-none focus:ring-2 focus:ring-[#F24C00]/40 transition"
+                className="w-full px-5 py-3 text-black rounded-xl border border-[#F24C00]/30 bg-white/80 text-lg font-satoshi focus:outline-none focus:ring-2 focus:ring-[#F24C00]/40 transition"
                 required
               />
               <div className="relative flex justify-center items-center w-full mt-4 mb-2">
@@ -111,7 +111,7 @@ const Profile = () => {
                 {/* Main button */}
                 <button
                   type="submit"
-                  className="relative z-10 px-10 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
+                  className="relative z-10 px-10 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-satoshi text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
                   disabled={subCheckLoading}
                 >
                   {subCheckLoading ? "Checking..." : "Continue"}
@@ -130,7 +130,7 @@ const Profile = () => {
               <button
                 onClick={handleVote}
                 disabled={voted || voteLoading}
-                className="relative z-10 px-10 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="relative z-10 px-10 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-satoshi text-lg flex items-center gap-4 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {voteLoading ? 'Voting...' : voted ? 'Voted' : 'Vote for this name'}
               </button>

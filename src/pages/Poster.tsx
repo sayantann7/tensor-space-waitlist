@@ -89,15 +89,15 @@ const Poster = () => {
         {/* Card Content */}
         <Confetti width={width} height={height} recycle={true} numberOfPieces={400} />
         
-        <h1 className="text-4xl sm:text-5xl font-coolvetica text-[#F24C00] mb-4">
+        <h1 className="text-4xl sm:text-5xl font-satoshi text-[#F24C00] mb-4">
           Congratulations! You have entered the contest!
         </h1>
 
-        <h1 className="text-xl sm:text-2xl font-coolvetica text-gray-700 mb-4 mt-4">
+        <h1 className="text-xl sm:text-2xl font-ivalencia text-gray-700 mb-4 mt-4">
           As a reward, we have made a poster for you! <br />Share this poster with the world, gain votes <br />and win big prizes! <br />
         </h1>
 
-        <h1 className="text-xl sm:text-2xl font-coolvetica text-gray-700 mb-4 mt-4">
+        <h1 className="text-xl sm:text-2xl font-ivalencia text-gray-700 mb-4 mt-4">
           You can also share your link with others to <br />let them vote you!
         </h1>
         
@@ -108,14 +108,14 @@ const Poster = () => {
             rel="noopener noreferrer"
             className="relative flex justify-center items-center"
           >
-            <span className="relative z-10 px-8 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-3 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200">
+            <span className="relative z-10 px-8 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-satoshi text-lg flex items-center gap-3 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200">
               Get Poster
             </span>
           </a>
           <div className="relative flex justify-center items-center">
             <button
               onClick={handleShareLink}
-              className="relative z-10 px-8 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-3 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
+              className="relative z-10 px-8 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-satoshi text-lg flex items-center gap-3 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
             >
               Share your Voting Link
             </button>
@@ -123,7 +123,7 @@ const Poster = () => {
           <div className="relative flex justify-center items-center">
             <button
               onClick={() => navigate("/voting")}
-              className="relative z-10 px-8 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-coolvetica text-lg flex items-center gap-3 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
+              className="relative z-10 px-8 py-3 rounded-full bg-gradient-to-b from-[#fba41b] to-[#fff3e0] shadow-xl text-black font-satoshi text-lg flex items-center gap-3 border-2 border-[#fba41b]/60 hover:scale-105 transition-transform duration-200"
             >
               Vote Others
             </button>

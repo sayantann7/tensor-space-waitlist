@@ -85,10 +85,10 @@ const Index = () => {
       >
         {/* Header inside Hero */}
         <header className="w-full flex justify-between items-center px-4 sm:px-8 md:px-8 pt-0 absolute top-0 left-0 z-30">
-          <div className="text-white text-xl sm:text-xl md:text-2xl font-coolvetica py-4 sm:py-6"><h1 className="pt-1">Tensor Space</h1></div>
+          <div className="text-white text-xl sm:text-xl md:text-2xl font-satoshi py-4 sm:py-6"><h1 className="pt-1">Tensor Space</h1></div>
           <button
             onClick={() => navigate('/name')}
-            className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30 mt-2 sm:mt-4"
+            className="flex items-center bg-white text-black font-satoshi text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30 mt-2 sm:mt-4"
           >
             Enter Contest
             <span className="ml-2 flex items-center justify-center w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-black text-white">
@@ -99,22 +99,22 @@ const Index = () => {
         {/* White gradient at bottom for smooth transition */}
         <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 sm:h-40 z-30" style={{ background: 'linear-gradient(0deg, #fff 0%, transparent 100%)' }} />
         {/* Launching badge */}
-        <div className="inline-flex items-center gap-2 bg-white text-black font-coolvetica text-xl sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow mb-6 sm:mb-8 mt-12 sm:mt-24">
+        <div className="inline-flex items-center gap-2 bg-white text-black font-satoshi text-xl sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow mb-6 sm:mb-8 mt-12 sm:mt-24">
           <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-[#eb5713]" /> Launching
         </div>
         {/* Main Title */}
-        <h1 className="text-white font-coolvetica text-6xl sm:text-6xl md:text-7xl lg:text-8xl font-normal mb-2">Tensor Space</h1>
+        <h1 className="text-white font-satoshi text-6xl sm:text-6xl md:text-7xl lg:text-8xl font-normal mb-2">Tensor Space</h1>
         {/* Subtitle */}
-        <div className="italic text-white text-xl sm:text-2xl md:text-3xl font-theseasons mb-4 sm:mb-6">The coziest workstation on the planet.</div>
+        <div className="italic text-white text-xl sm:text-2xl md:text-3xl font-ivalencia mb-4 sm:mb-6">The coziest workstation on the planet.</div>
         {/* Divider */}
         <div className="w-3/4 sm:w-1/2 max-w-md h-px bg-white/40 mx-auto mb-6 sm:mb-8" />
         {/* Help Text */}
-        <div className="text-white text-xl sm:text-2xl md:text-3xl font-coolvetica mb-2">But we need help.</div>
-        <div className="text-white text-xl w-[250px] sm:text-lg md:text-xl font-theseasons mb-8 sm:mb-10">Help us to name this thing, and win exciting prizes.</div>
+        <div className="text-white text-xl sm:text-2xl md:text-3xl font-satoshi mb-2">But we need help.</div>
+        <div className="text-white text-xl w-[250px] sm:text-lg md:text-xl font-ivalencia mb-8 sm:mb-10">Help us to name this thing, and win exciting prizes.</div>
         {/* Enter Contest Button */}
         <button
           onClick={() => navigate('/name')}
-          className="flex items-center bg-black text-white font-coolvetica text-xl sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-xl gap-2 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border-2 border-white/80"
+          className="flex items-center bg-black text-white font-satoshi text-xl sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-xl gap-2 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border-2 border-white/80"
         >
           Enter Contest
           <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black border border-black">
@@ -136,7 +136,7 @@ const Index = () => {
           {/* Video Section */}
           <motion.h1
             ref={demoRef}
-            className="text-3xl md:text-lg lg:text-5xl font-coolvetica text-black lg:w-[700px] w-[350px] mt-[200px]"
+            className="text-3xl md:text-lg lg:text-5xl font-satoshi text-black lg:w-[700px] w-[350px] mt-[200px]"
             initial={{ opacity: 0, y: 50 }}
             animate={demoInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
@@ -167,25 +167,25 @@ const Index = () => {
           {/* Card 1 */}
           <div className="bg-white text-black rounded-[2.5rem] shadow-xl px-8 py-16 w-64 sm:w-72 flex flex-col items-center transform -rotate-6 hover:rotate-0 transition-transform duration-300 z-10 -mr-4" style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)' }}>
             <div className="text-4xl mb-2">🎥</div>
-            <div className="font-theseasons text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">1:1 Call with Tensorboy</div>
-            <div className="text-[#7c5a1a] text-base text-center font-coolvetica">20 min private session.</div>
+            <div className="font-ivalencia text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">1:1 Call with Tensorboy</div>
+            <div className="text-[#7c5a1a] text-base text-center font-satoshi">20 min private session.</div>
           </div>
           {/* Card 2 */}
           <div className="bg-white rounded-[2.5rem] shadow-xl px-8 py-16 w-64 sm:w-72 flex flex-col items-center transform rotate-3 hover:rotate-0 transition-transform duration-300 z-20 -mx-2" style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)' }}>
             <div className="text-4xl mb-2">💎</div>
-            <div className="font-theseasons text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">6 Months Premium</div>
-            <div className="text-[#7c5a1a] text-base text-center font-coolvetica">Free access to the final product.</div>
+            <div className="font-ivalencia text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">6 Months Premium</div>
+            <div className="text-[#7c5a1a] text-base text-center font-satoshi">Free access to the final product.</div>
           </div>
           {/* Card 3 */}
           <div className="bg-white rounded-[2.5rem] shadow-xl px-8 py-16 w-64 sm:w-72 flex flex-col items-center transform rotate-6 hover:rotate-0 transition-transform duration-300 z-10 -ml-4" style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)' }}>
             <div className="text-4xl mb-2">📣</div>
-            <div className="font-theseasons text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">Instagram Shoutout</div>
-            <div className="text-[#7c5a1a] text-base text-center font-coolvetica">Featured by @tensorboy.</div>
+            <div className="font-ivalencia text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">Instagram Shoutout</div>
+            <div className="text-[#7c5a1a] text-base text-center font-satoshi">Featured by @tensorboy.</div>
           </div>
         </div>
-        <div className="text-5xl sm:text-6xl font-coolvetica text-black text-center mb-4 leading-tight">You get to name our next <span className="italic font-theseasons font-bold">big thing</span></div>
-        <div className="text-xl sm:text-2xl text-black text-center mb-8 font-coolvetica">3 creative minds with the coolest names<br className="hidden sm:block" /> will win exciting prizes.</div>
-        <button onClick={() => navigate("/name")} className="mt-2 px-6 py-4 rounded-full bg-black text-white font-coolvetica text-lg flex items-center gap-3 border-2 border-black shadow-lg hover:scale-105 transition-transform duration-200">
+        <div className="text-5xl sm:text-6xl font-satoshi text-black text-center mb-4 leading-tight">You get to name our next <span className="italic font-ivalencia font-bold">big thing</span></div>
+        <div className="text-xl sm:text-2xl text-black text-center mb-8 font-satoshi">3 creative minds with the coolest names<br className="hidden sm:block" /> will win exciting prizes.</div>
+        <button onClick={() => navigate("/name")} className="mt-2 px-6 py-4 rounded-full bg-black text-white font-satoshi text-lg flex items-center gap-3 border-2 border-black shadow-lg hover:scale-105 transition-transform duration-200">
           Enter Contest
           <span className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-white text-black border border-black">
             <ArrowUpRight className="w-5 h-5" />

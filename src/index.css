@@ -1,20 +1,18 @@
 @font-face {
-  font-family: 'TheSeasons';
-  src: url('/safira-march.ttf') format('opentype');
-  font-weight: normal;
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-variable.ttf') format('truetype');
+  font-weight: 100 900;
   font-style: normal;
 }
-
 @font-face {
-  font-family: 'Pixelated';
-  src: url('/pixelated-font.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'Satoshi';
+  src: url('/fonts/satoshi-variable-italic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
 }
-
 @font-face {
-  font-family: 'Coolvetica';
-  src: url('/coolvetica.otf') format('truetype');
+  font-family: 'Ivalencia';
+  src: url('/fonts/ivalencia-regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -62,7 +60,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-family: 'Satoshi', Arial, sans-serif;
   }
 }
 
