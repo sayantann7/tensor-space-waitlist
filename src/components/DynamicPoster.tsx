@@ -52,7 +52,7 @@ const DynamicPoster: React.FC<DynamicPosterProps> = ({
                 {userName}
               </h1>
               <p className="text-white/90 font-coolvetica text-base drop-shadow-sm">
-                @{userInstagram}
+                {userInstagram}
               </p>
             </div>
             

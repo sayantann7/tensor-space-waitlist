@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'Coolvetica';
+  font-family: 'coolvetica';
   src: url('/coolvetica.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Ivalencia';
+  font-family: 'ivalencia';
   src: url('/fonts/satoshi-variable.ttf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
-.font-coolvetica { font-family: 'Coolvetica', sans-serif; }
-.font-ivalencia { font-family: 'Ivalencia', serif; }
+.font-coolvetica { font-family: 'coolvetica', sans-serif; }
+.font-ivalencia { font-family: 'ivalencia', serif; }
 
 @tailwind base;
 @tailwind components;

@@ -20,7 +20,7 @@ const NameForm = () => {
     navigate("/email");
   };
   // Progress calculation
-  const steps = ["/name", "/email", "/instagram", "/confirmation", "/poster"];
+  const steps = ["/name", "/email", "/instagram", "/confirmation"];
   const location = useLocation();
   const currentStep = steps.findIndex((step) => location.pathname.startsWith(step));
   const progressValue = ((currentStep + 1) / steps.length) * 100;

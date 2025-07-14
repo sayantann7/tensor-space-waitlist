@@ -3,6 +3,7 @@ import { leaderboard as fetchLeaderboard, addVote } from "../lib/utils";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Search, ArrowLeft, Crown, Trophy, Medal, Users, Clock, Share2, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useToast } from "../hooks/use-toast";
 import DynamicPoster from "../components/DynamicPoster";
 
 interface Contestant {
@@ -63,9 +64,23 @@ const Leaderboard = () => {
 
   const votingEnds = "2d 4h 33m";
 
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    alert("Link copied! Share with your friends to get more votes!");
+  const { toast } = useToast();
+  const handleShare = async () => {
+    if (!userEntry) return;
+    const link = `https://contest.tensorboy.com/users/${userEntry.id}`;
+    try {
+      await navigator.clipboard.writeText(link);
+      toast({
+        title: "Link Copied!",
+        description: "Your voting link has been copied to the clipboard.",
+      });
+    } catch (err) {
+      toast({
+        title: "Error",
+        description: "Failed to copy the link. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleVote = async (contestantId: string) => {
@@ -218,8 +233,10 @@ const Leaderboard = () => {
                     onClick={handleShare}
                     className="flex items-center gap-3 bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] rounded-full px-8 py-4 shadow-lg hover:scale-105 transition-transform font-coolvetica font-medium"
                   >
-                    <Share2 className="w-6 h-6" />
                     Share Poster
+                    <span className="ml-0 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FFD592]/10 text-black border border-black">
+            <ArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6" />
+          </span>
                   </button>
                 </div>
               </div>
