@@ -1,21 +1,17 @@
 @font-face {
+  font-family: 'Coolvetica';
+  src: url('/coolvetica.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
   font-family: 'Satoshi';
   src: url('/fonts/satoshi-variable.ttf') format('truetype');
-  font-weight: 100 900;
+  font-weight: 400 700;
   font-style: normal;
 }
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/satoshi-variable-italic.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'Ivalencia';
-  src: url('/fonts/ivalencia-regular.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
+.font-coolvetica { font-family: 'Coolvetica', sans-serif; }
+.font-satoshi { font-family: 'Satoshi', sans-serif; }
 
 @tailwind base;
 @tailwind components;

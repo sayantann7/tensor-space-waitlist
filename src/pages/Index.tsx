@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useInView } from "framer-motion";
-import { ArrowUpRight, Rocket, Trophy, Users, Star, Sparkles } from "lucide-react";
+import { ArrowUpRight, Rocket, Trophy, Users, Star, Sparkles, Play, Pause, Volume2, VolumeX } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -9,6 +9,7 @@ const Index = () => {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videoMuted, setVideoMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
 
@@ -36,8 +37,7 @@ const Index = () => {
     const observer = new window.IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          videoRef.current?.play();
-          setVideoPlaying(true);
+          // Video will be controlled manually by user
         } else {
           videoRef.current?.pause();
           setVideoPlaying(false);
@@ -45,15 +45,35 @@ const Index = () => {
       },
       { threshold: 0.5 }
     );
-    if (videoContainerRef.current) {
-      observer.observe(videoContainerRef.current);
+    const currentVideoContainer = videoContainerRef.current;
+    if (currentVideoContainer) {
+      observer.observe(currentVideoContainer);
     }
     return () => {
-      if (videoContainerRef.current) {
-        observer.unobserve(videoContainerRef.current);
+      if (currentVideoContainer) {
+        observer.unobserve(currentVideoContainer);
       }
     };
   }, []);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoPlaying) {
+        videoRef.current.pause();
+        setVideoPlaying(false);
+      } else {
+        videoRef.current.play();
+        setVideoPlaying(true);
+      }
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoMuted;
+      setVideoMuted(!videoMuted);
+    }
+  };
 
   const prizes = [
     {
@@ -92,7 +112,7 @@ const Index = () => {
           >
             Enter Contest
             <span className="ml-2 flex items-center justify-center w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-black text-white">
-              <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
             </span>
           </button>
         </header>
@@ -100,7 +120,7 @@ const Index = () => {
         <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 sm:h-40 z-30" style={{ background: 'linear-gradient(0deg, #fff 0%, transparent 100%)' }} />
         {/* Launching badge */}
         <div className="inline-flex items-center gap-2 bg-white text-black font-satoshi text-xl sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow mb-6 sm:mb-8 mt-12 sm:mt-24">
-          <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-[#eb5713]" /> Launching
+          <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-black" /> Launching
         </div>
         {/* Main Title */}
         <h1 className="text-white font-satoshi text-6xl sm:text-6xl md:text-7xl lg:text-8xl font-normal mb-2">Tensor Space</h1>
@@ -118,45 +138,71 @@ const Index = () => {
         >
           Enter Contest
           <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black border border-black">
-            <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
           </span>
         </button>
       </main>
 
-      {/* Restored: Video/Demo Section */}
+      {/* Full-Screen Video Section */}
       <div
-        className="relative w-full bg-cover bg-center"
-        style={{ backgroundColor: "white" }}
+        ref={videoContainerRef}
+        className="relative w-full h-screen overflow-hidden"
       >
-        {/* Left and right subtle orange gradients (more visible) */}
-        <div className="pointer-events-none absolute top-0 left-0 h-full w-[500px] bg-gradient-to-r from-[#fba41b]/60 to-transparent z-0" />
-        <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" />
-        <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-white to-transparent text-center" />
-        <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-16 flex flex-col text-center items-center relative z-10">
-          {/* Video Section */}
-          <motion.h1
-            ref={demoRef}
-            className="text-3xl md:text-lg lg:text-5xl font-satoshi text-black lg:w-[700px] w-[350px] mt-[200px]"
-            initial={{ opacity: 0, y: 50 }}
-            animate={demoInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          >
-            Enjoy the Demo
-          </motion.h1>
-          <div className="flex justify-center items-center mb-16 mt-9">
-            <div ref={videoContainerRef} className="relative backdrop-blur-lg bg-white/10 rounded-3xl shadow-2xl p-1 sm:p-[7px] max-w-3xl w-full flex justify-center items-center">
-              <video
-                ref={videoRef}
-                src="/website-intro.mp4"
-                loop
-                controls
-                playsInline
-                className="rounded-2xl w-full h-auto shadow-lg border border-white/30 outline-none"
-                style={{ boxShadow: '0 8px 32px 0 rgba(235,87,19,0.15), 0 1.5px 0 0 #fff' }}
-              />
-            </div>
+        {/* Top gradient overlay for smooth transition from hero */}
+        <div className="absolute top-0 left-0 w-full h-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(180deg, white 0%, transparent 100%)' }} />
+        
+        {/* Bottom gradient overlay for smooth transition to next section */}
+        <div className="absolute bottom-0 left-0 w-full h-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(0deg, white 0%, transparent 100%)' }} />
+        
+        <video
+          ref={videoRef}
+          src="/website-intro.mp4"
+          loop
+          muted={videoMuted}
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        
+        {/* Video Controls Overlay */}
+        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+          <div className="flex items-center gap-4">
+            {/* Play/Pause Button */}
+            <button
+              onClick={togglePlay}
+              className="flex items-center justify-center w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
+            >
+              {videoPlaying ? (
+                <Pause className="w-8 h-8 text-black ml-0" />
+              ) : (
+                <Play className="w-8 h-8 text-black ml-1" />
+              )}
+            </button>
+            
+            {/* Mute/Unmute Button */}
+            <button
+              onClick={toggleMute}
+              className="flex items-center justify-center w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
+            >
+              {videoMuted ? (
+                <VolumeX className="w-6 h-6 text-black" />
+              ) : (
+                <Volume2 className="w-6 h-6 text-black" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Play button overlay when video is paused */}
+        {!videoPlaying && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 z-20">
+            <button
+              onClick={togglePlay}
+              className="flex items-center justify-center w-20 h-20 bg-white/95 backdrop-blur-sm rounded-full shadow-2xl hover:bg-white hover:scale-110 transition-all duration-300"
+            >
+              <Play className="w-10 h-10 text-black ml-1" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Restyled: Naming Contest & Prizes Section */}
@@ -188,7 +234,7 @@ const Index = () => {
         <button onClick={() => navigate("/name")} className="mt-2 px-6 py-4 rounded-full bg-black text-white font-satoshi text-lg flex items-center gap-3 border-2 border-black shadow-lg hover:scale-105 transition-transform duration-200">
           Enter Contest
           <span className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-white text-black border border-black">
-            <ArrowUpRight className="w-5 h-5" />
+            <ArrowUpRight className="w-8 h-8" />
           </span>
         </button>
       </div>

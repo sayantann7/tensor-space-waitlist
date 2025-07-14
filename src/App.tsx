@@ -13,6 +13,7 @@ import Poster from "./pages/Poster";
 import Voting from "./pages/Voting";
 import Profile from "./pages/Profile";
 import Users from "./pages/Users";
+import Leaderboard from "./pages/Leaderboard";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/instagram" element={<InstagramForm />} />
           <Route path="/confirmation" element={<Confirmation />} />
           <Route path="/poster" element={<Poster />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/voting" element={<Voting />} />
           {/* <Route path="/users" element={<Users />} /> */}
           <Route path="/users/:id" element={<Profile />} />
