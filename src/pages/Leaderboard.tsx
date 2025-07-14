@@ -94,7 +94,7 @@ const Leaderboard = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white rounded-[32px] p-8 shadow-2xl"
         >
-          <span className="font-satoshi text-2xl text-[#7a4a00]">Loading leaderboard...</span>
+          <span className="font-coolvetica text-2xl text-[#7a4a00]">Loading leaderboard...</span>
         </motion.div>
       </div>
     );
@@ -108,7 +108,7 @@ const Leaderboard = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white rounded-[32px] p-8 shadow-2xl"
         >
-          <span className="font-satoshi text-2xl text-[#7a4a00]">No entries yet.</span>
+          <span className="font-coolvetica text-2xl text-[#7a4a00]">No entries yet.</span>
         </motion.div>
       </div>
     );
@@ -157,7 +157,7 @@ const Leaderboard = () => {
         >
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-[#7a4a00] font-satoshi font-medium text-lg hover:scale-105 transition-transform"
+            className="flex items-center gap-2 text-[#7a4a00] font-coolvetica font-medium text-lg hover:scale-105 transition-transform"
           >
             <ArrowLeft className="w-5 h-5" />
             Back
@@ -166,7 +166,7 @@ const Leaderboard = () => {
           <div className="flex items-center gap-4 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-full px-8 py-4 shadow-xl">
             <Clock className="w-6 h-6 text-[#3B2800]" />
             <div className="flex flex-col items-center">
-              <span className="font-satoshi font-medium text-sm text-[#3B2800]/90">Voting ends in:</span>
+              <span className="font-coolvetica font-medium text-sm text-[#3B2800]/90">Voting ends in:</span>
               <span className="font-coolvetica font-bold text-2xl text-[#3B2800]">{votingEnds}</span>
             </div>
           </div>
@@ -183,7 +183,7 @@ const Leaderboard = () => {
           <h1 className="font-coolvetica text-5xl sm:text-6xl md:text-7xl text-[#3B2800] mb-4 leading-tight">
             Pick the best names in the game
           </h1>
-          <p className="font-satoshi text-xl sm:text-2xl text-[#7a4a00] font-medium max-w-3xl mx-auto">
+          <p className="font-coolvetica text-xl sm:text-2xl text-[#7a4a00] font-medium max-w-3xl mx-auto">
             You've got 3 votes left.
           </p>
         </motion.div>
@@ -209,14 +209,14 @@ const Leaderboard = () => {
                     <span className="font-coolvetica text-6xl text-[#7a4a00] font-bold">
                       #{entries.findIndex(e => e.id === userEntry.id) + 1}
                     </span>
-                    <p className="font-satoshi text-lg text-[#7a4a00] mt-2">Your Current Rank</p>
+                    <p className="font-coolvetica text-lg text-[#7a4a00] mt-2">Your Current Rank</p>
                   </div>
                 </div>
 
                 <div className="flex-shrink-0">
                   <button
                     onClick={handleShare}
-                    className="flex items-center gap-3 bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] rounded-full px-8 py-4 shadow-lg hover:scale-105 transition-transform font-satoshi font-medium"
+                    className="flex items-center gap-3 bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] rounded-full px-8 py-4 shadow-lg hover:scale-105 transition-transform font-coolvetica font-medium"
                   >
                     <Share2 className="w-6 h-6" />
                     Share Poster
@@ -237,14 +237,14 @@ const Leaderboard = () => {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="flex flex-col gap-2 text-white text-center sm:text-left">
                 <span className="font-coolvetica text-2xl">Want more votes on your name?</span>
-                <span className="font-satoshi font-medium text-base opacity-80">Share to your friends to get 5 votes to your name</span>
+                <span className="font-coolvetica font-medium text-base opacity-80">Share to your friends to get 5 votes to your name</span>
               </div>
               <button 
                 onClick={handleShare}
                 className="flex items-center gap-3 bg-white rounded-full px-8 py-4 shadow-lg hover:scale-105 transition-transform"
               >
                 <Share2 className="w-5 h-5 text-black" />
-                <span className="font-satoshi font-medium text-lg text-black">Share Ticket</span>
+                <span className="font-coolvetica font-medium text-lg text-black">Share Ticket</span>
                 <div className="flex items-center justify-center w-8 h-8 bg-black rounded-full">
                   <ArrowUpRight className="w-4 h-4 text-white" />
                 </div>
@@ -266,7 +266,7 @@ const Leaderboard = () => {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search your friends name and vote them"
-              className="w-full bg-transparent outline-none font-satoshi text-lg text-[#7a4a00] placeholder:text-[#7a4a00]/50"
+              className="w-full bg-transparent outline-none font-coolvetica text-lg text-[#7a4a00] placeholder:text-[#7a4a00]/50"
             />
             {search && (
               <button
@@ -317,12 +317,12 @@ const Leaderboard = () => {
                           }`}>
                           {entry.name}
                         </span>
-                        <span className={`font-satoshi text-sm text-[#3B2800] px-3 py-1 rounded-full shadow-inner ${isTop3 ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500]' : 'bg-gradient-to-r from-[#FF9100] to-[#FFD592]'
+                        <span className={`font-coolvetica text-sm text-[#3B2800] px-3 py-1 rounded-full shadow-inner ${isTop3 ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500]' : 'bg-gradient-to-r from-[#FF9100] to-[#FFD592]'
                           }`}>
                           {entry.totalVotes} votes
                         </span>
                       </div>
-                      <div className="font-satoshi text-base text-[#7a4a00] flex items-center gap-1">
+                      <div className="font-coolvetica text-base text-[#7a4a00] flex items-center gap-1">
                         <Users className="w-4 h-4" />
                         {/* <span className="font-medium">Submitted by:</span>  */}
                         {entry.ig_username.startsWith("@") ? (
@@ -337,7 +337,7 @@ const Leaderboard = () => {
                   <button
                       onClick={() => handleVote(entry.id)}
                       disabled={voteLoading === entry.id}
-                      className={`px-8 py-3 rounded-full font-satoshi text-base font-bold shadow-lg transition-all duration-200 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'
+                      className={`px-8 py-3 rounded-full font-coolvetica text-base font-bold shadow-lg transition-all duration-200 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'
                         } bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] hover:shadow-xl`}
                     >
                       {voteLoading === entry.id ? 'Voting...' : 'Vote'}
@@ -369,7 +369,7 @@ const Leaderboard = () => {
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-full font-satoshi font-bold transition-all ${page === currentPage
+                  className={`w-10 h-10 rounded-full font-coolvetica font-bold transition-all ${page === currentPage
                       ? 'bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white shadow-lg'
                       : 'bg-white text-[#7a4a00] shadow hover:shadow-lg'
                     }`}
@@ -394,7 +394,7 @@ const Leaderboard = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-full font-satoshi shadow-lg z-50"
+            className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-full font-coolvetica shadow-lg z-50"
           >
             {error}
           </motion.div>

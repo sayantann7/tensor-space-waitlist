@@ -74,7 +74,7 @@ const Profile = () => {
       <div className="w-full max-w-lg mx-auto relative z-10">
         <div className="bg-white/90 rounded-3xl shadow-2xl border border-[#F24C00]/20 flex flex-col items-center p-10">
           {/* Heading */}
-          <h1 className="text-4xl sm:text-5xl font-satoshi text-[#F24C00] text-center mb-10 drop-shadow-lg">
+          <h1 className="text-4xl sm:text-5xl font-coolvetica text-[#F24C00] text-center mb-10 drop-shadow-lg">
             Vote for <br /><span className="text-black font-ivalencia font-bold">{profile.name}</span>
           </h1>
 
@@ -84,7 +84,7 @@ const Profile = () => {
               <div className="absolute w-44 h-44 rounded-full bg-gradient-to-br from-[#fba41b]/40 to-[#fff3e0]/80 blur-2xl opacity-80"></div>
               <div className="w-40 h-40 rounded-full bg-gradient-to-br from-[#fba41b] to-[#fff3e0] flex flex-col items-center justify-center shadow-xl border-4 border-[#F24C00]/30 z-10">
                 <Users className="w-12 h-12 text-[#F24C00] mb-2" />
-                <span className="text-5xl font-satoshi text-[#F24C00]">{profile.totalVotes}</span>
+                <span className="text-5xl font-coolvetica text-[#F24C00]">{profile.totalVotes}</span>
                 <span className="text-lg font-ivalencia font-bold text-black mt-1">votes</span>
               </div>
             </div>

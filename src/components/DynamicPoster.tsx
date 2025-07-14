@@ -51,7 +51,7 @@ const DynamicPoster: React.FC<DynamicPosterProps> = ({
               <h1 className="text-white font-coolvetica text-4xl font-bold leading-none mb-3 drop-shadow-lg">
                 {userName}
               </h1>
-              <p className="text-white/90 font-satoshi text-base drop-shadow-sm">
+              <p className="text-white/90 font-coolvetica text-base drop-shadow-sm">
                 @{userInstagram}
               </p>
             </div>
@@ -60,10 +60,10 @@ const DynamicPoster: React.FC<DynamicPosterProps> = ({
             <div className="w-16 h-px bg-white/50 mx-auto mb-6"></div>
             
             {/* Contest Label */}
-            <div className="text-white/80 font-satoshi text-sm uppercase tracking-wider mb-2">
+            <div className="text-white/80 font-coolvetica text-sm uppercase tracking-wider mb-2">
               Tensor Space
             </div>
-            <div className="text-white/70 font-satoshi text-xs uppercase tracking-wider">
+            <div className="text-white/70 font-coolvetica text-xs uppercase tracking-wider">
               Naming Contest
             </div>
           </div>

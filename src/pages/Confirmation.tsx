@@ -84,7 +84,7 @@ const Confirmation = () => {
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[100px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(40px)', opacity: 0.7 }} />
       {/* Ticket-style card */}
       <div className="relative z-20 mx-auto mt-32 flex flex-col items-start w-[800px] max-w-full">
-        <h2 className="text-2xl font-normal text-black mb-8 ml-4" style={{ fontFamily: 'Satoshi, sans-serif' }}>Get your poster</h2>
+        <h2 className="text-2xl font-normal text-black mb-8 ml-4 font-coolvetica">Ready to enter the arena?</h2>
         <div
           className="flex w-full"
           style={{
@@ -99,8 +99,8 @@ const Confirmation = () => {
         
           {/* Left side: QR and message */} 
           <div className="flex flex-col items-center justify-center w-1/2 py-10 px-8 border-r border-dashed border-gray-300">
-            <div className="text-2xl text-[#7a4a00] text-center mb-6" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-              It’s time to show the<br />world your <span className="italic" style={{ fontFamily: 'Ivalencia, serif' }}>creativity.</span>
+            <div className="text-2xl text-[#7a4a00] text-center mb-6 font-coolvetica">
+              It’s time to show the<br />world your <span className="italic font-ivalencia">creativity.</span>
             </div>
             <img
                 src={`https://quickchart.io/qr?text=https://contest.tensorboy.com/users/${userId}&size=400`}
@@ -111,27 +111,26 @@ const Confirmation = () => {
           {/* Right side: user info and submit */}
           <div className="flex flex-col justify-center w-1/2 py-10 px-8 gap-6">
             <div className="flex items-center gap-3">
-              <span className="bg-[#ededed] rounded-lg px-3 py-2 text-[#888] text-base font-normal">Username :</span>
-              <span className="text-black text-base font-normal" style={{ fontFamily: 'Satoshi, sans-serif' }}>{email}</span>
+              <span className="bg-[#ededed] rounded-lg px-3 py-2 text-[#888] text-base font-normal font-coolvetica">Username :</span>
+              <span className="text-black text-base font-normal font-coolvetica">{email}</span>
               <button className="ml-2 p-1 bg-gray-500 rounded hover:bg-gray-800"><svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg></button>
             </div>
             <div className="flex items-center gap-3">
-              <span className="bg-[#ededed] rounded-lg px-3 py-2 text-[#888] text-base font-normal">Suggested name:</span>
-              <span className="text-black text-base font-normal" style={{ fontFamily: 'Satoshi, sans-serif' }}>{name}</span>
+              <span className="bg-[#ededed] rounded-lg px-3 py-2 text-[#888] text-base font-normal font-coolvetica">Suggested name:</span>
+              <span className="text-black text-base font-normal font-coolvetica">{name}</span>
               <button className="ml-2 p-1 rounded bg-gray-500 hover:bg-gray-800"><svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg></button>
             </div>
             <div className="flex items-center gap-3">
-              <span className="bg-[#ededed] rounded-lg px-3 py-2 text-[#888] text-base font-normal">Instagram:</span>
-              <span className="text-black text-base font-normal" style={{ fontFamily: 'Satoshi, sans-serif' }}>{instagram}</span>
+              <span className="bg-[#ededed] rounded-lg px-3 py-2 text-[#888] text-base font-normal font-coolvetica">Instagram:</span>
+              <span className="text-black text-base font-normal font-coolvetica">{instagram}</span>
               <button className="ml-2 p-1 rounded bg-gray-500 hover:bg-gray-800"><svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19.5 3 21l1.5-4L16.5 3.5z"/></svg></button>
             </div>
             <div className="flex items-center gap-4 mt-4">
-              <span className="text-[#888] text-sm underline cursor-pointer">Edit</span>
+              <span className="text-[#888] text-sm underline cursor-pointer font-coolvetica">Edit</span>
               <button
                 onClick={handleProceed}
                 disabled={isReady}
-                className="w-[180px] py-4 rounded-full bg-black text-white font-normal text-lg transition-all duration-150 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed"
-                style={{ fontFamily: 'Satoshi, sans-serif', boxShadow: '0 2px 8px #00000011' }}
+                className="w-[180px] py-4 rounded-full bg-black text-white font-normal text-lg transition-all duration-150 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed font-coolvetica"
               >
                 Submit
               </button>

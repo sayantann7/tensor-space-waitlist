@@ -69,8 +69,8 @@ const NameForm = () => {
       <div className="relative z-20 w-full max-w-lg mx-auto p-10 bg-white rounded-[48px] shadow-2xl flex flex-col items-center border-none" style={{ boxShadow: '0 8px 64px 0 #ff910033' }}>
         {/* Surrounding Images */}
         {/* Card Content */}
-        <h1 className="text-center text-[#7a4a00] text-2xl md:text-3xl font-normal mb-8" style={{ fontFamily: 'Satoshi, sans-serif' }}>
-          Give a name the <span className="italic font-normal" style={{ fontFamily: 'Ivalencia, serif', color: '#7a4a00' }}>coziest</span><br />workstation on the planet
+        <h1 className="text-center text-[#7a4a00] text-2xl md:text-3xl font-normal mb-8 font-coolvetica">
+          Give a name the <span className="italic font-normal font-ivalencia" style={{ color: '#7a4a00' }}>coziest</span><br />workstation on the planet
         </h1>
         <form onSubmit={handleSubmit} className="w-full flex flex-col items-center gap-6">
           <div className="w-full relative">
@@ -81,18 +81,16 @@ const NameForm = () => {
                 if (e.target.value.length <= maxChars) setName(e.target.value);
               }}
               placeholder="Your future startup name?"
-              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-white text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#bfa77a]"
-              style={{ fontFamily: 'Satoshi, sans-serif', boxShadow: '0 2px 8px #ff910022' }}
+              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-white text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#bfa77a] font-coolvetica"
               maxLength={maxChars}
               required
             />
-            <span className="absolute right-3 bottom-2 text-xs text-[#7a4a00] opacity-70 select-none" style={{ fontFamily: 'Satoshi, sans-serif' }}>{name.length}/{maxChars}</span>
+            <span className="absolute right-3 bottom-2 text-xs text-[#7a4a00] opacity-70 select-none font-coolvetica">{name.length}/{maxChars}</span>
           </div>
           {error && <div className="text-red-500 text-xs font-mono text-center">{error}</div>}
           <button
             type="submit"
-            className="w-[180px] py-3 rounded-full bg-black text-white font-normal text-base mt-2 transition-all duration-150 hover:scale-105"
-            style={{ fontFamily: 'Satoshi, sans-serif', boxShadow: '0 2px 8px #00000022' }}
+            className="w-[180px] py-3 rounded-full bg-black text-white font-normal text-base mt-2 transition-all duration-150 hover:scale-105 font-coolvetica"
           >
             Submit
           </button>

@@ -23,13 +23,13 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-2xl border-2 p-6 pr-8 shadow-2xl transition-all font-satoshi bg-gradient-to-br from-[#fff3e0] via-[#fba41b]/30 to-white border-[#fba41b]/40 data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-2xl border-2 p-6 pr-8 shadow-2xl transition-all font-coolvetica bg-gradient-to-br from-[#fff3e0] via-[#fba41b]/30 to-white border-[#fba41b]/40 data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",
   {
     variants: {
       variant: {
-        default: "border bg-gradient-to-br from-[#fff3e0] via-[#fba41b]/30 to-white text-[#F24C00] font-satoshi",
+        default: "border bg-gradient-to-br from-[#fff3e0] via-[#fba41b]/30 to-white text-[#F24C00] font-coolvetica",
         destructive:
-          "destructive group border-red-400 bg-gradient-to-br from-[#fff3e0] via-[#f24c00]/40 to-white text-red-700 font-satoshi",
+          "destructive group border-red-400 bg-gradient-to-br from-[#fff3e0] via-[#f24c00]/40 to-white text-red-700 font-coolvetica",
       },
     },
     defaultVariants: {
@@ -92,7 +92,7 @@ const ToastTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Title
     ref={ref}
-    className={cn("text-lg font-satoshi text-[#F24C00]", className)}
+    className={cn("text-lg font-coolvetica text-[#F24C00]", className)}
     {...props}
   />
 ))
@@ -104,7 +104,7 @@ const ToastDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <ToastPrimitives.Description
     ref={ref}
-    className={cn("text-base font-satoshi text-black opacity-90", className)}
+    className={cn("text-base font-coolvetica text-black opacity-90", className)}
     {...props}
   />
 ))

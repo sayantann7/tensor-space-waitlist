@@ -75,13 +75,12 @@ const InstagramForm = () => {
         <button
           type="button"
           onClick={handleSkip}
-          className="absolute top-8 right-8 text-[#7a4a00] text-sm font-normal bg-transparent border-none outline-none hover:underline"
-          style={{ fontFamily: 'Satoshi, sans-serif' }}
+          className="absolute top-8 right-8 text-[#7a4a00] text-sm font-normal bg-transparent border-none outline-none hover:underline font-coolvetica"
         >
           Skip
         </button>
         {/* Card Content */}
-        <h1 className="text-center text-[#7a4a00] text-2xl md:text-3xl font-normal mb-8" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+        <h1 className="text-center text-[#7a4a00] text-2xl md:text-3xl font-normal mb-8 font-coolvetica">
           Add your <span className="font-bold">@</span> so we can<br />shout you out
         </h1>
         <form onSubmit={handleSubmit} className="w-full flex flex-col items-center gap-6">
@@ -91,11 +90,10 @@ const InstagramForm = () => {
               value={username}
               onChange={e => setUsername(e.target.value)}
               placeholder="Drop your @ below"
-              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-white text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#bfa77a]"
-              style={{ fontFamily: 'Satoshi, sans-serif', boxShadow: '0 2px 8px #ff910022' }}
+              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-white text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#bfa77a] font-coolvetica"
             />
           </div>
-          <label className="flex items-center gap-3 text-sm text-[#7a4a00] font-normal w-full" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+          <label className="flex items-center gap-3 text-sm text-[#7a4a00] font-normal w-full font-coolvetica">
             <input
               type="checkbox"
               checked={isFollowing}
@@ -108,8 +106,7 @@ const InstagramForm = () => {
           {error && <div className="text-red-500 text-xs font-mono text-center">{error}</div>}
           <button
             type="submit"
-            className="w-[200px] py-4 rounded-full bg-black text-white font-normal text-lg mt-2 transition-all duration-150 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed"
-            style={{ fontFamily: 'Satoshi, sans-serif', boxShadow: '0 2px 8px #00000011' }}
+            className="w-[200px] py-4 rounded-full bg-black text-white font-normal text-lg mt-2 transition-all duration-150 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed font-coolvetica"
             disabled={!isFollowing}
           >
             Submit
