@@ -150,31 +150,31 @@ const Leaderboard = () => {
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(40px)', opacity: 0.7 }} />
 
       <div className="relative z-20 w-full max-w-6xl mx-auto pt-20 pb-12 px-4">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-6"
         >
-          <button 
-            onClick={() => navigate(-1)} 
+          <button
+            onClick={() => navigate("/")}
             className="flex items-center gap-2 text-[#7a4a00] font-satoshi font-medium text-lg hover:scale-105 transition-transform"
           >
             <ArrowLeft className="w-5 h-5" />
             Back
           </button>
-          
+
           <div className="flex items-center gap-4 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-full px-8 py-4 shadow-xl">
-            <Clock className="w-6 h-6 text-white" />
+            <Clock className="w-6 h-6 text-[#3B2800]" />
             <div className="flex flex-col items-center">
-              <span className="font-satoshi font-medium text-sm text-white/90">Voting ends in:</span>
-              <span className="font-coolvetica font-bold text-2xl text-white">{votingEnds}</span>
+              <span className="font-satoshi font-medium text-sm text-[#3B2800]/90">Voting ends in:</span>
+              <span className="font-coolvetica font-bold text-2xl text-[#3B2800]">{votingEnds}</span>
             </div>
           </div>
-          
+
           <div className="w-16"></div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -184,12 +184,12 @@ const Leaderboard = () => {
             Pick the best names in the game
           </h1>
           <p className="font-satoshi text-xl sm:text-2xl text-[#7a4a00] font-medium max-w-3xl mx-auto">
-            You've got 3 votes. One went to your idea — the other two are up to you.
+            You've got 3 votes left.
           </p>
         </motion.div>
 
         {userEntry && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
@@ -198,12 +198,12 @@ const Leaderboard = () => {
             <div className="bg-white rounded-[32px] p-8 shadow-2xl">
               <div className="flex items-center justify-between gap-8">
                 <div className="flex-shrink-0">
-                  <DynamicPoster 
-                    userName={userEntry.name} 
+                  <DynamicPoster
+                    userName={userEntry.name}
                     userInstagram={userEntry.ig_username}
                   />
                 </div>
-                
+
                 <div className="flex-1 text-center">
                   <div className="mb-4">
                     <span className="font-coolvetica text-6xl text-[#7a4a00] font-bold">
@@ -212,11 +212,11 @@ const Leaderboard = () => {
                     <p className="font-satoshi text-lg text-[#7a4a00] mt-2">Your Current Rank</p>
                   </div>
                 </div>
-                
+
                 <div className="flex-shrink-0">
-                  <button 
+                  <button
                     onClick={handleShare}
-                    className="flex items-center gap-3 bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white rounded-full px-8 py-4 shadow-lg hover:scale-105 transition-transform font-satoshi font-medium"
+                    className="flex items-center gap-3 bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] rounded-full px-8 py-4 shadow-lg hover:scale-105 transition-transform font-satoshi font-medium"
                   >
                     <Share2 className="w-6 h-6" />
                     Share Poster
@@ -227,7 +227,7 @@ const Leaderboard = () => {
           </motion.div>
         )}
 
-        <motion.div 
+        {/* <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.25 }}
@@ -251,9 +251,9 @@ const Leaderboard = () => {
               </button>
             </div>
           </div>
-        </motion.div>
+        </motion.div> */}
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -269,7 +269,7 @@ const Leaderboard = () => {
               className="w-full bg-transparent outline-none font-satoshi text-lg text-[#7a4a00] placeholder:text-[#7a4a00]/50"
             />
             {search && (
-              <button 
+              <button
                 onClick={() => setSearch("")}
                 className="flex items-center justify-center w-10 h-10 bg-[#ff9100] rounded-full hover:scale-110 transition-transform"
               >
@@ -279,7 +279,7 @@ const Leaderboard = () => {
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
@@ -288,63 +288,60 @@ const Leaderboard = () => {
           {currentEntries.map((entry, idx) => {
             const globalRank = startIndex + idx;
             const isTop3 = globalRank < 3;
-            
+
             return (
-              <motion.div 
+              <motion.div
                 key={entry.id}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 + idx * 0.1 }}
-                className={`rounded-[32px] shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] ${
-                  isTop3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200' : 'bg-white'
-                }`}
+                className={`rounded-[32px] shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] ${isTop3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200' : 'bg-white'
+                  }`}
               >
                 <div className="flex items-center justify-between gap-6">
                   <div className="flex items-center gap-6">
-                    <div className={`flex items-center justify-center w-16 h-16 rounded-full text-white font-coolvetica text-xl font-bold shadow-lg ${
-                      globalRank === 0 ? 'bg-gradient-to-br from-[#FFD700] to-[#FF9100]' : 
-                      globalRank === 1 ? 'bg-gradient-to-br from-[#C0C0C0] to-[#FF9100]' : 
-                      globalRank === 2 ? 'bg-gradient-to-br from-[#CD7F32] to-[#FF9100]' : 
-                      'bg-gradient-to-br from-[#E0E0E0] to-[#FF9100] text-[#7a4a00]'
-                    }`}>
-                      {globalRank === 0 ? <Crown className="w-8 h-8" /> : 
-                       globalRank === 1 ? <Trophy className="w-8 h-8" /> : 
-                       globalRank === 2 ? <Medal className="w-8 h-8" /> : 
-                       `#${globalRank + 1}`}
+                    <div className={`flex items-center justify-center w-16 h-16 rounded-full text-[#3B2800] font-coolvetica text-xl font-bold shadow-lg ${globalRank === 0 ? 'bg-gradient-to-br from-[#FFD700] to-[#FF9100]' :
+                        globalRank === 1 ? 'bg-gradient-to-br from-[#C0C0C0] to-[#FF9100]' :
+                          globalRank === 2 ? 'bg-gradient-to-br from-[#CD7F32] to-[#FF9100]' :
+                            'bg-gradient-to-br from-[#E0E0E0] to-[#FF9100] text-[#3B2800]'
+                      }`}>
+                      {globalRank === 0 ? <Crown className="w-8 h-8" /> :
+                        globalRank === 1 ? <Trophy className="w-8 h-8" /> :
+                          globalRank === 2 ? <Medal className="w-8 h-8" /> :
+                            `#${globalRank + 1}`}
                     </div>
-                    
+
                     <div className="flex flex-col">
                       <div className="flex items-center gap-3 mb-1">
-                        <span className={`font-coolvetica text-2xl font-bold ${
-                          isTop3 ? 'text-[#B8860B]' : 'text-[#7a4a00]'
-                        }`}>
+                        <span className={`font-coolvetica text-2xl font-bold ${isTop3 ? 'text-[#B8860B]' : 'text-[#7a4a00]'
+                          }`}>
                           {entry.name}
                         </span>
-                        <span className={`font-satoshi text-sm text-white px-3 py-1 rounded-full shadow-inner ${
-                          isTop3 ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500]' : 'bg-gradient-to-r from-[#FF9100] to-[#FFD592]'
-                        }`}>
+                        <span className={`font-satoshi text-sm text-[#3B2800] px-3 py-1 rounded-full shadow-inner ${isTop3 ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500]' : 'bg-gradient-to-r from-[#FF9100] to-[#FFD592]'
+                          }`}>
                           {entry.totalVotes} votes
                         </span>
                       </div>
                       <div className="font-satoshi text-base text-[#7a4a00] flex items-center gap-1">
                         <Users className="w-4 h-4" />
-                        <span className="font-medium">Submitted by:</span> 
-                        <span className="font-bold">@{entry.ig_username}</span>
+                        {/* <span className="font-medium">Submitted by:</span>  */}
+                        {entry.ig_username.startsWith("@") ? (
+                          <span className="font-bold text-special">{entry.ig_username.substring(1)}</span>
+                        ) : (
+                          <span className="font-bold">{entry.ig_username}</span>
+                        )}
                       </div>
                     </div>
                   </div>
 
-                  {(entry.email !== userEntry?.email && entry.ig_username !== userEntry?.ig_username) && (
-                    <button
+                  <button
                       onClick={() => handleVote(entry.id)}
                       disabled={voteLoading === entry.id}
-                      className={`px-8 py-3 rounded-full font-satoshi text-base font-bold shadow-lg transition-all duration-200 ${
-                        voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'
-                      } bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white hover:shadow-xl`}
+                      className={`px-8 py-3 rounded-full font-satoshi text-base font-bold shadow-lg transition-all duration-200 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'
+                        } bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] hover:shadow-xl`}
                     >
                       {voteLoading === entry.id ? 'Voting...' : 'Vote'}
                     </button>
-                  )}
                 </div>
               </motion.div>
             );
@@ -352,7 +349,7 @@ const Leaderboard = () => {
         </motion.div>
 
         {totalPages > 1 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
@@ -361,32 +358,31 @@ const Leaderboard = () => {
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-5 h-5" />
               Previous
             </button>
-            
+
             <div className="flex items-center gap-2">
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-full font-satoshi font-bold transition-all ${
-                    page === currentPage 
-                      ? 'bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white shadow-lg' 
+                  className={`w-10 h-10 rounded-full font-satoshi font-bold transition-all ${page === currentPage
+                      ? 'bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white shadow-lg'
                       : 'bg-white text-[#7a4a00] shadow hover:shadow-lg'
-                  }`}
+                    }`}
                 >
                   {page}
                 </button>
               ))}
             </div>
-            
+
             <button
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-black"
             >
               Next
               <ChevronRight className="w-5 h-5" />
@@ -394,21 +390,8 @@ const Leaderboard = () => {
           </motion.div>
         )}
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-16"
-        >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Trophy className="w-6 h-6 text-[#7a4a00]" />
-            <span className="font-satoshi font-medium text-lg text-[#7a4a00]">Top 10 best names chosen by you guys</span>
-          </div>
-          <span className="font-coolvetica text-3xl text-[#3B2800]">Leaderboard</span>
-        </motion.div>
-
         {error && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-full font-satoshi shadow-lg z-50"
