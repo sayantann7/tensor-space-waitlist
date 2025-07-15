@@ -71,14 +71,16 @@ const Leaderboard = () => {
     try {
       await navigator.clipboard.writeText(link);
       toast({
-        title: "Link Copied!",
-        description: "Your voting link has been copied to the clipboard.",
+        title: "🎉 Link Copied!",
+        description: "Share this link with friends to get more votes!",
+        className: "font-coolvetica border-[#FF9100]/30 bg-white/95 backdrop-blur-sm shadow-xl text-sm sm:text-base max-w-sm sm:max-w-md",
       });
     } catch (err) {
       toast({
-        title: "Error",
-        description: "Failed to copy the link. Please try again.",
+        title: "❌ Failed to copy",
+        description: "Please try copying the link again.",
         variant: "destructive",
+        className: "font-coolvetica border-red-200 bg-white/95 backdrop-blur-sm shadow-xl text-sm sm:text-base max-w-sm sm:max-w-md",
       });
     }
   };
@@ -164,25 +166,25 @@ const Leaderboard = () => {
 
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(40px)', opacity: 0.7 }} />
 
-      <div className="relative z-20 w-full max-w-6xl mx-auto pt-20 pb-12 px-4">
+      <div className="relative z-20 w-full max-w-6xl mx-auto pt-16 sm:pt-20 pb-8 sm:pb-12 px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-6"
+          className="flex flex-col sm:flex-row items-center justify-between mb-8 sm:mb-12 gap-4 sm:gap-6"
         >
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 text-[#7a4a00] font-coolvetica font-medium text-lg hover:scale-105 transition-transform"
+            className="flex items-center gap-2 text-[#7a4a00] font-coolvetica font-medium text-base sm:text-lg hover:scale-105 transition-transform"
           >
             <ArrowLeft className="w-5 h-5" />
             Back
           </button>
 
-          <div className="flex items-center gap-4 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-full px-8 py-4 shadow-xl">
-            <Clock className="w-6 h-6 text-[#3B2800]" />
+          <div className="flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-full px-4 sm:px-8 py-3 sm:py-4 shadow-xl">
+            <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-[#3B2800]" />
             <div className="flex flex-col items-center">
-              <span className="font-coolvetica font-medium text-sm text-[#3B2800]/90">Voting ends in:</span>
-              <span className="font-coolvetica font-bold text-2xl text-[#3B2800]">{votingEnds}</span>
+              <span className="font-coolvetica font-medium text-xs sm:text-sm text-[#3B2800]/90">Voting ends in:</span>
+              <span className="font-coolvetica font-bold text-lg sm:text-2xl text-[#3B2800]">{votingEnds}</span>
             </div>
           </div>
 
@@ -208,10 +210,40 @@ const Leaderboard = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="w-full max-w-4xl mx-auto mb-12"
+            className="w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
           >
-            <div className="bg-white rounded-[32px] p-8 shadow-2xl">
-              <div className="flex items-center justify-between gap-8">
+            <div className="bg-white rounded-2xl sm:rounded-[32px] p-6 sm:p-8 shadow-2xl">
+              {/* Mobile Layout - Stacked */}
+              <div className="flex flex-col sm:hidden gap-6">
+                <div className="text-center">
+                  <span className="font-coolvetica text-4xl sm:text-6xl text-[#7a4a00] font-bold">
+                    #{entries.findIndex(e => e.id === userEntry.id) + 1}
+                  </span>
+                  <p className="font-coolvetica text-base sm:text-lg text-[#7a4a00] mt-2">Your Current Rank</p>
+                </div>
+                
+                <div className="flex items-center justify-center">
+                  <div className="scale-75 sm:scale-100">
+                    <DynamicPoster
+                      userName={userEntry.name}
+                      userInstagram={userEntry.ig_username}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleShare}
+                  className="flex items-center justify-center gap-3 bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] rounded-full px-6 py-3 shadow-lg hover:scale-105 transition-transform font-coolvetica font-medium w-full"
+                >
+                  Share Poster
+                  <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[#FFD592]/10 text-black border border-black">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </span>
+                </button>
+              </div>
+
+              {/* Desktop Layout - Horizontal */}
+              <div className="hidden sm:flex items-center justify-between gap-8">
                 <div className="flex-shrink-0">
                   <DynamicPoster
                     userName={userEntry.name}
@@ -235,8 +267,8 @@ const Leaderboard = () => {
                   >
                     Share Poster
                     <span className="ml-0 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FFD592]/10 text-black border border-black">
-            <ArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6" />
-          </span>
+                      <ArrowUpRight className="w-4 h-4 sm:w-6 sm:h-6" />
+                    </span>
                   </button>
                 </div>
               </div>
@@ -274,23 +306,23 @@ const Leaderboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="w-full max-w-2xl mx-auto mb-12"
+          className="w-full max-w-2xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
         >
-          <div className="bg-white rounded-full px-8 py-4 shadow-xl flex items-center gap-4">
-            <Search className="w-6 h-6 text-[#7a4a00]" />
+          <div className="bg-white rounded-2xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-xl flex items-center gap-3 sm:gap-4">
+            <Search className="w-5 h-5 sm:w-6 sm:h-6 text-[#7a4a00] flex-shrink-0" />
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search your friends name and vote them"
-              className="w-full bg-transparent outline-none font-coolvetica text-lg text-[#7a4a00] placeholder:text-[#7a4a00]/50"
+              placeholder="Search contestants..."
+              className="w-full bg-transparent outline-none font-coolvetica text-base sm:text-lg text-[#7a4a00] placeholder:text-[#7a4a00]/50"
             />
             {search && (
               <button
                 onClick={() => setSearch("")}
-                className="flex items-center justify-center w-10 h-10 bg-[#ff9100] rounded-full hover:scale-110 transition-transform"
+                className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-[#ff9100] rounded-full hover:scale-110 transition-transform flex-shrink-0"
               >
-                <span className="text-white font-bold">×</span>
+                <span className="text-white font-bold text-lg">×</span>
               </button>
             )}
           </div>
@@ -300,7 +332,7 @@ const Leaderboard = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="w-full max-w-4xl mx-auto space-y-6"
+          className="w-full max-w-4xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-0"
         >
           {currentEntries.map((entry, idx) => {
             const globalRank = startIndex + idx;
@@ -312,10 +344,57 @@ const Leaderboard = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.5 + idx * 0.1 }}
-                className={`rounded-[32px] shadow-xl p-6 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] ${isTop3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200' : 'bg-white'
+                className={`rounded-2xl sm:rounded-[32px] shadow-xl p-4 sm:p-6 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] ${isTop3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200' : 'bg-white'
                   }`}
               >
-                <div className="flex items-center justify-between gap-6">
+                {/* Mobile Layout (Stacked) */}
+                <div className="flex flex-col sm:hidden gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className={`flex items-center justify-center w-12 h-12 rounded-full text-[#3B2800] font-coolvetica text-lg font-bold shadow-lg ${globalRank === 0 ? 'bg-gradient-to-br from-[#FFD700] to-[#FF9100]' :
+                        globalRank === 1 ? 'bg-gradient-to-br from-[#C0C0C0] to-[#FF9100]' :
+                          globalRank === 2 ? 'bg-gradient-to-br from-[#CD7F32] to-[#FF9100]' :
+                            'bg-gradient-to-br from-[#E0E0E0] to-[#FF9100] text-[#3B2800]'
+                      }`}>
+                      {globalRank === 0 ? <Crown className="w-6 h-6" /> :
+                        globalRank === 1 ? <Trophy className="w-6 h-6" /> :
+                          globalRank === 2 ? <Medal className="w-6 h-6" /> :
+                            `#${globalRank + 1}`}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col gap-1">
+                        <span className={`font-coolvetica text-lg font-bold truncate ${isTop3 ? 'text-[#B8860B]' : 'text-[#7a4a00]'
+                          }`}>
+                          {entry.name}
+                        </span>
+                        <div className="font-coolvetica text-sm text-[#7a4a00] flex items-center gap-1">
+                          <Users className="w-3 h-3 flex-shrink-0" />
+                          {entry.ig_username.startsWith("@") ? (
+                            <span className="font-bold text-special truncate">{entry.ig_username.substring(1)}</span>
+                          ) : (
+                            <span className="font-bold truncate">{entry.ig_username}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-3">
+                    <span className={`font-coolvetica text-sm text-[#3B2800] px-3 py-1 rounded-full shadow-inner ${isTop3 ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500]' : 'bg-gradient-to-r from-[#FF9100] to-[#FFD592]'
+                      }`}>
+                      {entry.totalVotes} votes
+                    </span>
+                    <button
+                      onClick={() => handleVote(entry.id)}
+                      disabled={voteLoading === entry.id}
+                      className={`px-6 py-2 rounded-full font-coolvetica text-sm font-bold shadow-lg transition-all duration-200 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'
+                        } bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] hover:shadow-xl`}
+                    >
+                      {voteLoading === entry.id ? 'Voting...' : 'Vote'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Desktop Layout (Horizontal) */}
+                <div className="hidden sm:flex items-center justify-between gap-6">
                   <div className="flex items-center gap-6">
                     <div className={`flex items-center justify-center w-16 h-16 rounded-full text-[#3B2800] font-coolvetica text-xl font-bold shadow-lg ${globalRank === 0 ? 'bg-gradient-to-br from-[#FFD700] to-[#FF9100]' :
                         globalRank === 1 ? 'bg-gradient-to-br from-[#C0C0C0] to-[#FF9100]' :
@@ -341,7 +420,6 @@ const Leaderboard = () => {
                       </div>
                       <div className="font-coolvetica text-base text-[#7a4a00] flex items-center gap-1">
                         <Users className="w-4 h-4" />
-                        {/* <span className="font-medium">Submitted by:</span>  */}
                         {entry.ig_username.startsWith("@") ? (
                           <span className="font-bold text-special">{entry.ig_username.substring(1)}</span>
                         ) : (

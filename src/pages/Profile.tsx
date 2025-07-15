@@ -176,7 +176,7 @@ const Profile = () => {
       {/* Orange blur background */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(60px)', opacity: 0.8 }} />
 
-      <div className="relative z-20 w-full max-w-6xl mx-auto pt-12 pb-12 px-4">
+      <div className="relative z-20 w-full max-w-6xl mx-auto pt-8 sm:pt-12 pb-8 sm:pb-12 px-4 sm:px-6">
         {/* Header with Back Button */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -197,10 +197,10 @@ const Profile = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
-          className="w-full max-w-4xl mx-auto mb-8"
+          className="w-full max-w-4xl mx-auto mb-6 sm:mb-8"
         >
-          <div className="bg-white rounded-[32px] shadow-2xl overflow-hidden">
-            <div className="relative p-8 lg:p-12">
+          <div className="bg-white rounded-3xl sm:rounded-[32px] shadow-2xl overflow-hidden">
+            <div className="relative p-6 sm:p-8 lg:p-12">
 
               {/* Profile Header */}
               <div className="text-center mb-12">
@@ -210,7 +210,7 @@ const Profile = () => {
                   transition={{ delay: 0.2 }}
                   className="mb-6"
                 >
-                  <h1 className="font-coolvetica text-4xl lg:text-6xl text-[#3B2800] mb-4 leading-tight">
+                  <h1 className="font-coolvetica text-2xl sm:text-4xl lg:text-6xl text-[#3B2800] mb-4 leading-tight">
                     Vote for
                   </h1>
                 </motion.div>
@@ -229,9 +229,9 @@ const Profile = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-[2rem] blur opacity-60 transform scale-110"></div>
                     
                     {/* Main name container with glass effect */}
-                    <div className="relative bg-gradient-to-r from-[#FF9100] via-[#FFD592] to-[#FF9100] text-[#3B2800] px-10 py-6 rounded-[2rem] shadow-2xl border-4 border-white/30 backdrop-blur-sm">
-                      <div className="absolute inset-0 bg-white/10 rounded-[2rem]"></div>
-                      <span className="font-ivalencia text-4xl lg:text-5xl font-bold relative z-10 drop-shadow-lg">{profile.name}</span>
+                    <div className="relative bg-gradient-to-r from-[#FF9100] via-[#FFD592] to-[#FF9100] text-[#3B2800] px-6 sm:px-10 py-4 sm:py-6 rounded-2xl sm:rounded-[2rem] shadow-2xl border-2 sm:border-4 border-white/30 backdrop-blur-sm">
+                      <div className="absolute inset-0 bg-white/10 rounded-2xl sm:rounded-[2rem]"></div>
+                      <span className="font-ivalencia text-2xl sm:text-4xl lg:text-5xl font-bold relative z-10 drop-shadow-lg break-words">"{profile.name}"</span>
                       
                     </div>
                   </div>
@@ -254,17 +254,17 @@ const Profile = () => {
                     <motion.div
                       whileHover={{ scale: 1.05, rotate: [0, 5, -5, 0] }}
                       transition={{ duration: 0.3 }}
-                      className="w-56 h-56 rounded-full bg-gradient-to-br from-[#FF9100] via-[#FFD592] via-[#fff3e0] to-[#FF9100] flex flex-col items-center justify-center shadow-2xl border-8 border-white/60 z-10 relative backdrop-blur-sm"
+                      className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full bg-gradient-to-br from-[#FF9100] via-[#FFD592] via-[#fff3e0] to-[#FF9100] flex flex-col items-center justify-center shadow-2xl border-4 sm:border-6 md:border-8 border-white/60 z-10 relative backdrop-blur-sm"
                     >
                       {/* Inner glow and shine effects */}
                       <div className="absolute inset-4 rounded-full bg-gradient-to-br from-white/30 to-transparent opacity-60"></div>
                       <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF9100] to-[#FFD592] opacity-20 animate-pulse"></div>
                       
                       {/* Content */}
-                      <div className="relative z-10 text-center p-12">
-                        <Users className="w-12 h-12 text-[#3B2800] mb-6 drop-shadow-lg" />
-                        <span className="text-6xl font-coolvetica text-[#3B2800] drop-shadow-xl">{profile.totalVotes || 0}</span>
-                        <div className="text-xl font-ivalencia font-bold text-[#7a4a00] mt-4 drop-shadow-md">votes</div>
+                      <div className="relative z-10 text-center p-6 sm:p-8 md:p-12">
+                        <Users className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-[#3B2800] mb-4 sm:mb-6 drop-shadow-lg" />
+                        <span className="text-4xl sm:text-5xl md:text-6xl font-coolvetica text-[#3B2800] drop-shadow-xl">{profile.totalVotes || 0}</span>
+                        <div className="text-lg sm:text-xl font-ivalencia font-bold text-[#7a4a00] mt-3 sm:mt-4 drop-shadow-md">votes</div>
                       </div>
                       
                     </motion.div>
@@ -291,21 +291,21 @@ const Profile = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, staggerChildren: 0.1 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-3xl mx-auto"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-12 sm:mb-16 max-w-3xl mx-auto"
                 >
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.6 }}
                     whileHover={{ scale: 1.02, y: -2 }}
-                    className="flex items-center gap-6 p-6 bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300"
+                    className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-white/80 backdrop-blur-lg rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300"
                   >
                     <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#FF9100] to-[#FFD592] rounded-2xl shadow-lg">
                       <Mail className="w-8 h-8 text-white drop-shadow-md" />
                     </div>
                     <div className="text-left flex-1">
-                      <label className="font-coolvetica text-sm text-[#888] uppercase tracking-wider mb-1 block">Email Address</label>
-                      <p className="font-coolvetica text-xl text-[#3B2800]">{profile.email}</p>
+                      <label className="font-coolvetica text-xs sm:text-sm text-[#888] uppercase tracking-wider mb-1 block">Email Address</label>
+                      <p className="font-coolvetica text-lg sm:text-xl text-[#3B2800] break-all">{profile.email}</p>
                     </div>
                   </motion.div>
                   
@@ -314,14 +314,14 @@ const Profile = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 }}
                     whileHover={{ scale: 1.02, y: -2 }}
-                    className="flex items-center gap-6 p-6 bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300"
+                    className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-white/80 backdrop-blur-lg rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300"
                   >
                     <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#FF9100] to-[#FFD592] rounded-2xl shadow-lg">
                       <Instagram className="w-8 h-8 text-white drop-shadow-md" />
                     </div>
                     <div className="text-left flex-1">
-                      <label className="font-coolvetica text-sm text-[#888] uppercase tracking-wider mb-1 block">Instagram Handle</label>
-                      <p className="font-coolvetica text-xl text-[#3B2800]">@{profile.ig_username}</p>
+                      <label className="font-coolvetica text-xs sm:text-sm text-[#888] uppercase tracking-wider mb-1 block">Instagram Handle</label>
+                      <p className="font-coolvetica text-lg sm:text-xl text-[#3B2800] break-all">@{profile.ig_username}</p>
                     </div>
                   </motion.div>) : (
                     <motion.div
@@ -329,7 +329,7 @@ const Profile = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.7 }}
                     whileHover={{ scale: 1.02, y: -2 }}
-                    className="flex items-center gap-6 p-6 bg-white/80 backdrop-blur-lg rounded-3xl shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300"
+                    className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 bg-white/80 backdrop-blur-lg rounded-2xl sm:rounded-3xl shadow-xl border border-white/20 hover:shadow-2xl transition-all duration-300"
                   >
                     <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#FF9100] to-[#FFD592] rounded-2xl shadow-lg">
                       <Instagram className="w-8 h-8 text-white drop-shadow-md" />
@@ -351,17 +351,17 @@ const Profile = () => {
                 className="text-center"
               >
                 {!subscribed ? (
-                  <div className="max-w-lg mx-auto">
+                  <div className="max-w-lg mx-auto px-4 sm:px-0">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.9 }}
-                      className="text-center mb-8"
+                      className="text-center mb-6 sm:mb-8"
                     >
-                      <h3 className="font-coolvetica text-3xl text-[#3B2800] mb-3">Help "{profile.name}" climb the leaderboard!</h3>
+                      <h3 className="font-coolvetica text-xl sm:text-2xl md:text-3xl text-[#3B2800] mb-3">Help "{profile.name}" climb the leaderboard!</h3>
                     </motion.div>
                     
-                    <form onSubmit={handleCheckSubscriber} className="space-y-8">
+                    <form onSubmit={handleCheckSubscriber} className="space-y-6 sm:space-y-8">
                       <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -373,7 +373,7 @@ const Profile = () => {
                           value={visitorEmail}
                           onChange={e => setVisitorEmail(e.target.value)}
                           placeholder="Enter your email to vote"
-                          className="w-full px-8 py-5 text-[#3B2800] rounded-3xl border-3 border-[#FF9100]/40 bg-white/90 backdrop-blur-sm text-xl font-satoshi focus:outline-none focus:border-[#FF9100] focus:ring-6 focus:ring-[#FF9100]/30 shadow-xl transition-all duration-300 placeholder:text-[#7a4a00]/60"
+                          className="w-full px-6 sm:px-8 py-4 sm:py-5 text-[#3B2800] rounded-2xl sm:rounded-3xl border-2 sm:border-3 border-[#FF9100]/40 bg-white/90 backdrop-blur-sm text-lg sm:text-xl font-satoshi focus:outline-none focus:border-[#FF9100] focus:ring-4 sm:focus:ring-6 focus:ring-[#FF9100]/30 shadow-xl transition-all duration-300 placeholder:text-[#7a4a00]/60"
                           required
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-[#FF9100]/10 to-[#FFD592]/10 rounded-3xl -z-10 blur-xl"></div>
@@ -390,7 +390,7 @@ const Profile = () => {
                         }}
                         whileTap={{ scale: 0.96 }}
                         type="submit"
-                        className="w-full py-5 rounded-3xl bg-gradient-to-r from-[#FF9100] via-[#FFD592] to-[#FF9100] shadow-2xl text-[#3B2800] font-coolvetica text-xl font-bold hover:shadow-3xl transition-all duration-300 disabled:opacity-60 relative overflow-hidden group"
+                        className="w-full py-4 sm:py-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#FF9100] via-[#FFD592] to-[#FF9100] shadow-2xl text-[#3B2800] font-coolvetica text-lg sm:text-xl font-bold hover:shadow-3xl transition-all duration-300 disabled:opacity-60 relative overflow-hidden group"
                         disabled={subCheckLoading}
                       >
                         <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

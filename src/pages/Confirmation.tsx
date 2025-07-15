@@ -120,7 +120,7 @@ const Confirmation = () => {
         </div>
       </div>
 
-      <div className="relative z-20 w-full max-w-6xl mx-auto pt-24 pb-12 px-4">
+      <div className="relative z-20 w-full max-w-6xl mx-auto pt-20 sm:pt-24 pb-8 sm:pb-12 px-4 sm:px-6">
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -143,10 +143,10 @@ const Confirmation = () => {
           transition={{ delay: 0.1 }}
           className="text-center mb-12"
         >
-          <h1 className="font-coolvetica text-5xl sm:text-6xl md:text-7xl text-[#3B2800] mb-4 leading-tight">
+          <h1 className="font-coolvetica text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#3B2800] mb-4 leading-tight px-4 text-center">
             Ready to enter the arena?
           </h1>
-          <p className="font-coolvetica text-xl sm:text-2xl text-[#7a4a00] font-medium max-w-3xl mx-auto">
+          <p className="font-coolvetica text-lg sm:text-xl md:text-2xl text-[#7a4a00] font-medium max-w-3xl mx-auto px-4 text-center">
             Review your information and join the ultimate naming contest
           </p>
         </motion.div>
@@ -158,25 +158,25 @@ const Confirmation = () => {
           transition={{ delay: 0.2 }}
           className="w-full max-w-5xl mx-auto mb-12"
         >
-          <div className="bg-white rounded-[32px] shadow-2xl overflow-hidden">
+          <div className="bg-white rounded-2xl sm:rounded-[32px] shadow-2xl overflow-hidden mx-4 sm:mx-0">
             <div className="flex flex-col lg:flex-row items-center align-center">
-              <div className="w-full p-8">
+              <div className="w-full p-6 sm:p-8">
                 <div className="mb-8">
-                  <h3 className="font-coolvetica text-3xl text-[#3B2800] font-bold mb-2">
+                  <h3 className="font-coolvetica text-2xl sm:text-3xl text-[#3B2800] font-bold mb-2">
                     Confirm Your Details
                   </h3>
-                  <p className="font-coolvetica text-[#7a4a00] text-lg">
+                  <p className="font-coolvetica text-[#7a4a00] text-base sm:text-lg">
                     Make sure everything looks perfect before submitting
                   </p>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Email Field */}
                   <motion.div 
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors gap-3 sm:gap-0"
                   >
                     <div className="flex items-center gap-4">
                       <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-xl">
@@ -201,7 +201,7 @@ const Confirmation = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors gap-3 sm:gap-0"
                   >
                     <div className="flex items-center gap-4">
                       <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-xl">
@@ -226,7 +226,7 @@ const Confirmation = () => {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors"
+                    className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-gray-50 rounded-2xl hover:bg-gray-100 transition-colors gap-3 sm:gap-0"
                   >
                     <div className="flex items-center gap-4">
                       <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-xl">

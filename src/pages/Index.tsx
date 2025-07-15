@@ -154,7 +154,7 @@ const Index = () => {
           {/* Orange blur backgrounds for consistency */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(80px)', opacity: 0.6 }} />
           
-          {/* Floating decorative elements */}
+          {/* Floating decorative elements - Mobile Responsive */}
           <motion.div
             animate={{
               y: [-30, 30, -30],
@@ -165,9 +165,9 @@ const Index = () => {
               repeat: Infinity,
               ease: "easeInOut"
             }}
-            className="absolute top-[10%] left-[10%] text-white/20 z-5"
+            className="absolute top-[10%] left-[8%] sm:left-[10%] text-white/20 z-5 hidden sm:block"
           >
-            <Sparkles className="w-16 h-16" />
+            <Sparkles className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16" />
           </motion.div>
           
           <motion.div
@@ -181,9 +181,9 @@ const Index = () => {
               ease: "easeInOut",
               delay: 2
             }}
-            className="absolute bottom-[15%] right-[15%] text-white/20 z-5"
+            className="absolute bottom-[15%] right-[8%] sm:right-[15%] text-white/20 z-5 hidden sm:block"
           >
-            <Trophy className="w-14 h-14" />
+            <Trophy className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14" />
           </motion.div>
           
           <motion.div
@@ -197,9 +197,9 @@ const Index = () => {
               ease: "easeInOut",
               delay: 4
             }}
-            className="absolute top-[20%] right-[20%] text-white/15 z-5"
+            className="absolute top-[20%] right-[8%] sm:right-[20%] text-white/15 z-5 hidden md:block"
           >
-            <Users className="w-12 h-12" />
+            <Users className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12" />
           </motion.div>
         </div>
 
@@ -212,9 +212,9 @@ const Index = () => {
           background: 'linear-gradient(0deg, white 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 60%, transparent 100%)' 
         }} />
         
-        {/* Video container with enhanced styling */}
-        <div className="absolute inset-8 lg:inset-16 z-10 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/30 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-[2rem]"></div>
+        {/* Video container with enhanced styling - Mobile Responsive */}
+        <div className="absolute inset-4 sm:inset-6 md:inset-8 lg:inset-16 z-10 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/30 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-2xl md:rounded-[2rem]"></div>
           
           <video
             ref={videoRef}
@@ -222,23 +222,23 @@ const Index = () => {
             loop
             muted={videoMuted}
             playsInline
-            className="w-full h-full object-cover rounded-[2rem]"
+            className="w-full h-full object-cover rounded-2xl md:rounded-[2rem]"
           />
           
-          {/* Enhanced Video Controls Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/20 opacity-0 hover:opacity-100 transition-all duration-500 flex items-center justify-center z-20 rounded-[2rem]">
-            <div className="flex items-center gap-6">
+          {/* Enhanced Video Controls Overlay - Mobile Responsive */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/20 opacity-0 hover:opacity-100 transition-all duration-500 flex items-center justify-center z-20 rounded-2xl md:rounded-[2rem]">
+            <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
               {/* Play/Pause Button */}
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={togglePlay}
-                className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
+                className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-2 md:border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
               >
                 {videoPlaying ? (
-                  <Pause className="w-10 h-10 text-[#3B2800] drop-shadow-lg" />
+                  <Pause className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#3B2800] drop-shadow-lg" />
                 ) : (
-                  <Play className="w-10 h-10 text-[#3B2800] ml-1 drop-shadow-lg" />
+                  <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#3B2800] ml-1 drop-shadow-lg" />
                 )}
               </motion.button>
               
@@ -247,24 +247,24 @@ const Index = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={toggleMute}
-                className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
+                className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-2 md:border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
               >
                 {videoMuted ? (
-                  <VolumeX className="w-10 h-10 text-[#3B2800] drop-shadow-lg" />
+                  <VolumeX className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 text-[#3B2800] drop-shadow-lg" />
                 ) : (
-                  <Volume2 className="w-10 h-10 text-[#3B2800] drop-shadow-lg" />
+                  <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 text-[#3B2800] drop-shadow-lg" />
                 )}
               </motion.button>
             </div>
           </div>
 
-          {/* Enhanced play button overlay when video is paused */}
+          {/* Enhanced play button overlay when video is paused - Mobile Responsive */}
           {!videoPlaying && (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black/40 via-black/20 to-black/40 z-20 rounded-[2rem]"
+              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black/40 via-black/20 to-black/40 z-20 rounded-2xl md:rounded-[2rem]"
             >
               <motion.button
                 initial={{ scale: 0 }}
@@ -272,13 +272,13 @@ const Index = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={togglePlay}
-                className="relative flex items-center justify-center w-32 h-32 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-8 border-white/40 hover:shadow-3xl transition-all duration-300"
+                className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-4 md:border-8 border-white/40 hover:shadow-3xl transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-white/20 rounded-full"></div>
-                <Play className="w-16 h-16 text-[#3B2800] ml-2 drop-shadow-xl relative z-10" />
+                <Play className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 text-[#3B2800] ml-1 md:ml-2 drop-shadow-xl relative z-10" />
                 
                 {/* Pulsing ring animation */}
-                <div className="absolute inset-0 rounded-full border-4 border-white/60 animate-ping"></div>
+                <div className="absolute inset-0 rounded-full border-2 md:border-4 border-white/60 animate-ping"></div>
               </motion.button>
             </motion.div>
           )}
