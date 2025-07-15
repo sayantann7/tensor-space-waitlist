@@ -27,12 +27,12 @@ const NameForm = () => {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[url('/form-bg.png')]" style={{ minHeight: '100vh' }}>
       {/* Top progress bar */}
-      {/* <div className="absolute top-8 left-0 w-full flex justify-center z-20">
+      <div className="absolute top-8 left-0 w-full flex justify-center z-20">
         <div className="relative w-[95%] max-w-5xl mx-auto">
           <Progress value={progressValue} flow color="linear-gradient(90deg, #ff9100 0%, #fff176 100%)" height={14} />
         </div>
-      </div> */}
-      {/* Orange blur background */}
+      </div>
+      {/* Orange blur background
       <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(40px)', opacity: 0.7 }} />
       {/* Centered card with lower z-index */}
       <div className="relative z-20 w-full max-w-lg mx-auto p-12 px-20 bg-[#FFEBC4] rounded-[48px] shadow-2xl flex flex-col items-center border-none" style={{ boxShadow: '0 8px 64px 0 #ff910033' }}>
