@@ -29,48 +29,9 @@ const InstagramForm = () => {
   const currentStep = steps.findIndex((step) => location.pathname.startsWith(step));
   const progressValue = ((currentStep + 1) / steps.length) * 100;
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)", minHeight: '100vh' }}>
-      {/* Decorative Images - much larger and above the card */}
-      <img
-        src="/top-left.png"
-        alt="decor top left"
-        className="pointer-events-none select-none absolute z-10"
-        style={{
-          top: '-2vw',
-          left: '14vw',
-          width: '40vw',
-          minWidth: '300px',
-          maxWidth: '700px',
-          height: 'auto',
-          objectFit: 'contain',
-        }}
-        aria-hidden="true"
-      />
-      <img
-        src="/bottom-right.png"
-        alt="decor bottom right"
-        className="pointer-events-none select-none absolute z-10"
-        style={{
-          bottom: '-3vw',
-          right: '14vw',
-          width: '40vw',
-          minWidth: '300px',
-          maxWidth: '700px',
-          height: 'auto',
-          objectFit: 'contain',
-        }}
-        aria-hidden="true"
-      />
-      {/* Top progress bar */}
-      <div className="absolute top-8 left-0 w-full flex justify-center z-20">
-        <div className="relative w-[95%] max-w-5xl mx-auto">
-          <Progress value={progressValue} flow color="linear-gradient(90deg, #ff9100 0%, #fff176 100%)" height={14} />
-        </div>
-      </div>
-      {/* Orange blur background */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(40px)', opacity: 0.7 }} />
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[url('/form-bg.png')]" style={{ minHeight: '100vh' }}>
       {/* Centered card with lower z-index */}
-      <div className="relative z-20 w-full max-w-lg mx-auto p-10 bg-white rounded-[48px] shadow-2xl flex flex-col items-center border-none">
+      <div className="relative z-20 w-full max-w-lg mx-auto p-10 bg-[#FFEBC4] rounded-[48px] shadow-2xl flex flex-col items-center border-none">
         {/* Skip button */}
         <button
           type="button"
@@ -90,7 +51,7 @@ const InstagramForm = () => {
               value={username}
               onChange={e => setUsername(e.target.value)}
               placeholder="Drop your @ below"
-              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-white text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#bfa77a] font-coolvetica"
+              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-[#FFEBC4] text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#7a4a00] font-ivalencia"
             />
           </div>
           <label className="flex items-center gap-3 text-sm text-[#7a4a00] font-normal w-full font-coolvetica">
