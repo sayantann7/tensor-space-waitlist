@@ -121,7 +121,7 @@ const EmailForm = () => {
                 type="checkbox"
                 checked={subscribed}
                 onChange={e => setSubscribed(e.target.checked)}
-                className="w-5 h-5 rounded border border-[#7a4a00] focus:ring-[#ff9100]"
+                className="w-5 h-5 rounded border border-[#7a4a00] focus:ring-[#ff9100] accent-[#ff9100]"
               />
               I have subscribed to the Tensor Protocol newsletter
             </label>
@@ -150,7 +150,7 @@ const EmailForm = () => {
                 type="checkbox"
                 checked={subscribed}
                 onChange={e => setSubscribed(e.target.checked)}
-                className="w-5 h-5 rounded border border-[#7a4a00] focus:ring-[#ff9100]"
+                className="w-5 h-5 rounded border border-[#7a4a00] focus:ring-[#ff9100] accent-[#ff9100]"
               />
               I have subscribed to the Tensor Protocol newsletter
             </label>

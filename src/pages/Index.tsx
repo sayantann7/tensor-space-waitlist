@@ -143,70 +143,167 @@ const Index = () => {
         </button>
       </main>
 
-      {/* Full-Screen Video Section */}
+      {/* Enhanced Full-Screen Video Section */}
       <div
         ref={videoContainerRef}
         className="relative w-full h-screen overflow-hidden"
+        style={{ background: "radial-gradient(ellipse 80% 60% at center, #ff9100 0%, #ffe0b2 100%)" }}
       >
-        {/* Top gradient overlay for smooth transition from hero */}
-        <div className="absolute top-0 left-0 w-full h-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(180deg, white 0%, transparent 100%)' }} />
-        
-        {/* Bottom gradient overlay for smooth transition to next section */}
-        <div className="absolute bottom-0 left-0 w-full h-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(0deg, white 0%, transparent 100%)' }} />
-        
-        <video
-          ref={videoRef}
-          src="/website-intro.mp4"
-          loop
-          muted={videoMuted}
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Video Controls Overlay */}
-        <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
-          <div className="flex items-center gap-4">
-            {/* Play/Pause Button */}
-            <button
-              onClick={togglePlay}
-              className="flex items-center justify-center w-16 h-16 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
-            >
-              {videoPlaying ? (
-                <Pause className="w-8 h-8 text-black ml-0" />
-              ) : (
-                <Play className="w-8 h-8 text-black ml-1" />
-              )}
-            </button>
-            
-            {/* Mute/Unmute Button */}
-            <button
-              onClick={toggleMute}
-              className="flex items-center justify-center w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white hover:scale-110 transition-all duration-300"
-            >
-              {videoMuted ? (
-                <VolumeX className="w-6 h-6 text-black" />
-              ) : (
-                <Volume2 className="w-6 h-6 text-black" />
-              )}
-            </button>
-          </div>
+        {/* Decorative background elements matching other pages */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Orange blur backgrounds for consistency */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(80px)', opacity: 0.6 }} />
+          
+          {/* Floating decorative elements */}
+          <motion.div
+            animate={{
+              y: [-30, 30, -30],
+              rotate: [0, 15, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-[10%] left-[10%] text-white/20 z-5"
+          >
+            <Sparkles className="w-16 h-16" />
+          </motion.div>
+          
+          <motion.div
+            animate={{
+              y: [20, -20, 20],
+              rotate: [0, -10, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2
+            }}
+            className="absolute bottom-[15%] right-[15%] text-white/20 z-5"
+          >
+            <Trophy className="w-14 h-14" />
+          </motion.div>
+          
+          <motion.div
+            animate={{
+              y: [-25, 25, -25],
+              rotate: [0, 20, 0],
+            }}
+            transition={{
+              duration: 7,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 4
+            }}
+            className="absolute top-[20%] right-[20%] text-white/15 z-5"
+          >
+            <Users className="w-12 h-12" />
+          </motion.div>
         </div>
 
-        {/* Play button overlay when video is paused */}
-        {!videoPlaying && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30 z-20">
-            <button
-              onClick={togglePlay}
-              className="flex items-center justify-center w-20 h-20 bg-white/95 backdrop-blur-sm rounded-full shadow-2xl hover:bg-white hover:scale-110 transition-all duration-300"
-            >
-              <Play className="w-10 h-10 text-black ml-1" />
-            </button>
+        {/* Enhanced gradient overlays for smooth transitions */}
+        <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none" style={{ 
+          background: 'linear-gradient(180deg, white 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 60%, transparent 100%)' 
+        }} />
+        
+        <div className="absolute bottom-0 left-0 w-full h-40 z-10 pointer-events-none" style={{ 
+          background: 'linear-gradient(0deg, white 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 60%, transparent 100%)' 
+        }} />
+        
+        {/* Video container with enhanced styling */}
+        <div className="absolute inset-8 lg:inset-16 z-10 rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white/30 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-[2rem]"></div>
+          
+          <video
+            ref={videoRef}
+            src="/website-intro.mp4"
+            loop
+            muted={videoMuted}
+            playsInline
+            className="w-full h-full object-cover rounded-[2rem]"
+          />
+          
+          {/* Enhanced Video Controls Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/20 opacity-0 hover:opacity-100 transition-all duration-500 flex items-center justify-center z-20 rounded-[2rem]">
+            <div className="flex items-center gap-6">
+              {/* Play/Pause Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={togglePlay}
+                className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
+              >
+                {videoPlaying ? (
+                  <Pause className="w-10 h-10 text-[#3B2800] drop-shadow-lg" />
+                ) : (
+                  <Play className="w-10 h-10 text-[#3B2800] ml-1 drop-shadow-lg" />
+                )}
+              </motion.button>
+              
+              {/* Mute/Unmute Button */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={toggleMute}
+                className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
+              >
+                {videoMuted ? (
+                  <VolumeX className="w-10 h-10 text-[#3B2800] drop-shadow-lg" />
+                ) : (
+                  <Volume2 className="w-10 h-10 text-[#3B2800] drop-shadow-lg" />
+                )}
+              </motion.button>
+            </div>
           </div>
-        )}
+
+          {/* Enhanced play button overlay when video is paused */}
+          {!videoPlaying && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black/40 via-black/20 to-black/40 z-20 rounded-[2rem]"
+            >
+              <motion.button
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={togglePlay}
+                className="relative flex items-center justify-center w-32 h-32 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-8 border-white/40 hover:shadow-3xl transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-white/20 rounded-full"></div>
+                <Play className="w-16 h-16 text-[#3B2800] ml-2 drop-shadow-xl relative z-10" />
+                
+                {/* Pulsing ring animation */}
+                <div className="absolute inset-0 rounded-full border-4 border-white/60 animate-ping"></div>
+              </motion.button>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Section Title Overlay */}
+        {/* <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-white/90 backdrop-blur-lg rounded-3xl px-8 py-4 shadow-2xl border-2 border-white/40"
+          >
+            <h2 className="font-coolvetica text-2xl lg:text-3xl text-[#3B2800] font-bold">
+              Watch the Demo
+            </h2>
+            <p className="font-satoshi text-[#7a4a00] text-lg mt-1">See Tensor Space in action</p>
+          </motion.div>
+        </div> */}
       </div>
 
       {/* Restyled: Naming Contest & Prizes Section */}
       <div className="relative w-full min-h-[60vh] flex flex-col justify-center items-center py-20 pt-[200px] bg-cover bg-center" style={{ backgroundColor: 'white' }}>
+        {/* White gradient at the top for smooth transition from video */}
+        <div className="pointer-events-none absolute top-0 left-0 w-full h-24 z-20" style={{ background: 'linear-gradient(180deg, white 0%, rgba(255,255,255,0.8) 60%, transparent 100%)' }} />
         <div className="pointer-events-none absolute top-0 left-0 h-full w-[500px] bg-gradient-to-r from-[#fba41b]/60 to-transparent z-0" />
         <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" />
         <div className="flex flex-row flex-wrap justify-center items-end mb-12 -mx-4">
