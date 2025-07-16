@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useInView } from "framer-motion";
 import { ArrowUpRight, Rocket, Trophy, Users, Star, Sparkles, Play, Pause, Volume2, VolumeX } from "lucide-react";
+import LeaderboardSection from '../components/LeaderboardSection';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden" style={{ background: "linear-gradient(180deg, #FFB347 0%, #FF8008 60%, #FFF 100%)" }}>
+    <div className="relative min-h-screen w-full overflow-hidden" style={{ background: '#FFEBC4' }}>
 
 
       {/* Hero Section */}
@@ -141,14 +142,19 @@ const Index = () => {
             <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
           </span>
         </button>
+        
+        {/* Bottom gradient for smooth transition to video section */}
+        <div className="pointer-events-none absolute bottom-0 left-0 w-full h-32 sm:h-40 z-30" style={{ background: 'linear-gradient(0deg, #FFEBC4 0%, rgba(255,235,196,0.8) 25%, rgba(255,235,196,0.4) 60%, transparent 100%)' }} />
       </main>
 
       {/* Enhanced Full-Screen Video Section */}
       <div
         ref={videoContainerRef}
-        className="relative w-full h-screen overflow-hidden"
-        style={{ background: "radial-gradient(ellipse 80% 60% at center, #ff9100 0%, #ffe0b2 100%)" }}
+        className="relative w-full h-screen overflow-hidden bg-[#FFEBC4]"
       >
+        {/* Top gradient for smooth transition from hero section */}
+        <div className="pointer-events-none absolute top-0 left-0 w-full h-32 sm:h-40 z-30" style={{ background: 'linear-gradient(180deg, #FFEBC4 0%, rgba(255,235,196,0.8) 25%, rgba(255,235,196,0.4) 60%, transparent 100%)' }} />
+        
         {/* Decorative background elements matching other pages */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Orange blur backgrounds for consistency */}
@@ -204,17 +210,17 @@ const Index = () => {
         </div>
 
         {/* Enhanced gradient overlays for smooth transitions */}
-        <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none" style={{ 
+        {/* <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none" style={{ 
           background: 'linear-gradient(180deg, white 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 60%, transparent 100%)' 
         }} />
         
         <div className="absolute bottom-0 left-0 w-full h-40 z-10 pointer-events-none" style={{ 
           background: 'linear-gradient(0deg, white 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 60%, transparent 100%)' 
-        }} />
+        }} /> */}
         
         {/* Video container with enhanced styling - Mobile Responsive */}
-        <div className="absolute inset-4 sm:inset-6 md:inset-8 lg:inset-16 z-10 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/30 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-2xl md:rounded-[2rem]"></div>
+        <div className="absolute inset-4 sm:inset-6 md:inset-8 lg:inset-16 z-10 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/30 backdrop-blur-sm bg-[#FFEBC4] mt-12">
+          {/* <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-2xl md:rounded-[2rem]"></div> */}
           
           <video
             ref={videoRef}
@@ -301,11 +307,11 @@ const Index = () => {
       </div>
 
       {/* Restyled: Naming Contest & Prizes Section */}
-      <div className="relative w-full min-h-[60vh] flex flex-col justify-center items-center py-20 pt-[200px] bg-cover bg-center" style={{ backgroundColor: 'white' }}>
+      <div className="relative w-full min-h-[60vh] flex flex-col justify-center items-center py-20 pt-[200px] bg-[#FFEBC4]">
         {/* White gradient at the top for smooth transition from video */}
-        <div className="pointer-events-none absolute top-0 left-0 w-full h-24 z-20" style={{ background: 'linear-gradient(180deg, white 0%, rgba(255,255,255,0.8) 60%, transparent 100%)' }} />
+        {/* <div className="pointer-events-none absolute top-0 left-0 w-full h-24 z-20" style={{ background: 'linear-gradient(180deg, white 0%, rgba(255,255,255,0.8) 60%, transparent 100%)' }} />
         <div className="pointer-events-none absolute top-0 left-0 h-full w-[500px] bg-gradient-to-r from-[#fba41b]/60 to-transparent z-0" />
-        <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" />
+        <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" /> */}
         <div className="flex flex-row flex-wrap justify-center items-end mb-12 -mx-4">
           {/* Card 1 */}
           <div className="bg-white text-black rounded-[2.5rem] shadow-xl px-8 py-16 w-64 sm:w-72 flex flex-col items-center transform -rotate-6 hover:rotate-0 transition-transform duration-300 z-10 -mr-4" style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)' }}>
@@ -335,6 +341,9 @@ const Index = () => {
           </span>
         </button>
       </div>
+
+      {/* Leaderboard Section */}
+      <LeaderboardSection />
     </div>
   );
 };
