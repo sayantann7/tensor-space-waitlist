@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useInView } from "framer-motion";
 import { ArrowUpRight, Rocket, Trophy, Users, Star, Sparkles, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import HomeLeaderboardSection from "@/components/HomeLeaderboardSection";
+import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -107,15 +108,21 @@ const Index = () => {
         {/* Header inside Hero */}
         <header className="w-full flex justify-between items-center px-4 sm:px-8 md:px-8 pt-0 absolute top-0 left-0 z-30">
           <div className="text-white text-xl sm:text-xl md:text-2xl font-coolvetica py-4 sm:py-6"><h1 className="pt-1">Tensor Space</h1></div>
-          <button
-            onClick={() => navigate('/name')}
-            className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30 mt-2 sm:mt-4"
-          >
-            Enter Contest
-            <span className="ml-2 flex items-center justify-center w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-black text-white">
-              <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
-            </span>
-          </button>
+          <div className="flex flex-col items-end gap-2 mt-2 sm:mt-4">
+            <button
+              onClick={() => navigate('/name')}
+              className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30"
+            >
+              Enter Contest
+              <span className="ml-2 flex items-center justify-center w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-black text-white">
+                <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
+              </span>
+            </button>
+            {/* Countdown Timer */}
+            <div className="flex flex-col items-end mt-1">
+              <span className="text-base sm:text-base tracking-wide mt-0 mr-3 text-white">Voting Ends In <span className="text-2xl">2d 15h</span></span>
+            </div>
+          </div>
         </header>
         {/* White gradient at bottom for smooth transition */}
         <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 sm:h-40 z-30" style={{ background: 'linear-gradient(0deg, #fff 0%, transparent 100%)' }} />

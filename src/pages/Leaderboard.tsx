@@ -189,6 +189,7 @@ const Leaderboard = () => {
                   We turned your idea into a shareable poster.
                 </p>
               </div>
+              
               {/* Right: Poster and Buttons */}
               <div className="flex-1 flex flex-col items-center justify-center">
                 <div className="relative">
