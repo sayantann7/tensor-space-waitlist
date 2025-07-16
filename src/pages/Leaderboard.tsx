@@ -120,15 +120,9 @@ const Leaderboard = () => {
         />
       </div>
       
-      {/* HERO SECTION - with form-bg.png background */}
+      {/* HERO SECTION - with responsive background images */}
       <div
-        className="relative w-full min-h-screen z-10"
-        style={{
-          backgroundImage: 'url(/form-bg.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
+        className="relative w-full min-h-screen z-10 bg-[url('/mobile-form-bg.png')] sm:bg-[url('/form-bg.png')] bg-cover bg-center bg-no-repeat"
       >
         
 
