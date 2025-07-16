@@ -241,7 +241,7 @@ const Leaderboard = () => {
             transition={{ delay: 0.3 }}
             className="w-full max-w-4xl mx-auto mb-8 sm:mb-8 px-4 sm:px-0"
           >
-            <div className="bg-gray-100 rounded-2xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-xl flex items-center gap-3 sm:gap-4">
+            <div className="bg-gray-50 rounded-2xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-xl flex items-center gap-3 sm:gap-4">
               <input
                 type="text"
                 value={search}
@@ -262,7 +262,7 @@ const Leaderboard = () => {
             transition={{ delay: 0.4 }}
             className="w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
           >
-            <div className="bg-gray-100 rounded-2xl sm:rounded-[32px] p-6 sm:p-12 sm:px-16 shadow-2xl">
+            <div className="bg-gray-50 rounded-2xl sm:rounded-[32px] p-6 sm:p-12 sm:px-16 shadow-2xl">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex flex-col">
                   <h3 className="font-coolvetica text-3xl sm:text-4xl text-[#3B2800] font-bold">Leaderboard</h3>
@@ -297,7 +297,7 @@ const Leaderboard = () => {
                                   {entry.name}
                                 </span>
                               ) : (
-                                <span className="font-coolvetica text-xl text-[#7a4a00]">
+                                <span className="font-coolvetica text-xl text-[#7a4a00] g">
                                   {entry.name}
                                 </span>
                               )}
