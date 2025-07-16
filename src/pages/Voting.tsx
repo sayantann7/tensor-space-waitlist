@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { leaderboard as fetchLeaderboard, addVote } from "../lib/utils";
 import { Link } from "react-router-dom";
+import { Dialog, DialogContent } from "../components/ui/dialog";
+import { EmailCaptureForm } from "./EmailForm";
 
 type Contestant = {
   id: string;
@@ -15,6 +17,8 @@ const Voting = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [voteLoading, setVoteLoading] = useState<string | null>(null);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [pendingVoteId, setPendingVoteId] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -35,13 +39,13 @@ const Voting = () => {
   const handleVote = async (contestantId: string) => {
     const userEmail = localStorage.getItem("userEmail") || "";
     if (!userEmail) {
-      setError("You must be logged in to vote.");
+      setPendingVoteId(contestantId);
+      setShowEmailModal(true);
       return;
     }
     setVoteLoading(contestantId);
     try {
       await addVote(userEmail, contestantId);
-      // Re-fetch and sort to ensure data consistency after voting
       const data = await fetchLeaderboard();
       const sortedData = data.sort((a: Contestant, b: Contestant) => b.totalVotes - a.totalVotes);
       setEntries(sortedData);
@@ -49,6 +53,23 @@ const Voting = () => {
       setError("Could not register your vote. Please try again.");
     }
     setVoteLoading(null);
+  };
+
+  const handleEmailSuccess = async (email: string) => {
+    if (!pendingVoteId) return;
+    setVoteLoading(pendingVoteId);
+    setShowEmailModal(false);
+    try {
+      await addVote(email, pendingVoteId);
+      localStorage.setItem("userEmail", email);
+      const data = await fetchLeaderboard();
+      const sortedData = data.sort((a: Contestant, b: Contestant) => b.totalVotes - a.totalVotes);
+      setEntries(sortedData);
+    } catch (err) {
+      setError("Could not register your vote. Please try again.");
+    }
+    setVoteLoading(null);
+    setPendingVoteId(null);
   };
 
   const topThree = entries.slice(0, 3);
@@ -107,6 +128,11 @@ const Voting = () => {
         </>
         )}
       </div>
+      <Dialog open={showEmailModal} onOpenChange={setShowEmailModal}>
+        <DialogContent>
+          <EmailCaptureForm onSuccess={handleEmailSuccess} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
