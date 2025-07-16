@@ -4,6 +4,7 @@ import { motion, useScroll, useInView } from "framer-motion";
 import { ArrowUpRight, Rocket, Trophy, Users, Star, Sparkles, Play, Pause, Volume2, VolumeX } from "lucide-react";
 import HomeLeaderboardSection from "@/components/HomeLeaderboardSection";
 import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
+import CardSwap, { Card } from "@/components/CardSwap";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -206,38 +207,83 @@ const Index = () => {
 
       {/* Restyled: Naming Contest & Prizes Section */}
       <div className="relative w-full min-h-[60vh] flex flex-col justify-center items-center py-20 pt-[200px] bg-[#FFEBC4]">
-        {/* White gradient at the top for smooth transition from video */}
-        {/* <div className="pointer-events-none absolute top-0 left-0 w-full h-24 z-20" style={{ background: 'linear-gradient(180deg, white 0%, rgba(255,255,255,0.8) 60%, transparent 100%)' }} />
-        <div className="pointer-events-none absolute top-0 left-0 h-full w-[500px] bg-gradient-to-r from-[#fba41b]/60 to-transparent z-0" />
-        <div className="pointer-events-none absolute top-0 right-0 h-full w-[500px] bg-gradient-to-l from-[#fba41b]/60 to-transparent z-0" /> */}
-        <div className="flex flex-row flex-wrap justify-center items-end mb-12 -mx-4">
-          {/* Card 1 */}
-          <div className="bg-white text-black rounded-[2.5rem] shadow-xl px-8 py-16 w-64 sm:w-72 flex flex-col items-center transform -rotate-6 hover:rotate-0 transition-transform duration-300 z-10 -mr-4" style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)' }}>
-            <div className="text-4xl mb-2">🎥</div>
-            <div className="font-ivalencia text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">1:1 Call with Tensorboy</div>
-            <div className="text-[#7c5a1a] text-base text-center font-coolvetica">20 min private session.</div>
+        {/* Flex row for text/button and CardSwap */}
+        <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 mb-12">
+          {/* Left: Texts and Button */}
+          <div className="flex-1 flex flex-col items-start justify-center text-left max-w-xl w-full px-4 md:px-0">
+            <div className="text-5xl sm:text-6xl font-coolvetica text-black mb-4 leading-tight">You get to name our next <span className="italic font-ivalencia font-bold">big thing</span></div>
+            <div className="text-xl sm:text-2xl text-black mb-8 font-coolvetica">3 creative minds with the coolest names<br className="hidden sm:block" /> will win exciting prizes.</div>
+            <button onClick={() => navigate("/name")} className="px-6 py-4 rounded-full bg-black text-white font-coolvetica text-lg flex items-center gap-3 border-2 border-black shadow-lg hover:scale-105 transition-transform duration-200">
+              Enter Contest
+              <span className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-white text-black border border-black">
+                <ArrowUpRight className="w-8 h-8" />
+              </span>
+            </button>
           </div>
-          {/* Card 2 */}
-          <div className="bg-white rounded-[2.5rem] shadow-xl px-8 py-16 w-64 sm:w-72 flex flex-col items-center transform rotate-3 hover:rotate-0 transition-transform duration-300 z-20 -mx-2" style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)' }}>
-            <div className="text-4xl mb-2">💎</div>
-            <div className="font-ivalencia text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">6 Months Premium</div>
-            <div className="text-[#7c5a1a] text-base text-center font-coolvetica">Free access to the final product.</div>
-          </div>
-          {/* Card 3 */}
-          <div className="bg-white rounded-[2.5rem] shadow-xl px-8 py-16 w-64 sm:w-72 flex flex-col items-center transform rotate-6 hover:rotate-0 transition-transform duration-300 z-10 -ml-4" style={{ boxShadow: '0 8px 32px 0 rgba(0,0,0,0.10)' }}>
-            <div className="text-4xl mb-2">📣</div>
-            <div className="font-ivalencia text-xl italic text-[#7c5a1a] mb-2 text-center font-bold">Instagram Shoutout</div>
-            <div className="text-[#7c5a1a] text-base text-center font-coolvetica">Featured by @tensorboy.</div>
+          {/* Right: Animated Prizes Stack */}
+          <div className="flex-1 flex items-center justify-center w-full relative min-h-[420px] md:min-h-[420px] max-w-[520px] overflow-visible">
+            <CardSwap width={520} height={380} cardDistance={60} verticalDistance={50} delay={4200} skewAmount={2} easing="elastic">
+              {/* 1st Place */}
+              <Card customClass="bg-white border-2 border-yellow-300 rounded-[32px] shadow-xl px-4 sm:px-8 py-8 flex flex-col items-center max-w-full overflow-hidden">
+                <div className="font-coolvetica text-2xl sm:text-3xl font-bold text-[#7a4a00] mb-6 flex items-center gap-2 text-center w-full"><span className="text-2xl">🥇</span>1st Place — You Named the Workstation</div>
+                <div className="flex flex-col sm:flex-row gap-6 w-full justify-center">
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">🎥</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">1:1 Call with Tensorboy</div>
+                    <div className="text-[#7a4a00] text-base text-center">20 min private session.</div>
+                  </div>
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">📣</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">Instagram Shoutout</div>
+                    <div className="text-[#7a4a00] text-base text-center">Featured by @tensorboy.</div>
+                  </div>
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">💎</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">Lifetime Premium</div>
+                    <div className="text-[#7a4a00] text-base text-center">Free access to the final product.</div>
+                  </div>
+                </div>
+              </Card>
+              {/* 2nd Place */}
+              <Card customClass="bg-white border-2 border-gray-300 rounded-[32px] shadow-xl px-4 sm:px-8 py-8 flex flex-col items-center max-w-full overflow-hidden">
+                <div className="font-coolvetica text-2xl sm:text-3xl font-bold text-[#7a4a00] mb-6 flex items-center gap-2 text-center w-full"><span className="text-2xl">🥈</span>2nd Place</div>
+                <div className="flex flex-col sm:flex-row gap-6 w-full justify-center">
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">🎥</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">1:1 Call with Tensorboy</div>
+                    <div className="text-[#7a4a00] text-base text-center">20 min private session.</div>
+                  </div>
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">📣</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">Instagram Shoutout</div>
+                    <div className="text-[#7a4a00] text-base text-center">Featured by @tensorboy.</div>
+                  </div>
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">💎</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">1 Year Premium</div>
+                    <div className="text-[#7a4a00] text-base text-center">Free access to the final product.</div>
+                  </div>
+                </div>
+              </Card>
+              {/* 3rd Place */}
+              <Card customClass="bg-white border-2 border-[#b87333] rounded-[32px] shadow-xl px-4 sm:px-8 py-8 flex flex-col items-center max-w-full overflow-hidden">
+                <div className="font-coolvetica text-2xl sm:text-3xl font-bold text-[#7a4a00] mb-6 flex items-center gap-2 text-center w-full"><span className="text-2xl">🥉</span>3rd Place</div>
+                <div className="flex flex-col sm:flex-row gap-6 w-full justify-center">
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">📣</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">Instagram Shoutout</div>
+                    <div className="text-[#7a4a00] text-base text-center">Featured by @tensorboy.</div>
+                  </div>
+                  <div className="flex-1 bg-[#F8F6F2] rounded-2xl px-4 py-6 flex flex-col items-center min-w-[120px] max-w-[180px]">
+                    <span className="text-2xl mb-2">💎</span>
+                    <div className="font-coolvetica text-lg font-bold mb-1 text-center text-[#7a4a00]">6 Months Premium</div>
+                    <div className="text-[#7a4a00] text-base text-center">Free access to the final product.</div>
+                  </div>
+                </div>
+              </Card>
+            </CardSwap>
           </div>
         </div>
-        <div className="text-5xl sm:text-6xl font-coolvetica text-black text-center mb-4 leading-tight">You get to name our next <span className="italic font-ivalencia font-bold">big thing</span></div>
-        <div className="text-xl sm:text-2xl text-black text-center mb-8 font-coolvetica">3 creative minds with the coolest names<br className="hidden sm:block" /> will win exciting prizes.</div>
-        <button onClick={() => navigate("/name")} className="mt-2 px-6 py-4 rounded-full bg-black text-white font-coolvetica text-lg flex items-center gap-3 border-2 border-black shadow-lg hover:scale-105 transition-transform duration-200">
-          Enter Contest
-          <span className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-white text-black border border-black">
-            <ArrowUpRight className="w-8 h-8" />
-          </span>
-        </button>
       </div>
 
       {/* Leaderboard Section */}
