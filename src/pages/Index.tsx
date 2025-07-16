@@ -106,9 +106,9 @@ const Index = () => {
         }}
       >
         {/* Header inside Hero */}
-        <header className="w-full flex justify-between items-center px-4 sm:px-8 md:px-8 pt-0 absolute top-0 left-0 z-30">
+        <header className="w-full flex flex-row items-start sm:items-center justify-between px-4 sm:px-8 md:px-8 pt-0 absolute top-0 left-0 z-30">
           <div className="text-white text-xl sm:text-xl md:text-2xl font-coolvetica py-4 sm:py-6"><h1 className="pt-1">Tensor Space</h1></div>
-          <div className="flex flex-col items-end gap-2 mt-2 sm:mt-4">
+          <div className="flex flex-col items-end gap-2 mt-4 sm:mt-4">
             <button
               onClick={() => navigate('/name')}
               className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30"
