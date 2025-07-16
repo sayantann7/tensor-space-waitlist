@@ -290,7 +290,8 @@ const Leaderboard = () => {
 
             <div className="space-y-3">
               {currentEntries.slice(0, 10).map((entry, idx) => {
-                const globalRank = startIndex + idx;
+                // Find the global rank of this entry in the full sorted leaderboard
+                const globalRank = entries.findIndex(e => e.id === entry.id);
                 const isTop3 = globalRank < 3;
 
                 return (
@@ -354,7 +355,7 @@ const Leaderboard = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="flex items-center justify-center gap-4 mt-12"
+            className="flex items-center justify-center gap-4 mt-0"
           >
             <button
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
@@ -370,10 +371,11 @@ const Leaderboard = () => {
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
-                  className={`w-10 h-10 rounded-full font-coolvetica font-bold transition-all ${page === currentPage
-                    ? 'bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white shadow-lg'
+                  className={`w-12 h-12 rounded-full font-coolvetica font-bold text-xl transition-all ${page === currentPage
+                    ? 'text-white shadow-lg'
                     : 'bg-white text-[#7a4a00] shadow hover:shadow-lg'
-                    }`}
+                  }`}
+                  style={page === currentPage ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}
                 >
                   {page}
                 </button>
