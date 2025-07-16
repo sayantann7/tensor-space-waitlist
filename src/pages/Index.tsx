@@ -98,7 +98,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <main
-        className="relative z-20 flex flex-col items-center text-center min-h-[110vh] w-full pt-[170px] sm:pt-12"
+        className="relative z-20 flex flex-col items-center text-center min-h-[100vh] w-full pt-[170px] sm:pt-12 pb-0"
         style={{
           backgroundImage: 'url(/bg1.png)',
           backgroundSize: 'cover',
@@ -125,7 +125,7 @@ const Index = () => {
           </div>
         </header>
         {/* White gradient at bottom for smooth transition */}
-        <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 sm:h-40 z-30" style={{ background: 'linear-gradient(0deg, #fff 0%, transparent 100%)' }} />
+        {/* <div className="pointer-events-none absolute bottom-0 left-0 w-full h-24 sm:h-40 z-30" style={{ background: 'linear-gradient(0deg, #fff 0%, transparent 100%)' }} /> */}
         {/* Launching badge */}
         <div className="inline-flex items-center gap-2 bg-white text-black font-coolvetica text-xl sm:text-base px-4 sm:px-6 py-1.5 sm:py-2 rounded-full shadow mb-6 sm:mb-8 mt-12 sm:mt-24">
           <Rocket className="w-4 h-4 sm:w-5 sm:h-5 text-black" /> Launching
@@ -150,117 +150,59 @@ const Index = () => {
           </span>
         </button>
         
-        {/* Bottom gradient for smooth transition to video section */}
-        <div className="pointer-events-none absolute bottom-0 left-0 w-full h-32 sm:h-40 z-30" style={{ background: 'linear-gradient(0deg, #FFEBC4 0%, rgba(255,235,196,0.8) 25%, rgba(255,235,196,0.4) 60%, transparent 100%)' }} />
+        {/* White info bar at bottom of hero section */}
+        <div className="w-full bg-white py-3 px-2 flex items-center justify-center text-center text-black font-coolvetica text-sm sm:text-base font-normal mt-auto">
+        Don't worry, even if you don't win there's a lucky draw. Only 50 lucky people! 
+        </div>
       </main>
 
-      {/* Enhanced Full-Screen Video Section */}
-      <div
-        ref={videoContainerRef}
-        className="relative w-full h-screen overflow-hidden bg-[#FFEBC4]"
-      >
-        {/* Top gradient for smooth transition from hero section */}
-        <div className="pointer-events-none absolute top-0 left-0 w-full h-32 sm:h-40 z-30" style={{ background: 'linear-gradient(180deg, #FFEBC4 0%, rgba(255,235,196,0.8) 25%, rgba(255,235,196,0.4) 60%, transparent 100%)' }} />
-        
-        {/* Decorative background elements matching other pages */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Orange blur backgrounds for consistency */}
-        
-          
-          <motion.div
-            animate={{
-              y: [-25, 25, -25],
-              rotate: [0, 20, 0],
-            }}
-            transition={{
-              duration: 7,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 4
-            }}
-            className="absolute top-[20%] right-[8%] sm:right-[20%] text-white/15 z-5 hidden md:block"
+      {/* Full-width video section with controls overlay */}
+      <section className="w-full h-screen bg-[#FFEBC4] relative" ref={videoContainerRef}>
+        <video
+          ref={videoRef}
+          src="/website-intro.mp4"
+          loop
+          muted={videoMuted}
+          playsInline
+          className="w-full h-full object-cover"
+          style={{ display: 'block' }}
+          onPlay={() => setVideoPlaying(true)}
+          onPause={() => setVideoPlaying(false)}
+        />
+        {/* Video Controls Overlay */}
+        {!videoPlaying ? (
+          <button
+            onClick={togglePlay}
+            className="absolute inset-0 flex items-center justify-center z-20"
+            style={{ background: 'rgba(255,255,255,0.04)' }}
           >
-            <Users className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12" />
-          </motion.div>
-        </div>
-
-        {/* Enhanced gradient overlays for smooth transitions */}
-        {/* <div className="absolute top-0 left-0 w-full h-40 z-10 pointer-events-none" style={{ 
-          background: 'linear-gradient(180deg, white 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 60%, transparent 100%)' 
-        }} />
-        
-        <div className="absolute bottom-0 left-0 w-full h-40 z-10 pointer-events-none" style={{ 
-          background: 'linear-gradient(0deg, white 0%, rgba(255,255,255,0.8) 25%, rgba(255,255,255,0.4) 60%, transparent 100%)' 
-        }} /> */}
-        
-        {/* Video container with enhanced styling - Mobile Responsive */}
-        <div className="absolute inset-4 sm:inset-6 md:inset-8 lg:inset-16 z-10 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white/30 backdrop-blur-sm bg-[#FFEBC4] mt-12">
-          {/* <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-2xl md:rounded-[2rem]"></div> */}
-          
-          <video
-            ref={videoRef}
-            src="/website-intro.mp4"
-            loop
-            muted={videoMuted}
-            playsInline
-            className="w-full h-full object-cover rounded-2xl md:rounded-[2rem]"
-          />
-          
-          {/* Video Controls Overlay - Glassmorphism */}
-          {/* Show play button in center if paused, else show pause and mute on sides */}
-          {!videoPlaying ? (
+            <span className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all">
+              <img src="/play.svg" alt="Play" className="w-7 h-7 sm:w-9 sm:h-9" />
+            </span>
+          </button>
+        ) : (
+          <>
+            {/* Pause/Resume bottom left */}
             <button
               onClick={togglePlay}
-              className="absolute inset-0 flex items-center justify-center z-20"
-              style={{ background: 'rgba(255,255,255,0.04)' }}
+              className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all z-20"
             >
-              <span className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all">
-                <img src="/play.svg" alt="Play" className="w-7 h-7 sm:w-9 sm:h-9" />
-              </span>
+              <svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="6" height="20" rx="2" fill="white"/><rect x="18" y="4" width="6" height="20" rx="2" fill="white"/></svg>
             </button>
-          ) : (
-            <>
-              {/* Pause/Resume bottom left */}
-              <button
-                onClick={togglePlay}
-                className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all z-20"
-              >
-                {videoPlaying ? (
-                  <svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="6" height="20" rx="2" fill="white"/><rect x="18" y="4" width="6" height="20" rx="2" fill="white"/></svg>
-                ) : (
-                  <img src="/play.svg" alt="Play" className="w-7 h-7" />
-                )}
-              </button>
-              {/* Mute/Unmute bottom right */}
-              <button
-                onClick={toggleMute}
-                className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all z-20"
-              >
-                {videoMuted ? (
-                  <VolumeX className="w-7 h-7 text-white" />
-                ) : (
-                  <Volume2 className="w-7 h-7 text-white" />
-                )}
-              </button>
-            </>
-          )}
-        </div>
-
-        {/* Section Title Overlay */}
-        {/* <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="bg-white/90 backdrop-blur-lg rounded-3xl px-8 py-4 shadow-2xl border-2 border-white/40"
-          >
-            <h2 className="font-coolvetica text-2xl lg:text-3xl text-[#3B2800] font-bold">
-              Watch the Demo
-            </h2>
-            <p className="font-satoshi text-[#7a4a00] text-lg mt-1">See Tensor Space in action</p>
-          </motion.div>
-        </div> */}
-      </div>
+            {/* Mute/Unmute bottom right */}
+            <button
+              onClick={toggleMute}
+              className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all z-20"
+            >
+              {videoMuted ? (
+                <VolumeX className="w-7 h-7 text-white" />
+              ) : (
+                <Volume2 className="w-7 h-7 text-white" />
+              )}
+            </button>
+          </>
+        )}
+      </section>
 
       {/* Restyled: Naming Contest & Prizes Section */}
       <div className="relative w-full min-h-[60vh] flex flex-col justify-center items-center py-20 pt-[200px] bg-[#FFEBC4]">
