@@ -171,7 +171,7 @@ const Leaderboard = () => {
                 <span className="font-coolvetica text-xl sm:text-2xl">Want more votes on your name?</span>
                 <span className="font-coolvetica font-medium text-sm sm:text-base opacity-80">Share to your friends to get 5 votes to your name</span>
               </div>
-              <button 
+              <button
                 onClick={handleShare}
                 className="flex items-center gap-3 bg-white rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:scale-105 transition-transform"
               >
@@ -258,7 +258,7 @@ const Leaderboard = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="w-full max-w-2xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
+          className="w-full max-w-4xl mx-auto mb-8 sm:mb-8 px-4 sm:px-0"
         >
           <div className="bg-white rounded-2xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-xl flex items-center gap-3 sm:gap-4">
             <input
@@ -280,22 +280,15 @@ const Leaderboard = () => {
           transition={{ delay: 0.4 }}
           className="w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
         >
-          <div className="bg-white rounded-2xl sm:rounded-[32px] p-6 sm:p-8 shadow-2xl">
+          <div className="bg-gray-100 rounded-2xl sm:rounded-[32px] p-6 sm:p-12 sm:px-16 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="font-coolvetica text-2xl sm:text-3xl text-[#3B2800] font-bold">Leaderboard</h3>
-              <div className="flex items-center gap-2">
-                <span className="font-coolvetica text-sm sm:text-base text-[#7a4a00]">Top 10 best names chosen by you guys</span>
-                <button
-                  onClick={() => navigate("/voting")}
-                  className="flex items-center gap-2 text-[#7a4a00] font-coolvetica font-medium text-sm hover:scale-105 transition-transform"
-                >
-                  View Voting Page
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
+              <div className="flex flex-col">
+                <h3 className="font-coolvetica text-3xl sm:text-4xl text-[#3B2800] font-bold">Leaderboard</h3>
+                <span className="font-ivalencia font-bold mt-2 text-lg sm:text-xl text-[#7a4a00]">The best names chosen by you guys</span>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {currentEntries.slice(0, 10).map((entry, idx) => {
                 const globalRank = startIndex + idx;
                 const isTop3 = globalRank < 3;
@@ -306,45 +299,46 @@ const Leaderboard = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + idx * 0.1 }}
-                    className={`rounded-2xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300 hover:scale-[1.02] ${isTop3 ? 'bg-gradient-to-r from-[#FF9100] to-[#FFD592]' : 'bg-gray-50'
-                      }`}
+                    className={`rounded-xl p-4 transition-all duration-300 ${isTop3 ? 'bg-gradient-to-r from-[#FF9100]/20 to-white' : 'bg-white'}`}
                   >
-                    <div className="flex items-center justify-between gap-6">
+                    <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className={`flex items-center justify-center w-12 h-12 rounded-full font-coolvetica text-lg font-bold shadow-lg ${isTop3 ? 'bg-white text-[#FF9100]' : 'bg-gray-300 text-gray-600'
-                          }`}>
-                          {globalRank === 0 ? '#1' :
-                            globalRank === 1 ? '#2' :
-                              globalRank === 2 ? '#3' :
-                                `#${globalRank + 1}`}
+                        <div className={`flex items-center justify-center w-12 h-12 rounded-lg font-coolvetica text-3xl font-bold ${isTop3 ? 'text-white' : 'bg-gray-200 text-gray-500'}`} style={isTop3 ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}>
+                          #{globalRank + 1}
                         </div>
 
-                        <div className="flex flex-col">
-                          <div className="flex items-center gap-3 mb-1">
-                            <span className={`font-coolvetica text-lg sm:text-xl font-bold ${isTop3 ? 'text-white' : 'text-[#7a4a00]'
-                              }`}>
-                              "{entry.name}"
-                            </span>
+                        <div className="flex flex-col gap-1">
+                          <div className="flex items-center">
+                            {isTop3 ? (
+                              <span className="text-white font-coolvetica text-xl px-3 py-1 rounded-full" style={{ background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' }}>
+                                {entry.name}
+                              </span>
+                            ) : (
+                              <span className="font-coolvetica text-xl text-[#7a4a00]">
+                                {entry.name}
+                              </span>
+                            )}
                           </div>
-                          <div className="font-coolvetica text-sm text-[#7a4a00] flex items-center gap-1">
+                          <div className="font-coolvetica text-base text-[#7a4a00] flex items-center gap-1">
                             <Users className="w-4 h-4" />
-                            <span className="font-bold">Submitted by {entry.ig_username}</span>
+                            {entry.ig_username.startsWith("@") ? (
+                              <span>{entry.ig_username}</span>
+                            ) : (
+                              <span>@{entry.ig_username}</span>
+                            )}
                           </div>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-4">
-                        <span className={`font-coolvetica text-sm px-4 py-2 rounded-full shadow-inner ${isTop3 ? 'bg-white text-[#FF9100]' : 'bg-gray-200 text-gray-600'
-                          }`}>
-                          {entry.totalVotes}
-                        </span>
+                      <div className="flex items-center">
                         <button
                           onClick={() => handleVote(entry.id)}
                           disabled={voteLoading === entry.id}
-                          className={`px-6 py-2 rounded-full font-coolvetica text-sm font-bold shadow-lg transition-all duration-200 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'
-                            } bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-[#3B2800] hover:shadow-xl`}
+                          className={`h-10 px-5 rounded-full font-coolvetica text-lg font-bold transition-all duration-200 flex items-center justify-center gap-2 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'} ${isTop3 ? 'text-white' : 'bg-gray-200 text-gray-500'}`}
+                          style={isTop3 ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}
                         >
-                          {voteLoading === entry.id ? 'Voting...' : 'Vote'}
+                          <span className="text-2xl">👍</span>
+                          <span className="ml-2 text-xl">{entry.totalVotes}</span>
                         </button>
                       </div>
                     </div>
@@ -377,8 +371,8 @@ const Leaderboard = () => {
                   key={page}
                   onClick={() => setCurrentPage(page)}
                   className={`w-10 h-10 rounded-full font-coolvetica font-bold transition-all ${page === currentPage
-                      ? 'bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white shadow-lg'
-                      : 'bg-white text-[#7a4a00] shadow hover:shadow-lg'
+                    ? 'bg-gradient-to-r from-[#FF9100] to-[#FFD592] text-white shadow-lg'
+                    : 'bg-white text-[#7a4a00] shadow hover:shadow-lg'
                     }`}
                 >
                   {page}

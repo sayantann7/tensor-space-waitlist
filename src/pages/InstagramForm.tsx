@@ -39,13 +39,13 @@ const InstagramForm = () => {
       {/* Centered card with lower z-index */}
       <div className="relative z-20 w-full max-w-lg mx-auto p-10 bg-[#FFEBC4] rounded-[48px] shadow-2xl flex flex-col items-center border-none">
         {/* Skip button */}
-        <button
+        {/* <button
           type="button"
           onClick={handleSkip}
           className="absolute top-8 right-8 text-[#7a4a00] text-sm font-normal bg-transparent border-none outline-none hover:underline font-coolvetica"
         >
           Skip
-        </button>
+        </button> */}
         {/* Card Content */}
         <h1 className="text-center text-[#7a4a00] text-2xl md:text-3xl font-normal mb-8 font-coolvetica">
           Add your <span className="font-bold">@</span> so we can<br />shout you out
