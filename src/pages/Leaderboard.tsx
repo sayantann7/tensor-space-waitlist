@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Search, ArrowLeft, Crown, Trophy, Medal, Users, Clock, Share2, ArrowUpRight, ChevronLeft, ChevronRight, Instagram, Send, Download } from "lucide-react";
 import { useToast } from "../hooks/use-toast";
 import DynamicPoster from "../components/DynamicPoster";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 
 interface Contestant {
   id: string;
@@ -25,6 +27,7 @@ const Leaderboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
   const navigate = useNavigate();
+  const { width, height } = useWindowSize();
 
   useEffect(() => {
     (async () => {
@@ -104,130 +107,99 @@ const Leaderboard = () => {
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden" style={{ background: "radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)" }}>
-      <img
-        src="/top-left.png"
-        alt="decor top left"
-        className="pointer-events-none select-none absolute z-10"
+    <div className="relative min-h-screen w-full overflow-hidden">
+      {/* Confetti Effect */}
+      <div className="fixed inset-0 pointer-events-none z-50">
+        <Confetti 
+          width={width} 
+          height={height} 
+          recycle={false} 
+          numberOfPieces={300}
+          gravity={0.3}
+          initialVelocityY={20}
+        />
+      </div>
+      
+      {/* HERO SECTION - with form-bg.png background */}
+      <div
+        className="relative w-full min-h-screen z-10"
         style={{
-          top: '-2vw',
-          left: '14vw',
-          width: '40vw',
-          minWidth: '300px',
-          maxWidth: '700px',
-          height: 'auto',
-          objectFit: 'contain',
+          backgroundImage: 'url(/form-bg.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
-        aria-hidden="true"
-      />
-      <img
-        src="/bottom-right.png"
-        alt="decor bottom right"
-        className="pointer-events-none select-none absolute z-10"
-        style={{
-          bottom: '-3vw',
-          right: '14vw',
-          width: '40vw',
-          minWidth: '300px',
-          maxWidth: '700px',
-          height: 'auto',
-          objectFit: 'contain',
-        }}
-        aria-hidden="true"
-      />
+      >
+        
 
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(40px)', opacity: 0.7 }} />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full z-0" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(40px)', opacity: 0.7 }} />
 
-      <div className="relative z-20 w-full max-w-6xl mx-auto pt-8 sm:pt-12 pb-8 sm:pb-12 px-4 sm:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex items-center justify-between mb-8 sm:mb-12 gap-4 sm:gap-6"
-        >
-          <div className="flex items-center gap-2">
-            <span className="font-coolvetica text-2xl sm:text-3xl text-[#3B2800] font-bold">Tensor Space</span>
-          </div>
-
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 bg-white text-[#3B2800] font-coolvetica font-medium text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 rounded-full hover:scale-105 transition-transform shadow-lg"
+        <div className="relative z-20 w-full max-w-6xl mx-auto pt-8 sm:pt-12 pb-8 sm:pb-12 px-4 sm:px-6">
+          {/* Header */}
+          {/* <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center justify-between mb-8 sm:mb-12 gap-4 sm:gap-6"
           >
-            Enter Contest
-            <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
-              <ArrowUpRight className="w-4 h-4 text-white" />
+            <div className="flex items-center gap-2">
+              <span className="font-coolvetica text-2xl sm:text-3xl text-[#3B2800] font-bold">Tensor Space</span>
             </div>
-          </button>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1 }}
-          className="w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
-        >
-          <div className="bg-black rounded-2xl sm:rounded-[32px] p-6 sm:p-8 shadow-2xl">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-              <div className="flex flex-col gap-2 text-white text-center sm:text-left">
-                <span className="font-coolvetica text-xl sm:text-2xl">Want more votes on your name?</span>
-                <span className="font-coolvetica font-medium text-sm sm:text-base opacity-80">Share to your friends to get 5 votes to your name</span>
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2 bg-white text-[#3B2800] font-coolvetica font-medium text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3 rounded-full hover:scale-105 transition-transform shadow-lg"
+            >
+              Enter Contest
+              <div className="w-6 h-6 bg-black rounded-full flex items-center justify-center">
+                <ArrowUpRight className="w-4 h-4 text-white" />
               </div>
-              <button
-                onClick={handleShare}
-                className="flex items-center gap-3 bg-white rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:scale-105 transition-transform"
-              >
-                <Share2 className="w-5 h-5 text-black" />
-                <span className="font-coolvetica font-medium text-base sm:text-lg text-black">Share Ticket</span>
-                <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-black rounded-full">
-                  <ArrowUpRight className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                </div>
-              </button>
-            </div>
-          </div>
-        </motion.div>
+            </button>
+          </motion.div> */}
 
-        {userEntry && (
+          {/* Congratulations Section */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="w-full mx-auto mb-8 sm:mb-12 px-4 sm:px-0 text-center"
           >
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12">
-              <div className="flex-shrink-0">
-                <DynamicPoster
-                  userName={userEntry.name}
-                  userInstagram={userEntry.ig_username}
-                />
+            <h1 className="font-coolvetica text-4xl sm:text-6xl lg:text-7xl text-white leading-tight drop-shadow-2xl">
+              🎉Congratulations!
+            </h1>
+            <p className="font-coolvetica text-xl sm:text-3xl lg:text-3xl text-white/90 font-medium mt-4 drop-shadow-lg">
+              You made it to the LEADERBOARD!
+            </p>
+          </motion.div>
+
+          {/* User Poster Section */}
+          {userEntry && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="w-full flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-12 py-8"
+              style={{ minHeight: '60vh' }}
+            >
+              {/* Left: Texts */}
+              <div className="flex-1 flex flex-col items-start justify-center text-left max-w-xl">
+                <h2 className="font-coolvetica text-3xl sm:text-5xl text-black mb-2" >
+                  You just named the future.
+                </h2>
+                <p className="font-coolvetica text-lg sm:text-2xl text-black mb-6" >
+                  We turned your idea into a shareable poster.
+                </p>
               </div>
-
-              <div className="flex flex-col items-center sm:items-start gap-4">
-                <div className="text-center sm:text-left">
-                  <h2 className="font-coolvetica text-3xl sm:text-4xl text-white font-bold mb-2">
-                    "{userEntry.name}"
-                  </h2>
-                  <div className="flex items-center gap-2 bg-gradient-to-r from-[#FF9100] to-[#FFD592] rounded-full px-4 py-2 shadow-lg">
-                    <span className="font-coolvetica text-sm sm:text-base text-[#3B2800] font-bold">
-                      {userEntry.totalVotes}
-                    </span>
+              {/* Right: Poster and Buttons */}
+              <div className="flex-1 flex flex-col items-center justify-center">
+                <div className="relative">
+                  <div className="rotate-[-12deg] drop-shadow-2xl mb-4">
+                    <DynamicPoster
+                      userName={userEntry.name}
+                      userInstagram={userEntry.ig_username}
+                    />
                   </div>
                 </div>
-
-                <div className="flex flex-col gap-2 text-center sm:text-left">
-                  <div className="flex items-center gap-2">
-                    <span className="font-coolvetica text-base sm:text-lg text-white">Username:</span>
-                    <span className="font-coolvetica text-base sm:text-lg text-white font-medium">
-                      {userEntry.email}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-coolvetica text-base sm:text-lg text-white">Instagram:</span>
-                    <span className="font-coolvetica text-base sm:text-lg text-white font-medium">
-                      {userEntry.ig_username}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center items-center">
                   <button
                     onClick={() => {
                       const posterElement = document.querySelector('[data-poster-ref]');
@@ -236,172 +208,185 @@ const Leaderboard = () => {
                         posterElement.dispatchEvent(event);
                       }
                     }}
-                    className="flex items-center gap-2 bg-black text-white rounded-full px-6 py-3 shadow-lg hover:scale-105 transition-transform font-coolvetica font-medium"
+                    className="flex items-center bg-black text-white font-coolvetica text-xl sm:text-lg px-6 sm:px-8 py-3 sm:py-3 rounded-full shadow-xl gap-2 sm:gap-1 pr-2 sm:pr-6 hover:scale-105 transition-transform border-2 border-white/80"
                   >
-                    <span>Download Poster</span>
-                    <Download className="w-5 h-5" />
+                    Download Poster
+                    <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white text-black border border-black">
+                      <Download className="w-4 h-4 sm:w-6 sm:h-6" />
+                    </span>
                   </button>
                   <button
                     onClick={handleShare}
-                    className="flex items-center gap-2 bg-black text-white rounded-full px-6 py-3 shadow-lg hover:scale-105 transition-transform font-coolvetica font-medium"
+                    className="flex items-center bg-black text-white font-coolvetica text-xl sm:text-lg px-6 sm:px-8 py-3 sm:py-3 rounded-full shadow-xl gap-2 sm:gap-1 pr-2 sm:pr-6 hover:scale-105 transition-transform border-2 border-white/80"
                   >
-                    <span>DM it to friends</span>
-                    <Send className="w-5 h-5" />
+                    DM it to friends
+                    <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white text-black border border-black">
+                      <Send className="w-4 h-4 sm:w-6 sm:h-6" />
+                    </span>
                   </button>
                 </div>
               </div>
+            </motion.div>
+          )}
+        </div>
+      </div>
+
+      {/* MAIN SECTION - with #FFEBC4 background */}
+      <div className="w-full" style={{ backgroundColor: '#FFEBC4' }}>
+        <div className="relative z-20 w-full max-w-6xl mx-auto pt-8 sm:pt-12 pb-8 sm:pb-12 px-4 sm:px-6">
+          {/* Search Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="w-full max-w-4xl mx-auto mb-8 sm:mb-8 px-4 sm:px-0"
+          >
+            <div className="bg-gray-100 rounded-2xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-xl flex items-center gap-3 sm:gap-4">
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Search your friends name and vote them."
+                className="w-full bg-transparent outline-none font-coolvetica text-base sm:text-lg text-[#7a4a00] placeholder:text-[#7a4a00]/80"
+              />
+              <button className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-full hover:scale-110 transition-transform flex-shrink-0">
+                <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              </button>
             </div>
           </motion.div>
-        )}
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="w-full max-w-4xl mx-auto mb-8 sm:mb-8 px-4 sm:px-0"
-        >
-          <div className="bg-white rounded-2xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-xl flex items-center gap-3 sm:gap-4">
-            <input
-              type="text"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder="Search your friends name and vote them."
-              className="w-full bg-transparent outline-none font-coolvetica text-base sm:text-lg text-[#7a4a00] placeholder:text-[#7a4a00]/50"
-            />
-            <button className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-black rounded-full hover:scale-110 transition-transform flex-shrink-0">
-              <Search className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-            </button>
-          </div>
-        </motion.div>
+          {/* Leaderboard */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
+          >
+            <div className="bg-gray-100 rounded-2xl sm:rounded-[32px] p-6 sm:p-12 sm:px-16 shadow-2xl">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex flex-col">
+                  <h3 className="font-coolvetica text-3xl sm:text-4xl text-[#3B2800] font-bold">Leaderboard</h3>
+                  <span className="font-ivalencia font-bold mt-2 text-lg sm:text-xl text-[#7a4a00]">The best names chosen by you guys</span>
+                </div>
+              </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="w-full max-w-4xl mx-auto mb-8 sm:mb-12 px-4 sm:px-0"
-        >
-          <div className="bg-gray-100 rounded-2xl sm:rounded-[32px] p-6 sm:p-12 sm:px-16 shadow-2xl">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex flex-col">
-                <h3 className="font-coolvetica text-3xl sm:text-4xl text-[#3B2800] font-bold">Leaderboard</h3>
-                <span className="font-ivalencia font-bold mt-2 text-lg sm:text-xl text-[#7a4a00]">The best names chosen by you guys</span>
+              <div className="space-y-3">
+                {currentEntries.slice(0, 10).map((entry, idx) => {
+                  // Find the global rank of this entry in the full sorted leaderboard
+                  const globalRank = entries.findIndex(e => e.id === entry.id);
+                  const isTop3 = globalRank < 3;
+
+                  return (
+                    <motion.div
+                      key={entry.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + idx * 0.1 }}
+                      className={`rounded-xl p-4 transition-all duration-300 ${isTop3 ? 'bg-gradient-to-r from-[#FF9100]/20 to-white' : 'bg-white'}`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className={`flex items-center justify-center w-12 h-12 rounded-lg font-coolvetica text-3xl font-bold ${isTop3 ? 'text-white' : 'bg-gray-200 text-gray-500'}`} style={isTop3 ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}>
+                            #{globalRank + 1}
+                          </div>
+
+                          <div className="flex flex-col gap-1">
+                            <div className="flex items-center">
+                              {isTop3 ? (
+                                <span className="text-white font-coolvetica text-xl px-3 py-1 rounded-full" style={{ background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' }}>
+                                  {entry.name}
+                                </span>
+                              ) : (
+                                <span className="font-coolvetica text-xl text-[#7a4a00]">
+                                  {entry.name}
+                                </span>
+                              )}
+                            </div>
+                            <div className="font-coolvetica text-base text-[#7a4a00] flex items-center gap-1">
+                              <Users className="w-4 h-4" />
+                              {entry.ig_username.startsWith("@") ? (
+                                <span>{entry.ig_username}</span>
+                              ) : (
+                                <span>@{entry.ig_username}</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center">
+                          <button
+                            onClick={() => handleVote(entry.id)}
+                            disabled={voteLoading === entry.id}
+                            className={`h-10 px-5 rounded-full font-coolvetica text-lg font-bold transition-all duration-200 flex items-center justify-center gap-2 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'} ${isTop3 ? 'text-white' : 'bg-gray-200 text-gray-500'}`}
+                            style={isTop3 ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}
+                          >
+                            <span className="text-2xl">👍</span>
+                            <span className="ml-2 text-xl">{entry.totalVotes}</span>
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
+          </motion.div>
 
-            <div className="space-y-3">
-              {currentEntries.slice(0, 10).map((entry, idx) => {
-                // Find the global rank of this entry in the full sorted leaderboard
-                const globalRank = entries.findIndex(e => e.id === entry.id);
-                const isTop3 = globalRank < 3;
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="flex items-center justify-center gap-4 mt-0"
+            >
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ChevronLeft className="w-5 h-5" />
+                Previous
+              </button>
 
-                return (
-                  <motion.div
-                    key={entry.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 + idx * 0.1 }}
-                    className={`rounded-xl p-4 transition-all duration-300 ${isTop3 ? 'bg-gradient-to-r from-[#FF9100]/20 to-white' : 'bg-white'}`}
+              <div className="flex items-center gap-2">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={`w-12 h-12 rounded-full font-coolvetica font-bold text-xl transition-all ${page === currentPage
+                      ? 'text-white shadow-lg'
+                      : 'bg-white text-[#7a4a00] shadow hover:shadow-lg'
+                    }`}
+                    style={page === currentPage ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className={`flex items-center justify-center w-12 h-12 rounded-lg font-coolvetica text-3xl font-bold ${isTop3 ? 'text-white' : 'bg-gray-200 text-gray-500'}`} style={isTop3 ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}>
-                          #{globalRank + 1}
-                        </div>
+                    {page}
+                  </button>
+                ))}
+              </div>
 
-                        <div className="flex flex-col gap-1">
-                          <div className="flex items-center">
-                            {isTop3 ? (
-                              <span className="text-white font-coolvetica text-xl px-3 py-1 rounded-full" style={{ background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' }}>
-                                {entry.name}
-                              </span>
-                            ) : (
-                              <span className="font-coolvetica text-xl text-[#7a4a00]">
-                                {entry.name}
-                              </span>
-                            )}
-                          </div>
-                          <div className="font-coolvetica text-base text-[#7a4a00] flex items-center gap-1">
-                            <Users className="w-4 h-4" />
-                            {entry.ig_username.startsWith("@") ? (
-                              <span>{entry.ig_username}</span>
-                            ) : (
-                              <span>@{entry.ig_username}</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-black"
+              >
+                Next
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </motion.div>
+          )}
 
-                      <div className="flex items-center">
-                        <button
-                          onClick={() => handleVote(entry.id)}
-                          disabled={voteLoading === entry.id}
-                          className={`h-10 px-5 rounded-full font-coolvetica text-lg font-bold transition-all duration-200 flex items-center justify-center gap-2 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'} ${isTop3 ? 'text-white' : 'bg-gray-200 text-gray-500'}`}
-                          style={isTop3 ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}
-                        >
-                          <span className="text-2xl">👍</span>
-                          <span className="ml-2 text-xl">{entry.totalVotes}</span>
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </motion.div>
-
-        {totalPages > 1 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="flex items-center justify-center gap-4 mt-0"
-          >
-            <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          {/* Error Message */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-full font-coolvetica shadow-lg z-50"
             >
-              <ChevronLeft className="w-5 h-5" />
-              Previous
-            </button>
-
-            <div className="flex items-center gap-2">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                <button
-                  key={page}
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-12 h-12 rounded-full font-coolvetica font-bold text-xl transition-all ${page === currentPage
-                    ? 'text-white shadow-lg'
-                    : 'bg-white text-[#7a4a00] shadow hover:shadow-lg'
-                  }`}
-                  style={page === currentPage ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}
-                >
-                  {page}
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-              disabled={currentPage === totalPages}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-black"
-            >
-              Next
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </motion.div>
-        )}
-
-        {error && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-full font-coolvetica shadow-lg z-50"
-          >
-            {error}
-          </motion.div>
-        )}
+              {error}
+            </motion.div>
+          )}
+        </div>
       </div>
     </div>
   );

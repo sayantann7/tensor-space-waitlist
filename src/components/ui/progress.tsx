@@ -44,34 +44,34 @@ const Progress = React.forwardRef<
       />
       {/* Right end glow effect */}
       {progress > 0 && (
-        <motion.div
+      <motion.div
           className="pointer-events-none absolute top-1/2"
           initial={{ opacity: 0 }}
           animate={{
             left: `calc(${progress}% - ${Number(barHeight) * 0.7}px)`,
             opacity: progress > 0 ? 1 : 0,
           }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          style={{
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        style={{
             transform: 'translateY(-50%)',
             width: Number(barHeight) * 2,
             height: Number(barHeight) * 2,
-            zIndex: 2,
-          }}
-        >
-          <div
-            className="absolute top-1/2 left-1/2"
-            style={{
+          zIndex: 2,
+        }}
+      >
+        <div
+          className="absolute top-1/2 left-1/2"
+          style={{
               width: Number(barHeight) * 2,
               height: Number(barHeight) * 2,
-              background: 'radial-gradient(circle, #fff17699 0%, #ff910055 60%, transparent 100%)',
-              filter: 'blur(8px)',
-              borderRadius: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 1,
-            }}
-          />
-        </motion.div>
+            background: 'radial-gradient(circle, #fff17699 0%, #ff910055 60%, transparent 100%)',
+            filter: 'blur(8px)',
+            borderRadius: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 1,
+          }}
+        />
+      </motion.div>
       )}
     </ProgressPrimitive.Root>
   );
