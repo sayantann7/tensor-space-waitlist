@@ -13,7 +13,7 @@ interface Contestant {
   tagline?: string;
 }
 
-const LeaderboardSection = () => {
+const HomeLeaderboardSection = () => {
   const [entries, setEntries] = useState<Contestant[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -102,8 +102,8 @@ const LeaderboardSection = () => {
         <div className="bg-gray-50 rounded-2xl sm:rounded-[32px] p-6 sm:p-12 sm:px-16 shadow-2xl">
           <div className="flex items-center justify-between mb-6">
             <div className="flex flex-col">
-              <h3 className="font-coolvetica text-3xl sm:text-4xl text-[#3B2800] font-bold">Leaderboard</h3>
-              <span className="font-ivalencia font-bold mt-2 text-lg sm:text-xl text-[#7a4a00]">The best names chosen by you guys</span>
+              {/* <h3 className="font-coolvetica text-3xl sm:text-4xl text-[#3B2800] font-bold">Leaderboard</h3> */}
+              <span className="font-ivalencia font-bold mt-0 text-lg sm:text-xl text-[#7a4a00]">The best names chosen by you guys</span>
             </div>
           </div>
           <div className="space-y-3">
@@ -217,4 +217,4 @@ const LeaderboardSection = () => {
   );
 };
 
-export default LeaderboardSection; 
+export default HomeLeaderboardSection; 

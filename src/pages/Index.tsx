@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useInView } from "framer-motion";
 import { ArrowUpRight, Rocket, Trophy, Users, Star, Sparkles, Play, Pause, Volume2, VolumeX } from "lucide-react";
-import LeaderboardSection from '../components/LeaderboardSection';
+import HomeLeaderboardSection from "@/components/HomeLeaderboardSection";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -158,39 +158,7 @@ const Index = () => {
         {/* Decorative background elements matching other pages */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Orange blur backgrounds for consistency */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full" style={{ background: 'radial-gradient(ellipse 60% 50% at 60% 60%, #ff9100 0%, #ffe0b2 100%)', filter: 'blur(80px)', opacity: 0.6 }} />
-          
-          {/* Floating decorative elements - Mobile Responsive */}
-          <motion.div
-            animate={{
-              y: [-30, 30, -30],
-              rotate: [0, 15, 0],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            className="absolute top-[10%] left-[8%] sm:left-[10%] text-white/20 z-5 hidden sm:block"
-          >
-            <Sparkles className="w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16" />
-          </motion.div>
-          
-          <motion.div
-            animate={{
-              y: [20, -20, 20],
-              rotate: [0, -10, 0],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2
-            }}
-            className="absolute bottom-[15%] right-[8%] sm:right-[15%] text-white/20 z-5 hidden sm:block"
-          >
-            <Trophy className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14" />
-          </motion.div>
+        
           
           <motion.div
             animate={{
@@ -231,62 +199,43 @@ const Index = () => {
             className="w-full h-full object-cover rounded-2xl md:rounded-[2rem]"
           />
           
-          {/* Enhanced Video Controls Overlay - Mobile Responsive */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/20 opacity-0 hover:opacity-100 transition-all duration-500 flex items-center justify-center z-20 rounded-2xl md:rounded-[2rem]">
-            <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-              {/* Play/Pause Button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+          {/* Video Controls Overlay - Glassmorphism */}
+          {/* Show play button in center if paused, else show pause and mute on sides */}
+          {!videoPlaying ? (
+            <button
+              onClick={togglePlay}
+              className="absolute inset-0 flex items-center justify-center z-20"
+              style={{ background: 'rgba(255,255,255,0.04)' }}
+            >
+              <span className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all">
+                <img src="/play.svg" alt="Play" className="w-7 h-7 sm:w-9 sm:h-9" />
+              </span>
+            </button>
+          ) : (
+            <>
+              {/* Pause/Resume bottom left */}
+              <button
                 onClick={togglePlay}
-                className="flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-2 md:border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
+                className="absolute bottom-6 left-6 sm:bottom-10 sm:left-10 flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all z-20"
               >
                 {videoPlaying ? (
-                  <Pause className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#3B2800] drop-shadow-lg" />
+                  <svg width="22" height="22" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="6" height="20" rx="2" fill="white"/><rect x="18" y="4" width="6" height="20" rx="2" fill="white"/></svg>
                 ) : (
-                  <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#3B2800] ml-1 drop-shadow-lg" />
+                  <img src="/play.svg" alt="Play" className="w-7 h-7" />
                 )}
-              </motion.button>
-              
-              {/* Mute/Unmute Button */}
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
+              </button>
+              {/* Mute/Unmute bottom right */}
+              <button
                 onClick={toggleMute}
-                className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-2 md:border-4 border-white/30 hover:shadow-3xl transition-all duration-300"
+                className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-md rounded-full border border-white/30 hover:scale-105 transition-all z-20"
               >
                 {videoMuted ? (
-                  <VolumeX className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 text-[#3B2800] drop-shadow-lg" />
+                  <VolumeX className="w-7 h-7 text-white" />
                 ) : (
-                  <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 text-[#3B2800] drop-shadow-lg" />
+                  <Volume2 className="w-7 h-7 text-white" />
                 )}
-              </motion.button>
-            </div>
-          </div>
-
-          {/* Enhanced play button overlay when video is paused - Mobile Responsive */}
-          {!videoPlaying && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-black/40 via-black/20 to-black/40 z-20 rounded-2xl md:rounded-[2rem]"
-            >
-              <motion.button
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={togglePlay}
-                className="relative flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-gradient-to-br from-[#FF9100] to-[#FFD592] backdrop-blur-lg rounded-full shadow-2xl border-4 md:border-8 border-white/40 hover:shadow-3xl transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-white/20 rounded-full"></div>
-                <Play className="w-8 h-8 sm:w-10 sm:h-10 md:w-16 md:h-16 text-[#3B2800] ml-1 md:ml-2 drop-shadow-xl relative z-10" />
-                
-                {/* Pulsing ring animation */}
-                <div className="absolute inset-0 rounded-full border-2 md:border-4 border-white/60 animate-ping"></div>
-              </motion.button>
-            </motion.div>
+              </button>
+            </>
           )}
         </div>
 
@@ -343,7 +292,8 @@ const Index = () => {
       </div>
 
       {/* Leaderboard Section */}
-      <LeaderboardSection />
+      <h1 className="font-coolvetica text-2xl sm:text-6xl text-center text-black sm:mt-[220px]">Leaderboard</h1>
+      <HomeLeaderboardSection />
     </div>
   );
 };
