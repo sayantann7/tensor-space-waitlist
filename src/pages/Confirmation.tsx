@@ -5,12 +5,49 @@ import { ArrowLeft, Edit, CheckCircle, User, Mail, Instagram, QrCode, Sparkles, 
 import { addToWaitlist } from "../lib/utils";
 import { Progress } from "../components/ui/progress";
 
+const AnimatedArrowUpRight = ({ className = "", size = 24, isHovered = false, direction = "upright" }) => {
+  const [animKey, setAnimKey] = useState(0);
+  useEffect(() => {
+    if (isHovered) setAnimKey((k) => k + 1);
+  }, [isHovered]);
+  const outgoing = direction === "vertical"
+    ? { x: 0, y: 12, opacity: 0 }
+    : { x: 12, y: -12, opacity: 0 };
+  const incoming = direction === "vertical"
+    ? { x: 0, y: -12, opacity: 0 }
+    : { x: -12, y: 12, opacity: 0 };
+  const atRest = { x: 0, y: 0, opacity: 1 };
+  return (
+    <span className={`relative inline-block ${className}`} style={{ width: size, height: size }}>
+      <motion.span
+        key={"out-" + animKey}
+        initial={atRest}
+        animate={isHovered ? outgoing : atRest}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+      <motion.span
+        key={"in-" + animKey}
+        initial={incoming}
+        animate={isHovered ? atRest : incoming}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+    </span>
+  );
+};
+
 const Confirmation = () => {
   const navigate = useNavigate();
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState("");
   const [userId, setUserId] = useState("");
   const [loading, setLoading] = useState(true);
+  const [enterHovered, setEnterHovered] = useState(false);
 
   const email = localStorage.getItem("userEmail") || "";
   const instagram = localStorage.getItem("userInstagram") || "";
@@ -118,11 +155,13 @@ const Confirmation = () => {
         <button
           onClick={handleProceed}
           disabled={isReady}
+          onMouseEnter={() => setEnterHovered(true)}
+          onMouseLeave={() => setEnterHovered(false)}
           className={`w-full sm:w-[180px] py-3 rounded-full bg-black text-white font-normal text-sm sm:text-base mt-2 transition-all duration-150 hover:scale-105 flex items-center justify-center gap-2 font-coolvetica ${isReady ? 'opacity-60 cursor-not-allowed' : ''}`}
         >
           Enter Contest
           <span className="ml-2 flex items-center justify-center w-8 h-8 rounded-full bg-white text-black border border-black">
-            <ArrowUpRight className="w-6 h-6" />
+            <AnimatedArrowUpRight size={24} isHovered={enterHovered} />
           </span>
         </button>
       </div>

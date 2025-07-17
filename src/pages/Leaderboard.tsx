@@ -8,6 +8,116 @@ import DynamicPoster from "../components/DynamicPoster";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 
+// AnimatedArrowUpRight component (with direction prop)
+const AnimatedArrowUpRight = ({ className = "", size = 24, isHovered = false, direction = "upright" }) => {
+  const [animKey, setAnimKey] = useState(0);
+  useEffect(() => {
+    if (isHovered) setAnimKey((k) => k + 1);
+  }, [isHovered]);
+  const outgoing = direction === "vertical"
+    ? { x: 0, y: 12, opacity: 0 }
+    : { x: 12, y: -12, opacity: 0 };
+  const incoming = direction === "vertical"
+    ? { x: 0, y: -12, opacity: 0 }
+    : { x: -12, y: 12, opacity: 0 };
+  const atRest = { x: 0, y: 0, opacity: 1 };
+  return (
+    <span className={`relative inline-block ${className}`} style={{ width: size, height: size }}>
+      <motion.span
+        key={"out-" + animKey}
+        initial={atRest}
+        animate={isHovered ? outgoing : atRest}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+      <motion.span
+        key={"in-" + animKey}
+        initial={incoming}
+        animate={isHovered ? atRest : incoming}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+    </span>
+  );
+};
+
+// AnimatedDownload component
+const AnimatedDownload = ({ className = "", size = 24, isHovered = false, direction = "vertical" }) => {
+  const [animKey, setAnimKey] = useState(0);
+  useEffect(() => {
+    if (isHovered) setAnimKey((k) => k + 1);
+  }, [isHovered]);
+  const outgoing = direction === "vertical"
+    ? { x: 0, y: 12, opacity: 0 }
+    : { x: 12, y: -12, opacity: 0 };
+  const incoming = direction === "vertical"
+    ? { x: 0, y: -12, opacity: 0 }
+    : { x: -12, y: 12, opacity: 0 };
+  const atRest = { x: 0, y: 0, opacity: 1 };
+  return (
+    <span className={`relative inline-block ${className}`} style={{ width: size, height: size }}>
+      <motion.span
+        key={"out-" + animKey}
+        initial={atRest}
+        animate={isHovered ? outgoing : atRest}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <Download width={size} height={size} />
+      </motion.span>
+      <motion.span
+        key={"in-" + animKey}
+        initial={incoming}
+        animate={isHovered ? atRest : incoming}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <Download width={size} height={size} />
+      </motion.span>
+    </span>
+  );
+};
+// AnimatedSend component
+const AnimatedSend = ({ className = "", size = 24, isHovered = false, direction = "upright" }) => {
+  const [animKey, setAnimKey] = useState(0);
+  useEffect(() => {
+    if (isHovered) setAnimKey((k) => k + 1);
+  }, [isHovered]);
+  const outgoing = direction === "vertical"
+    ? { x: 0, y: 12, opacity: 0 }
+    : { x: 12, y: -12, opacity: 0 };
+  const incoming = direction === "vertical"
+    ? { x: 0, y: -12, opacity: 0 }
+    : { x: -12, y: 12, opacity: 0 };
+  const atRest = { x: 0, y: 0, opacity: 1 };
+  return (
+    <span className={`relative inline-block ${className}`} style={{ width: size, height: size }}>
+      <motion.span
+        key={"out-" + animKey}
+        initial={atRest}
+        animate={isHovered ? outgoing : atRest}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <Send width={size} height={size} />
+      </motion.span>
+      <motion.span
+        key={"in-" + animKey}
+        initial={incoming}
+        animate={isHovered ? atRest : incoming}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <Send width={size} height={size} />
+      </motion.span>
+    </span>
+  );
+};
+
 interface Contestant {
   id: string;
   email: string;
@@ -28,6 +138,9 @@ const Leaderboard = () => {
   const [itemsPerPage] = useState(5);
   const navigate = useNavigate();
   const { width, height } = useWindowSize();
+  const [downloadHovered, setDownloadHovered] = useState(false);
+  const [dmHovered, setDmHovered] = useState(false);
+  const [posterFlipped, setPosterFlipped] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -47,6 +160,8 @@ const Leaderboard = () => {
       }
     })();
   }, []);
+
+  useEffect(() => { setPosterFlipped(true); }, []);
 
   const filteredEntries = useMemo(() => {
     if (!search) return entries;
@@ -186,13 +301,23 @@ const Leaderboard = () => {
               
               {/* Right: Poster and Buttons */}
               <div className="flex-1 flex flex-col items-center justify-center">
-                <div className="relative">
-                  <div className="rotate-[-12deg] drop-shadow-2xl mb-4">
+                <div
+                  className="relative"
+                  onMouseEnter={() => setPosterFlipped(true)}
+                  onMouseLeave={() => setPosterFlipped(false)}
+                >
+                  <motion.div
+                    className="drop-shadow-2xl mb-4"
+                    initial={{ rotateY: 0, rotateZ: -12 }}
+                    animate={{ rotateY: posterFlipped ? 360 : 0, rotateZ: -12 }}
+                    transition={{ duration: 0.8, ease: "easeInOut" }}
+                    style={{ transformStyle: 'preserve-3d' }}
+                  >
                     <DynamicPoster
                       userName={userEntry.name}
                       userInstagram={userEntry.ig_username}
                     />
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center items-center">
                   <button
@@ -203,20 +328,24 @@ const Leaderboard = () => {
                         posterElement.dispatchEvent(event);
                       }
                     }}
+                    onMouseEnter={() => setDownloadHovered(true)}
+                    onMouseLeave={() => setDownloadHovered(false)}
                     className="flex items-center bg-black text-white font-coolvetica text-xl sm:text-lg px-6 sm:px-8 py-3 sm:py-3 rounded-full shadow-xl gap-2 sm:gap-1 pr-2 sm:pr-6 hover:scale-105 transition-transform border-2 border-white/80"
                   >
                     Download Poster
-                    <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white text-black border border-black">
-                      <Download className="w-4 h-4 sm:w-6 sm:h-6" />
+                    <span className="ml-2 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-black border border-black">
+                      <AnimatedDownload size={28} isHovered={downloadHovered} direction="vertical" />
                     </span>
                   </button>
                   <button
                     onClick={handleShare}
+                    onMouseEnter={() => setDmHovered(true)}
+                    onMouseLeave={() => setDmHovered(false)}
                     className="flex items-center bg-black text-white font-coolvetica text-xl sm:text-lg px-6 sm:px-8 py-3 sm:py-3 rounded-full shadow-xl gap-2 sm:gap-1 pr-2 sm:pr-6 hover:scale-105 transition-transform border-2 border-white/80"
                   >
                     DM it to friends
-                    <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white text-black border border-black">
-                      <Send className="w-4 h-4 sm:w-6 sm:h-6" />
+                    <span className="ml-2 flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-black border border-black">
+                      <AnimatedSend size={28} isHovered={dmHovered} />
                     </span>
                   </button>
                 </div>

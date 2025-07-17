@@ -17,6 +17,43 @@ interface Contestant {
   tagline?: string;
 }
 
+// AnimatedArrowUpRight component (with direction prop)
+const AnimatedArrowUpRight = ({ className = "", size = 24, isHovered = false, direction = "upright" }) => {
+  const [animKey, setAnimKey] = useState(0);
+  useEffect(() => {
+    if (isHovered) setAnimKey((k) => k + 1);
+  }, [isHovered]);
+  const outgoing = direction === "vertical"
+    ? { x: 0, y: 12, opacity: 0 }
+    : { x: 12, y: -12, opacity: 0 };
+  const incoming = direction === "vertical"
+    ? { x: 0, y: -12, opacity: 0 }
+    : { x: -12, y: 12, opacity: 0 };
+  const atRest = { x: 0, y: 0, opacity: 1 };
+  return (
+    <span className={`relative inline-block ${className}`} style={{ width: size, height: size }}>
+      <motion.span
+        key={"out-" + animKey}
+        initial={atRest}
+        animate={isHovered ? outgoing : atRest}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+      <motion.span
+        key={"in-" + animKey}
+        initial={incoming}
+        animate={isHovered ? atRest : incoming}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+    </span>
+  );
+};
+
 const Leaderboard = () => {
   const [entries, setEntries] = useState<Contestant[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,6 +66,7 @@ const Leaderboard = () => {
   const navigate = useNavigate();
   const { width, height } = useWindowSize();
   const { id } = useParams();
+  const [learnMoreHovered, setLearnMoreHovered] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -116,11 +154,13 @@ const Leaderboard = () => {
           <div className="flex flex-col items-end gap-2 mt-4 sm:mt-4">
             <button
               onClick={() => navigate('/name')}
+              onMouseEnter={() => setLearnMoreHovered(true)}
+              onMouseLeave={() => setLearnMoreHovered(false)}
               className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30"
             >
               Learn More
               <span className="ml-2 flex items-center justify-center w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-black text-white">
-                <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
+                <AnimatedArrowUpRight size={20} isHovered={learnMoreHovered} />
               </span>
             </button>
           </div>
