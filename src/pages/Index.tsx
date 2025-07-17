@@ -6,6 +6,40 @@ import HomeLeaderboardSection from "@/components/HomeLeaderboardSection";
 import ScrollStack, { ScrollStackItem } from '@/components/ScrollStack';
 import CardSwap, { Card } from "@/components/CardSwap";
 
+// Animated ArrowUpRight component
+const AnimatedArrowUpRight = ({ className = "", size = 24, isHovered = false }) => {
+  // Use a key to force remount on each hover for one-time animation
+  const [animKey, setAnimKey] = useState(0);
+  useEffect(() => {
+    if (isHovered) setAnimKey((k) => k + 1);
+  }, [isHovered]);
+
+  return (
+    <span className={`relative inline-block ${className}`} style={{ width: size, height: size }}>
+      {/* Outgoing arrow */}
+      <motion.span
+        key={"out-" + animKey}
+        initial={{ x: 0, y: 0, opacity: 1 }}
+        animate={isHovered ? { x: 12, y: -12, opacity: 0 } : { x: 0, y: 0, opacity: 1 }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+      {/* Incoming arrow */}
+      <motion.span
+        key={"in-" + animKey}
+        initial={{ x: -12, y: 12, opacity: 0 }}
+        animate={isHovered ? { x: 0, y: 0, opacity: 1 } : { x: -12, y: 12, opacity: 0 }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
+        style={{ position: "absolute", left: 0, top: 0 }}
+      >
+        <ArrowUpRight width={size} height={size} />
+      </motion.span>
+    </span>
+  );
+};
+
 const Index = () => {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
@@ -23,6 +57,11 @@ const Index = () => {
   const demoInView = useInView(demoRef, { amount: 0.5 });
   const suggestInView = useInView(suggestRef, { amount: 0.5 });
   const winnersInView = useInView(winnersRef, { amount: 0.5 });
+
+  // Add three independent hover states for each button
+  const [headerHovered, setHeaderHovered] = useState(false);
+  const [heroHovered, setHeroHovered] = useState(false);
+  const [prizesHovered, setPrizesHovered] = useState(false);
 
   useEffect(() => {
     const unsubscribe = scrollY.onChange((latest) => {
@@ -112,11 +151,13 @@ const Index = () => {
           <div className="flex flex-col items-end gap-2 mt-4 sm:mt-4">
             <button
               onClick={() => navigate('/name')}
+              onMouseEnter={() => setHeaderHovered(true)}
+              onMouseLeave={() => setHeaderHovered(false)}
               className="flex items-center bg-white text-black font-coolvetica text-base sm:text-lg px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg gap-1 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border border-white/30"
             >
               Enter Contest
               <span className="ml-2 flex items-center justify-center w-5 h-5 sm:w-8 sm:h-8 rounded-full bg-black text-white">
-                <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
+                <AnimatedArrowUpRight size={20} className="w-4 h-4 sm:w-8 sm:h-8" isHovered={headerHovered} />
               </span>
             </button>
             {/* Countdown Timer */}
@@ -143,11 +184,13 @@ const Index = () => {
         {/* Enter Contest Button */}
         <button
           onClick={() => navigate('/name')}
+          onMouseEnter={() => setHeroHovered(true)}
+          onMouseLeave={() => setHeroHovered(false)}
           className="flex items-center bg-black text-white font-coolvetica text-xl sm:text-lg px-6 sm:px-8 py-3 sm:py-4 rounded-full shadow-xl gap-2 sm:gap-3 pr-2 sm:pr-3 hover:scale-105 transition-transform border-2 border-white/80"
         >
           Enter Contest
           <span className="ml-2 flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white text-black border border-black">
-            <ArrowUpRight className="w-4 h-4 sm:w-8 sm:h-8" />
+            <AnimatedArrowUpRight size={24} className="w-4 h-4 sm:w-8 sm:h-8" isHovered={heroHovered} />
           </span>
         </button>
         
@@ -213,10 +256,13 @@ const Index = () => {
           <div className="flex-1 flex flex-col items-start justify-center text-left max-w-xl w-full px-4 md:px-0">
             <div className="text-5xl sm:text-6xl font-coolvetica text-black mb-4 leading-tight">You get to name our next <span className="italic font-ivalencia font-bold">big thing</span></div>
             <div className="text-xl sm:text-2xl text-black mb-8 font-coolvetica">3 creative minds with the coolest names<br className="hidden sm:block" /> will win exciting prizes.</div>
-            <button onClick={() => navigate("/name")} className="px-6 py-4 rounded-full bg-black text-white font-coolvetica text-lg flex items-center gap-3 border-2 border-black shadow-lg hover:scale-105 transition-transform duration-200">
+            <button onClick={() => navigate("/name")}
+              onMouseEnter={() => setPrizesHovered(true)}
+              onMouseLeave={() => setPrizesHovered(false)}
+              className="px-6 py-4 rounded-full bg-black text-white font-coolvetica text-lg flex items-center gap-3 border-2 border-black shadow-lg hover:scale-105 transition-transform duration-200">
               Enter Contest
               <span className="ml-2 flex items-center justify-center w-7 h-7 rounded-full bg-white text-black border border-black">
-                <ArrowUpRight className="w-8 h-8" />
+                <AnimatedArrowUpRight size={28} className="w-8 h-8" isHovered={prizesHovered} />
               </span>
             </button>
           </div>
