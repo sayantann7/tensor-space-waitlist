@@ -65,6 +65,18 @@ export const addVote = async (email: string, contestant: string) => {
     return data.success;
 };
 
+export const addSubscriber = async (email : string, interests : string[], currentPosition : string, currentCompany : string, currentLocation : string, interestedInJobs : boolean, skills : string, experienceYears : number, jobPreferences : string, phoneNumber : string, resumeLink : string) => {
+  try {
+      const response = await api.post(
+      '/add-subscriber', { email, interests, currentPosition, currentCompany, currentLocation, interestedInJobs, skills, experienceYears, jobPreferences, phoneNumber, resumeLink }
+      );
+      return response.data;
+  } catch (error) {
+      console.error('Error adding subscriber:', error);
+      throw error;
+  }
+};
+
 export const getContestant = async (contestantId: string) => {
   try {
     const { data } = await api.get(`/get-contestant?id=${contestantId}`);

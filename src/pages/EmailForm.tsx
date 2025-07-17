@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { checkSubscriber } from "../lib/utils";
+import { addSubscriber } from "../lib/utils";
 
-export const EmailCaptureForm = ({ onSuccess, loading: externalLoading }) => {
+export const EmailCaptureForm = ({ onSuccess, loading: externalLoading = false }) => {
   const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [notSubscribed, setNotSubscribed] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,24 +13,14 @@ export const EmailCaptureForm = ({ onSuccess, loading: externalLoading }) => {
       setError("Please enter a valid email address.");
       return;
     }
-    if (!subscribed) {
-      setError("You must subscribe to the Tensor Protocol newsletter to continue.");
-      return;
-    }
     setError("");
     setLoading(true);
-    setNotSubscribed(false);
     try {
-      const isSub = await checkSubscriber(email);
-      if (!isSub) {
-        setNotSubscribed(true);
-        setLoading(false);
-        return;
-      }
+      await addSubscriber(email, [], "", "", "", false, "", 0, "", "", "");
       setLoading(false);
       onSuccess(email);
     } catch (err) {
-      setNotSubscribed(true);
+      setError("Failed to subscribe. Please try again.");
       setLoading(false);
     }
   };
@@ -41,74 +30,26 @@ export const EmailCaptureForm = ({ onSuccess, loading: externalLoading }) => {
       <h1 className="text-center text-[#7a4a00] text-lg sm:text-xl md:text-2xl lg:text-3xl font-normal mb-6 sm:mb-8 font-coolvetica">
         Enter your email to vote
       </h1>
-      {notSubscribed ? (
-        <form className="w-full flex flex-col items-center gap-6">
-          <div className="w-full relative">
-            <input
-              type="email"
-              value={email}
-              readOnly
-              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border-2 border-red-500 bg-[#FFEBC4] text-base font-normal focus:outline-none focus:ring-2 focus:ring-red-300 transition placeholder:text-[#7a4a00] font-coolvetica"
-            />
-            <div className="text-red-500 text-sm font-normal mt-2 font-coolvetica">You haven't subscribed to the newsletter</div>
-          </div>
-          <a
-            href="https://tensorboy.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-[200px] py-4 rounded-full border-2 border-[#7a4a00] text-[#7a4a00] font-normal text-base sm:text-lg mt-2 transition-all duration-150 hover:scale-105 bg-white flex items-center justify-center font-coolvetica"
-            onClick={() => setNotSubscribed(false)}
-          >
-            Subscribe
-          </a>
-          <label className="flex items-center gap-3 text-sm text-[#7a4a00] font-normal w-full font-coolvetica">
-            <input
-              type="checkbox"
-              checked={subscribed}
-              onChange={e => setSubscribed(e.target.checked)}
-              className="w-5 h-5 rounded border border-[#7a4a00] focus:ring-[#ff9100] accent-[#ff9100]"
-            />
-            I have subscribed to the Tensor Protocol newsletter
-          </label>
-          <button
-            type="submit"
-            className="w-full sm:w-[200px] py-4 rounded-full bg-[#d9d9d9] text-[#7a4a00] font-normal text-base sm:text-lg mt-2 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed font-coolvetica"
-            disabled
-          >
-            Submit
-          </button>
-        </form>
-      ) : (
-        <form onSubmit={handleSubmit} className="w-full flex flex-col items-center gap-6">
-          <div className="w-full relative">
-            <input
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="Your email address"
-              className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-[#FFEBC4] text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#7a4a00] font-ivalencia"
-              required
-            />
-          </div>
-          <label className="flex items-center gap-3 text-sm text-[#7a4a00] font-normal w-full font-coolvetica">
-            <input
-              type="checkbox"
-              checked={subscribed}
-              onChange={e => setSubscribed(e.target.checked)}
-              className="w-5 h-5 rounded border border-[#7a4a00] focus:ring-[#ff9100] accent-[#ff9100]"
-            />
-            I have subscribed to the Tensor Protocol newsletter
-          </label>
-          {/* {error && <div className="text-red-500 text-xs font-mono text-center">{error}</div>} */}
-          <button
-            type="submit"
-            className={`w-full sm:w-[200px] py-4 rounded-full font-normal text-base sm:text-lg mt-2 transition-all duration-150 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed font-coolvetica ${subscribed && !(loading || externalLoading) ? 'bg-black text-white' : 'bg-[#d9d9d9] text-[#7a4a00]'}`}
-            disabled={!subscribed || loading || externalLoading}
-          >
-            {(loading || externalLoading) ? 'Wait a min' : 'Submit'}
-          </button>
-        </form>
-      )}
+      <form onSubmit={handleSubmit} className="w-full flex flex-col items-center gap-6">
+        <div className="w-full relative">
+          <input
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Your email address"
+            className="w-full px-5 py-4 rounded-xl text-[#7a4a00] border border-[#7a4a00] bg-[#FFEBC4] text-base font-normal focus:outline-none focus:ring-2 focus:ring-[#ff9100]/40 transition placeholder:text-[#7a4a00] font-ivalencia"
+            required
+          />
+        </div>
+        {error && <div className="text-red-500 text-xs font-mono text-center">{error}</div>}
+        <button
+          type="submit"
+          className={`w-full sm:w-[200px] py-4 rounded-full font-normal text-base sm:text-lg mt-2 transition-all duration-150 hover:scale-105 disabled:opacity-60 disabled:cursor-not-allowed font-coolvetica ${loading || externalLoading ? 'bg-[#d9d9d9] text-[#7a4a00]' : 'bg-black text-white'}`}
+          disabled={loading || externalLoading}
+        >
+          {(loading || externalLoading) ? 'Wait a min' : 'Submit'}
+        </button>
+      </form>
     </div>
   );
 };
