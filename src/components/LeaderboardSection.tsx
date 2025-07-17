@@ -13,6 +13,10 @@ interface Contestant {
   tagline?: string;
 }
 
+const ArrowsUpIcon = ({ size = 24, className = "" }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={"lucide lucide-arrow-big-up-icon lucide-arrow-big-up " + className}><path d="M9 18v-6H5l7-7 7 7h-4v6H9z"/></svg>
+);
+
 const LeaderboardSection = () => {
   const [entries, setEntries] = useState<Contestant[]>([]);
   const [loading, setLoading] = useState(true);
@@ -153,7 +157,7 @@ const LeaderboardSection = () => {
                         className={`h-10 px-5 rounded-full font-coolvetica text-lg font-bold transition-all duration-200 flex items-center justify-center gap-2 ${voteLoading === entry.id ? 'animate-pulse' : 'hover:scale-105'} ${isTop3 ? 'text-white' : 'bg-gray-200 text-gray-500'}`}
                         style={isTop3 ? { background: 'linear-gradient(358deg, #FFD592 1.78%, #FF733C 98.22%)' } : {}}
                       >
-                        <span className="text-2xl">👍</span>
+                        <ArrowsUpIcon size={28} className={isTop3 ? "text-white" : "text-[#FF9100]"} />
                         <span className="ml-2 text-xl">{entry.totalVotes}</span>
                       </button>
                     </div>
